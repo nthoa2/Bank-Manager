@@ -1,0 +1,108 @@
+<h1>Release Notes - FlexGantt - Version 8.0</h1>
+
+- Code cleanup / new project structure.
+- Compatibility with Java 8
+- New deployment vehicle: ZIP instead of install4j installer
+
+<h1>Release Notes - FlexGantt - Version 2.1</h1>
+
+<h2>New Features</h2>
+
+<pre>
+- Added spreadsheet feature (see: ISpreadsheet, SpreadsheetLayer, etc...)
+
+- Enhanced the printing routine. Print outs can now be decorated with a title, a logo,
+and three different footer texts (left, center, right). Printing also supports several variables
+for adding page numbers, page count, the date, the username. Please take a look at the PrintSetup
+class for more information.
+
+- Added a new system layer called ActionLayer, which is used to display a timeline object-specific
+toolbar with action buttons. Please take a look at the IActionProvider, DefaultActionProvider,
+and ActionLayer classes.
+
+- Brought back the "old" cursors for dragging and resizing timeline objects. They are disabled
+by default but can be activated via DragLayer.setShowingDefaultCursors(false).
+
+- Made the number of clicks needed to trigger a zoom operation inside the dateline configurable.
+Dateline.setZoomClicks(int);
+
+- Added packages for scheduling logic support. Introduced a constraint concept, which can cause
+violations. Violations can be automatically resolved.
+
+- Extended IRelationship with method setType(RelationshipType t);
+
+- LassoLayer can now be completely disabled by calling setVisible(false);
+
+- Added a method to time granularities to return the standard duration of one unit of the granularity.
+See: IGranularity.getStandardDuration();
+
+- Made ITimeSpan serializable
+
+- Added a MultiGanttChartSynchController class to synchronize scrolling in several Gantt charts at the
+same time.
+
+</pre>
+
+<h2>Bug Fixes</h2>
+<pre>
+- Fixed a bug that threw an exception when the user used the mouse wheel over an empty gantt chart.
+- Fixed a bug that painted the alternating background / row color in the wrong row when the gantt chart was empty.
+- Fixed printing for Java 7
+</pre>
+
+<h1>Release Notes - FlexGantt - Version 2.0</h1>
+
+<pre>
+- Disabled the focus background color change in various places of the UI
+- Zooming into a timespan now requires a double click on a cell grid in the timeline (used to be single click)
+- Fixed flickering in the row header components.
+- Removed the drag cursors for "moving", "linking", "change start/end time". Now
+  using the default Java cursors.
+- The "percentage complete" value of activity timeline objects can now be edited
+  without pressing the SHIFT key. The "change start time" option on the left-hand
+  side of the object has been disabled. However, this behaviour can still be configured
+  via the help of the IEditModeController class.
+- Introduced support for different relationship types (E-S, S-E, S-S, E-E). Added
+  enumerator RelationshipType.
+- Introduced a PathCalculator object used to calculate paths based on the
+  relationship type.
+- Added a new system layer called "LinkLayer" used to nicely visualize the creation
+  process of creating relationships between timeline objects. Linking used to
+  be supported by the DragLayer.
+- Contains the INodeFilter support introduced in 1.1.4 BETA
+- Relationships are now "objects"
+   - They can be selected
+   - They show focus
+   - Added several methods to IRelationship / DefaultRelationship
+   - Changed the IRelationshipRenderer interface (now returns bounds of relationship)
+   - Changed the ILayerContainerMenuProvider interface (now passes relationships at popup trigger location)
+   - Changed the RelationshipLayer: added method getRelationshipsAt(int x, int y)
+   - Changed the IRelationshipPolicy to support deletion of relationships
+   - Added new commands: DefaultDelete(Multiple)RelationshipsCommand
+- Added labels to IRelationship
+   - Timeline objects and relationships can have the same set of labels (tooltip, statusbar, name, ...),
+     hence refactored the set/getLabel() methods of timeline object and moved it into a separate class
+     called LabelTypeSupport.
+- Added more icon maps: Gif16EclipseIconMap, Png16XPIconMap, Png24XPIconMap, Png16VistaIconMap, Png24IconMap
+- Introduced IRenderer interface for all renderers in FlexGantt
+- Extended the component factory
+- Changed the look of the layer container row header
+- Removed the indentation policy and the indentation commands (using the node
+  edit policy and the reassign nodes command instead).
+  see: INodeEditPolicy.isReassignable()
+       INodeEditPolicy.getReassingNodesCommand()
+       ITreeTableNode.isReassignable()
+       DefaultReassignNodesCommand
+- Added isEmpty() method to ITimelineObjectLayerSelectionModel
+- Contains support for more Mac-style Gantt charts
+  see package com.dlsc.flexgantt.swing.mac
+- Expanding and collapsing nodes is now animated if the user triggered the expand/collapse.
+  see: TreeTable.expandNodeAnimated()
+       TreeTable.collapseNodeAnimated()
+       TreeTable.setNodeAnimationSettings()
+- Renamed ITimelineObjectLayerSelectionModel to ITimelineObjectSelectionModel. The "layer" fragment was
+  not really necessary. As a result also renamed other related classes and methods.
+- Added a Macintosh support package: com.dlsc.flexgantt.swing.mac containing a couple of classes useful
+  for creating a more Mac-like user experience.
+- TreeTableColumn now supports column-specific renderers
+</pre>
