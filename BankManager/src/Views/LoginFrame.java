@@ -3,6 +3,7 @@ package Views;
 import Model.Login;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
@@ -32,8 +33,8 @@ public class LoginFrame extends JFrame
         setUndecorated(true);
         setBounds(100, 100, 600, 400);
         mainPane = new JPanel();
-//        mainPane.setBackground(new Color(0, 139, 139));
-        mainPane.setBorder(new LineBorder(new Color(0, 0, 128), 2));
+        mainPane.setBackground(new Color(49, 47, 47));
+        mainPane.setBorder(new EmptyBorder(0,0,0,0));
         mainPane.setLayout(null);
         mainPane.setFocusable(true); // khi Frame hiện ra sẽ k lấy cái nào làm tiêu điểm
         setContentPane(mainPane);
