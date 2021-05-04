@@ -1,13 +1,13 @@
 package Main;
 
 
-import Views.MainFrame;
+import Views.LoginFrame;
 
 public class main
 {
     public static void main(String[] args)
     {
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.run();
+        LoginFrame login = new LoginFrame();
+        login.run();
     }
 }

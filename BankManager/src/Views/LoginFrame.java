@@ -11,8 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class LoginFrame extends JFrame
-{
+public class LoginFrame extends JFrame {
 
 
     private JPanel mainPane;
@@ -23,11 +22,22 @@ public class LoginFrame extends JFrame
     private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/businessman.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_password = new ImageIcon(LoginFrame.class.getResource("/Res/padlock.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_log_in = new ImageIcon(LoginFrame.class.getResource("/Res/key.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_logo_bank = new ImageIcon(LoginFrame.class.getResource("/Res/logobank.png")).getImage().getScaledInstance(180,180,Image.SCALE_SMOOTH);
+    private Image img_logo_bank = new ImageIcon(LoginFrame.class.getResource("/Res/logobank.png")).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
 
+    public void run() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    LoginFrame.this.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-    public LoginFrame()
-    {
+    public LoginFrame() {
         // GUI login
         setUndecorated(true);
         setBounds(100, 100, 600, 400);
@@ -47,14 +57,14 @@ public class LoginFrame extends JFrame
 
         JLabel lblIconLogo = new JLabel("");
         lblIconLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIconLogo.setBounds(30,35, 250, 111);
+        lblIconLogo.setBounds(30, 35, 250, 111);
         lblIconLogo.setIcon(new ImageIcon(img_logo));
         contentPaneLeft.add(lblIconLogo);
 
         // Khung nội dung bên phải
         JPanel contentPaneRight = new JPanel();
         contentPaneRight.setBackground(new Color(21, 140, 180));
-        contentPaneRight.setBounds(300, 2, 298,396);
+        contentPaneRight.setBounds(300, 2, 298, 396);
         contentPaneRight.setLayout(null);
         mainPane.add(contentPaneRight);
 
@@ -72,25 +82,19 @@ public class LoginFrame extends JFrame
         contentPaneRight.add(panelUsername);
 
         txtUsername = new JTextField();
-        txtUsername.addFocusListener(new FocusAdapter()
-        {
+        txtUsername.addFocusListener(new FocusAdapter() {
             @Override
-            public void focusGained(FocusEvent e)
-            {
-                if (txtUsername.getText().equals("Username"))
-                {
+            public void focusGained(FocusEvent e) {
+                if (txtUsername.getText().equals("Username")) {
                     txtUsername.setText("");
-                } else
-                {
+                } else {
                     txtUsername.selectAll();
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent focusEvent)
-            {
-                if (txtUsername.getText().equals(""))
-                {
+            public void focusLost(FocusEvent focusEvent) {
+                if (txtUsername.getText().equals("")) {
                     txtUsername.setText("Username");
                 }
             }
@@ -106,7 +110,7 @@ public class LoginFrame extends JFrame
 
         JSeparator sptUsername = new JSeparator();
         sptUsername.setForeground(Color.black);
-        sptUsername.setBounds(10,35,210,1);
+        sptUsername.setBounds(10, 35, 210, 1);
         panelUsername.add(sptUsername);
 
         JLabel lblIconUsername = new JLabel("");
@@ -122,26 +126,20 @@ public class LoginFrame extends JFrame
         contentPaneRight.add(panelPassword);
 
         txtPassword = new JPasswordField();
-        txtPassword.addFocusListener(new FocusAdapter()
-        {
+        txtPassword.addFocusListener(new FocusAdapter() {
             @Override
-            public void focusGained(FocusEvent e)
-            {
-                if (txtPassword.getText().equals("Password"))
-                {
+            public void focusGained(FocusEvent e) {
+                if (txtPassword.getText().equals("Password")) {
                     txtPassword.setEchoChar('*');
                     txtPassword.setText("");
-                } else
-                {
+                } else {
                     txtPassword.selectAll();
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent fe)
-            {
-                if (txtPassword.getText().equals(""))
-                {
+            public void focusLost(FocusEvent fe) {
+                if (txtPassword.getText().equals("")) {
                     txtPassword.setText("Password");
                     txtPassword.setEchoChar((char) 0);
                 }
@@ -158,7 +156,7 @@ public class LoginFrame extends JFrame
 
         JSeparator sptPassword = new JSeparator();
         sptPassword.setForeground(Color.black);
-        sptPassword.setBounds(10,35,210,1);
+        sptPassword.setBounds(10, 35, 210, 1);
         panelPassword.add(sptPassword);
 
         JLabel lblIconPassword = new JLabel("");
@@ -176,13 +174,10 @@ public class LoginFrame extends JFrame
         contentPaneRight.add(lblLoginMessage);
 
         JPanel pnlBtnLogin = new JPanel();
-        pnlBtnLogin.addMouseListener(new MouseAdapter()
-        {
+        pnlBtnLogin.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                if (new Login().CheckLogin(txtUsername.getText(), txtPassword.getText()))
-                {
+            public void mouseClicked(MouseEvent e) {
+                if (new Login().CheckLogin(txtUsername.getText(), txtPassword.getText())) {
                     new MainFrame().setVisible(true);
                     LoginFrame.this.dispose();
                 } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))
@@ -191,32 +186,28 @@ public class LoginFrame extends JFrame
             }
 
             @Override
-            public void mouseEntered(MouseEvent mouseEvent)
-            {
+            public void mouseEntered(MouseEvent mouseEvent) {
                 pnlBtnLogin.setBackground(Color.WHITE);
             }
 
             @Override
-            public void mouseExited(MouseEvent mouseEvent)
-            {
+            public void mouseExited(MouseEvent mouseEvent) {
                 pnlBtnLogin.setBackground(new Color(21, 140, 180));
             }
 
             @Override
-            public void mousePressed(MouseEvent mouseEvent)
-            {
+            public void mousePressed(MouseEvent mouseEvent) {
                 pnlBtnLogin.setBackground(Color.GRAY);
             }
 
             @Override
-            public void mouseReleased(MouseEvent mouseEvent)
-            {
+            public void mouseReleased(MouseEvent mouseEvent) {
                 pnlBtnLogin.setBackground(Color.WHITE);
             }
         });
         pnlBtnLogin.setBackground(new Color(21, 140, 180));
         pnlBtnLogin.setBounds(20, 298, 250, 50);
-        pnlBtnLogin.setBorder(new LineBorder(Color.BLACK, 2,true));
+        pnlBtnLogin.setBorder(new LineBorder(Color.BLACK, 2, true));
         pnlBtnLogin.setLayout(null);
         contentPaneRight.add(pnlBtnLogin);
 
@@ -233,24 +224,20 @@ public class LoginFrame extends JFrame
         pnlBtnLogin.add(lblIconLogin);
 
         JLabel lblX = new JLabel("X");
-        lblX.addMouseListener(new MouseAdapter()
-        {
+        lblX.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e)
-            {
+            public void mouseClicked(MouseEvent e) {
                 if (JOptionPane.showConfirmDialog(null, "Are you sure you want to close this application?", "Confirmation", JOptionPane.YES_NO_OPTION) == 0)
                     LoginFrame.this.dispose();
             }
 
             @Override
-            public void mouseEntered(MouseEvent event)
-            {
+            public void mouseEntered(MouseEvent event) {
                 lblX.setForeground(Color.RED);
             }
 
             @Override
-            public void mouseExited(MouseEvent event)
-            {
+            public void mouseExited(MouseEvent event) {
                 lblX.setForeground(Color.WHITE);
             }
         });
@@ -263,36 +250,30 @@ public class LoginFrame extends JFrame
 
         // Button create account
         JPanel pnlBtnSignup = new JPanel();
-        pnlBtnSignup.addMouseListener(new MouseAdapter()
-        {
+        pnlBtnSignup.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e)
-            {
+            public void mouseClicked(MouseEvent e) {
                 new SignUpFrame().setVisible(true);
                 LoginFrame.this.dispose(); // tắt Frame cũ
             }
 
             @Override
-            public void mouseEntered(MouseEvent mouseEvent)
-            {
+            public void mouseEntered(MouseEvent mouseEvent) {
                 pnlBtnSignup.setBackground(Color.WHITE);
             }
 
             @Override
-            public void mouseExited(MouseEvent mouseEvent)
-            {
+            public void mouseExited(MouseEvent mouseEvent) {
                 pnlBtnSignup.setBackground(new Color(21, 140, 180));
             }
 
             @Override
-            public void mousePressed(MouseEvent mouseEvent)
-            {
+            public void mousePressed(MouseEvent mouseEvent) {
                 pnlBtnSignup.setBackground(Color.GRAY);
             }
 
             @Override
-            public void mouseReleased(MouseEvent mouseEvent)
-            {
+            public void mouseReleased(MouseEvent mouseEvent) {
                 pnlBtnSignup.setBackground(Color.WHITE);
             }
         });
@@ -305,7 +286,7 @@ public class LoginFrame extends JFrame
         JLabel lblSignup = new JLabel("Create Account");
         lblSignup.setForeground(Color.BLACK);
         lblSignup.setFont(new Font("Arial", Font.BOLD, 15));
-        lblSignup.setBounds(20,8,150,15);
+        lblSignup.setBounds(20, 8, 150, 15);
         pnlBtnSignup.add(lblSignup);
     }
 }
