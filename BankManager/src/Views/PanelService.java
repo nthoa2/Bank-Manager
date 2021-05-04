@@ -8,10 +8,18 @@ import java.awt.event.MouseEvent;
 public class PanelService extends JPanel
 {
     private FlowLayout flowLayout = new FlowLayout();
+    private Image img_transfer = new ImageIcon(PanelService.class.getResource("/Res/img_transfer.png")).getImage().getScaledInstance(520, 600, Image.SCALE_SMOOTH);
+
 
     public PanelService()
     {
         this.setLayout(new BorderLayout(0, 0));
+
+        JLabel lblIconLogo = new JLabel("");
+//        lblIconLogo.setHorizontalAlignment(SwingConstants.CENTER);
+//        lblIconLogo.setBounds(600,200, 520, 400);
+        lblIconLogo.setIcon(new ImageIcon(img_transfer));
+        this.add(lblIconLogo, "East");
 
         flowLayout.setAlignment(FlowLayout.CENTER);
         flowLayout.setHgap(80);
@@ -24,13 +32,16 @@ public class PanelService extends JPanel
 
         JPanel panelFooter = new JPanel();
         panelFooter.setBackground(Color.WHITE);
+        panelFooter.setPreferredSize(new Dimension());
         panelFooter.setLayout(new BorderLayout(0,0));
         panelFooter.setVisible(false);
         this.add(panelFooter, "South");
 
+
+
         PanelTransfer transfer = new PanelTransfer();
         transfer.setVisible(false);
-        this.add(transfer, "Center");
+        this.add(transfer, "West");
 
         JPanel panelMessage = new JPanel();
         panelMessage.setLayout(new FlowLayout(FlowLayout.CENTER,0,10));

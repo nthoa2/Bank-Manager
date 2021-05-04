@@ -2,8 +2,6 @@ package Views;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 
 public class PanelTransfer extends JPanel
@@ -11,7 +9,7 @@ public class PanelTransfer extends JPanel
 
     public PanelTransfer()
     {
-        JPanel accountNumber2 = new RadiusAndShadow();
+//        JPanel accountNumber2 = new RadiusAndShadow();
 
         JPanel containAccountNumber = new JPanel();
         containAccountNumber.setLayout(new FlowLayout(FlowLayout.RIGHT,20,10));
@@ -21,43 +19,32 @@ public class PanelTransfer extends JPanel
         accountNumber.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 8));
         containAccountNumber.add(accountNumber);
 
-        JTextField txtAccountNumber2 = new JTextField();
-        txtAccountNumber2.setBackground(Color.WHITE);
-        txtAccountNumber2.setBorder(null);
-        txtAccountNumber2.setColumns(25);
-        txtAccountNumber2.setFont(new Font("Arial", Font.PLAIN, 12));
+//        JTextField txtAccountNumber2 = new JTextField();
+//        txtAccountNumber2.setBackground(Color.WHITE);
+//        txtAccountNumber2.setBorder(null);
+//        txtAccountNumber2.setColumns(25);
+//        txtAccountNumber2.setFont(new Font("Arial", Font.PLAIN, 12));
 
         JTextField txtAccountNumber = new JTextField();
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(25);
         txtAccountNumber.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtAccountNumber.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-                accountNumber2.add(txtAccountNumber2);
-                accountNumber2.setBackground(Color.WHITE);
-                accountNumber2.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 8));
-                containAccountNumber.removeAll();
-                containAccountNumber.revalidate();
-                containAccountNumber.repaint();
-                containAccountNumber.add(accountNumber2);
-                txtAccountNumber2.requestFocus();
-            }
-
+//        txtAccountNumber.addFocusListener(new FocusAdapter()
+//        {
 //            @Override
-//            public void focusLost(FocusEvent e)
+//            public void focusGained(FocusEvent e)
 //            {
-//                accountNumber.add(txtAccountNumber);
-//                accountNumber.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 8));
+//                accountNumber2.add(txtAccountNumber2);
+//                accountNumber2.setBackground(Color.WHITE);
+//                accountNumber2.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 8));
 //                containAccountNumber.removeAll();
 //                containAccountNumber.revalidate();
 //                containAccountNumber.repaint();
-//                containAccountNumber.add(accountNumber);
+//                containAccountNumber.add(accountNumber2);
+//                txtAccountNumber2.requestFocus();
 //            }
-        });
+//        });
         accountNumber.add(txtAccountNumber);
 
 
@@ -68,6 +55,7 @@ public class PanelTransfer extends JPanel
 //        amount.setBackground(Color.WHITE);
         amount.setLayout(new FlowLayout(FlowLayout.LEFT,10,8));
         containAmount.add(amount);
+
 
         JTextField txtAmount=new JTextField();
         txtAmount.setBackground(Color.WHITE);
