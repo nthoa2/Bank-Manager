@@ -8,40 +8,42 @@ import java.awt.event.MouseEvent;
 public class PanelService extends JPanel
 {
     private FlowLayout flowLayout = new FlowLayout();
-    private Image img_transfer = new ImageIcon(PanelService.class.getResource("/Res/img_transfer.png")).getImage().getScaledInstance(520, 600, Image.SCALE_SMOOTH);
-
+    private CardLayout cardLayout = new CardLayout();
 
     public PanelService()
     {
-        this.setLayout(new BorderLayout(0, 0));
+        this.setLayout(new BorderLayout(20, 0));
 
-        JLabel lblIconLogo = new JLabel("");
-//        lblIconLogo.setHorizontalAlignment(SwingConstants.CENTER);
-//        lblIconLogo.setBounds(600,200, 520, 400);
-        lblIconLogo.setIcon(new ImageIcon(img_transfer));
-        this.add(lblIconLogo, "East");
+
+
+
+        this.add(new ScaleImg("/Res/img_service.png"), "East");
+
 
         flowLayout.setAlignment(FlowLayout.CENTER);
         flowLayout.setHgap(80);
         flowLayout.setVgap(40);
-
 
         JPanel panelHeader = new JPanel();
         panelHeader.setLayout(flowLayout);
         this.add(panelHeader, "North");
 
         JPanel panelFooter = new JPanel();
-        panelFooter.setBackground(Color.WHITE);
-        panelFooter.setPreferredSize(new Dimension());
         panelFooter.setLayout(new BorderLayout(0,0));
         panelFooter.setVisible(false);
         this.add(panelFooter, "South");
 
-
-
         PanelTransfer transfer = new PanelTransfer();
-        transfer.setVisible(false);
-        this.add(transfer, "West");
+        PanelRecharge recharge = new PanelRecharge();
+        PanelWithdraw withdraw = new PanelWithdraw();
+
+        JPanel panelForm = new JPanel();
+        panelForm.setLayout(cardLayout);
+        panelForm.add(transfer, "1");
+        panelForm.add(recharge, "2");
+        panelForm.add(withdraw, "3");
+        panelForm.setVisible(false);
+        this.add(panelForm, "Center");
 
         JPanel panelMessage = new JPanel();
         panelMessage.setLayout(new FlowLayout(FlowLayout.CENTER,0,10));
@@ -56,6 +58,7 @@ public class PanelService extends JPanel
         panelMessage.add(lblMessage);
 
 
+        flowLayout.setVgap(10);
         JPanel footer = new JPanel();
         footer.setBackground(Color.WHITE);
         footer.setLayout(flowLayout);
@@ -71,7 +74,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                transfer.setVisible(false);
+                panelForm.setVisible(false);
                 panelFooter.setVisible(false);
             }
         });
@@ -99,14 +102,14 @@ public class PanelService extends JPanel
         JPanel panelTransfer = new RadiusAndShadow();
         panelTransfer.setBackground(new Color(222, 123, 77));
         panelTransfer.add(new JLabel("Transfer"));
-//        panelTransfer.setOpaque(false);
         panelTransfer.addMouseListener(new PanelButtonMouseAdapter(panelTransfer, 222, 123, 77)
         {
             @Override
             public void mouseClicked(MouseEvent e)
             {
                 lblMessage.setVisible(false);
-                transfer.setVisible(true);
+                panelForm.setVisible(true);
+                cardLayout.show(panelForm, "1");
                 panelFooter.setVisible(true);
             }
         });
@@ -123,7 +126,10 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-
+                lblMessage.setVisible(false);
+                panelForm.setVisible(true);
+                cardLayout.show(panelForm, "2");
+                panelFooter.setVisible(true);
             }
         });
         panelRecharge.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -139,7 +145,10 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-
+                lblMessage.setVisible(false);
+                panelForm.setVisible(true);
+                cardLayout.show(panelForm, "3");
+                panelFooter.setVisible(true);
             }
         });
         panelWithdraw.setLayout(new FlowLayout(FlowLayout.CENTER));

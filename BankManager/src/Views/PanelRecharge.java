@@ -9,14 +9,14 @@ import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-public class PanelTransfer extends JPanel
+public class PanelRecharge extends JPanel
 {
     private GridBagConstraints gbc3;
-    public PanelTransfer()
+
+    public PanelRecharge()
     {
         gbc3 = new GridBagConstraints();
-        gbc3.insets = new Insets(10,10,10,10);
+        gbc3.insets = new Insets(10, 10, 10, 10);
         gbc3.weightx = 1;
         gbc3.weighty = 1;
         gbc3.fill = GridBagConstraints.HORIZONTAL;
@@ -26,19 +26,8 @@ public class PanelTransfer extends JPanel
         accountNumber.setBackground(Color.WHITE);
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
-        ((AbstractDocument)txtAccountNumber.getDocument()).setDocumentFilter(new DocumentFilter(){
-            Pattern regEx = Pattern.compile("\\d*");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-            {
-                Matcher matcher = regEx.matcher(text);
-                if(!matcher.matches()){
-                    return;
-                }
-                super.replace(fb, offset, length, text, attrs);
-            }
-        });
+        txtAccountNumber.setEnabled(false);
+        txtAccountNumber.setText("Số tài khoản nạp tiền");
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
@@ -84,10 +73,10 @@ public class PanelTransfer extends JPanel
         content.add(txtContent, gbc3);
 
 
-        this.setLayout(new BorderLayout(0,0));
+        this.setLayout(new BorderLayout(0, 0));
 
         JPanel panelGBLHeader = new JPanel();
-        panelGBLHeader.setPreferredSize(new Dimension(200,80));
+        panelGBLHeader.setPreferredSize(new Dimension(200, 80));
         this.add(panelGBLHeader, "North");
 
         JPanel panelGBLFooter = new JPanel();
@@ -120,7 +109,7 @@ public class PanelTransfer extends JPanel
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0,10,0,0);
+        gbc.insets = new Insets(0, 10, 0, 0);
         GBL.add(new JLabel("Account number received"), gbc);
         gbc.gridx += 1;
         GBL.add(accountNumber, gbc);

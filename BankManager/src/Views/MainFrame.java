@@ -74,7 +74,7 @@ public class MainFrame extends JFrame
     public MainFrame()
     {
         this.setDefaultCloseOperation(3);
-        this.setBounds(100, 100, 1383, 773);
+        this.setBounds(100, 100, 1500, 800);
         this.setLocationRelativeTo(null);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
