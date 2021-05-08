@@ -19,15 +19,15 @@ public class PanelRecharge extends JPanel
         gbc3.insets = new Insets(10, 10, 10, 10);
         gbc3.weightx = 1;
         gbc3.weighty = 1;
-        gbc3.fill = GridBagConstraints.HORIZONTAL;
+        gbc3.fill = GridBagConstraints.BOTH;
 
 
         JPanel accountNumber = new RadiusAndShadow();
         accountNumber.setBackground(Color.WHITE);
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
-        txtAccountNumber.setEnabled(false);
         txtAccountNumber.setText("Số tài khoản nạp tiền");
+        txtAccountNumber.setEnabled(false);
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
@@ -38,15 +38,38 @@ public class PanelRecharge extends JPanel
         JPanel amount = new RadiusAndShadow();
         amount.setBackground(Color.WHITE);
         amount.setLayout(new GridBagLayout());
+
+        JPanel panelAmount = new JPanel();
+        panelAmount.setBackground(Color.WHITE);
+        panelAmount.setLayout(new BoxLayout(panelAmount, BoxLayout.X_AXIS));
+        amount.add(panelAmount, gbc3);
+
+        JPanel panelVND = new JPanel();
+        panelVND.setBackground(Color.WHITE);
+        panelVND.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+
+        JSeparator sptVND = new JSeparator();
+        sptVND.setPreferredSize(new Dimension(10, 10));
+        sptVND.setForeground(Color.GRAY);
+        sptVND.setOrientation(SwingConstants.VERTICAL);
+        panelVND.add(sptVND);
+
+        JLabel lblVND = new JLabel("VNĐ");
+        lblVND.setForeground(Color.GRAY);
+        lblVND.setFont(new Font("Arial", Font.BOLD, 12));
+        panelVND.add(lblVND);
+
         JTextField txtAmount = new JTextField();
-        ((AbstractDocument)txtAmount.getDocument()).setDocumentFilter(new DocumentFilter(){
+        ((AbstractDocument) txtAmount.getDocument()).setDocumentFilter(new DocumentFilter()
+        {
             Pattern regEx = Pattern.compile("\\d*");
 
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
             {
                 Matcher matcher = regEx.matcher(text);
-                if(!matcher.matches()){
+                if (!matcher.matches())
+                {
                     return;
                 }
                 super.replace(fb, offset, length, text, attrs);
@@ -56,10 +79,12 @@ public class PanelRecharge extends JPanel
         txtAmount.setBorder(null);
         txtAmount.setColumns(20);
         txtAmount.setFont(new Font("Arial", Font.PLAIN, 12));
-        amount.add(txtAmount, gbc3);
+        panelAmount.add(txtAmount);
+        panelAmount.add(Box.createHorizontalGlue());
+        panelAmount.add(panelVND);
+
 
         gbc3.ipady = 170;
-        gbc3.fill = GridBagConstraints.BOTH;
         JPanel content = new RadiusAndShadow();
         content.setBackground(Color.WHITE);
         content.setLayout(new GridBagLayout());
@@ -91,37 +116,32 @@ public class PanelRecharge extends JPanel
         panelGBLWest.setPreferredSize(new Dimension(100, 200));
         this.add(panelGBLWest, "West");
 
-        JPanel panelGBLCenter = new JPanel();
-        panelGBLCenter.setLayout(new GridBagLayout());
-        this.add(panelGBLCenter, "Center");
+        JPanel panelCenter = new JPanel();
+        panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
+        this.add(panelCenter, "Center");
 
         JPanel GBL = new JPanel();
         GBL.setLayout(new GridBagLayout());
-        GridBagConstraints gbc2 = new GridBagConstraints();
-        gbc2.weightx = 0.1;
-        gbc2.weighty = 0.1;
-        gbc2.fill = GridBagConstraints.BOTH;
-        panelGBLCenter.add(GBL, gbc2);
+        panelCenter.add(GBL);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 0.1;
-        gbc.weighty = 0.1;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.insets = new Insets(0, 20, 0, 0);
         GBL.add(new JLabel("Account number received"), gbc);
-        gbc.gridx += 1;
+        gbc.gridy++;
+        GBL.add(new JLabel("Amount"), gbc);
+        gbc.gridy++;
+        GBL.add(new JLabel("Content"), gbc);
+        gbc.gridx++;
+        gbc.gridy = 0;
         GBL.add(accountNumber, gbc);
         gbc.gridy++;
-        gbc.gridx = 0;
-        GBL.add(new JLabel("Amount"), gbc);
-        gbc.gridx += 1;
         GBL.add(amount, gbc);
         gbc.gridy++;
-        gbc.gridx = 0;
-        GBL.add(new JLabel("Content"), gbc);
-        gbc.gridx += 1;
         GBL.add(content, gbc);
     }
 }
