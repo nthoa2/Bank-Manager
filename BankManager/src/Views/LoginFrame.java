@@ -29,6 +29,7 @@ public class LoginFrame extends JFrame {
             @Override
             public void run() {
                 try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     LoginFrame.this.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
