@@ -20,11 +20,13 @@ public class LoginFrame extends JFrame
     private JPasswordField txtPassword;
 
     private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/logoright.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_login.jpg")).getImage().getScaledInstance(298, 396, Image.SCALE_SMOOTH);
     private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/businessman.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_password = new ImageIcon(LoginFrame.class.getResource("/Res/padlock.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_hide_password = new ImageIcon(LoginFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_show_password = new ImageIcon(LoginFrame.class.getResource("/Res/show_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_log_in = new ImageIcon(LoginFrame.class.getResource("/Res/key.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
+    private int count = 0;
 
     public LoginFrame()
     {
@@ -39,17 +41,17 @@ public class LoginFrame extends JFrame
         setContentPane(mainPane);
 
         //khung nội dung bên trái
+
         JPanel contentPaneLeft = new JPanel();
-        contentPaneLeft.setBackground(Color.BLACK);
         contentPaneLeft.setBounds(2, 2, 298, 396);
         contentPaneLeft.setLayout(null);
         mainPane.add(contentPaneLeft);
 
         JLabel lblIconLogo = new JLabel("");
-        lblIconLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIconLogo.setBounds(30,35, 250, 111);
+        lblIconLogo.setBounds(0,0, 298, 396);
         lblIconLogo.setIcon(new ImageIcon(img_logo));
-        contentPaneLeft.add(lblIconLogo);
+        contentPaneLeft.add(lblIconLogo);;
+
 
         // Khung nội dung bên phải
         JPanel contentPaneRight = new JPanel();
@@ -161,17 +163,38 @@ public class LoginFrame extends JFrame
         sptPassword.setBounds(10,35,210,1);
         panelPassword.add(sptPassword);
 
+
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPassword.setBounds(210, 0, 40, 40);
-        lblIconPassword.setIcon(new ImageIcon(img_password));
+        lblIconPassword.setIcon(new ImageIcon(img_hide_password));
+        lblIconPassword.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                if(LoginFrame.this.count % 2 == 0)
+                {
+                    LoginFrame.this.count++;
+                    lblIconPassword.setIcon(new ImageIcon(img_show_password));
+                    txtPassword.setEchoChar((char) 0);
+                }else
+                {
+                    LoginFrame.this.count++;
+                    lblIconPassword.setIcon(new ImageIcon(img_hide_password));
+                    if(!txtPassword.getText().equals("Password"))
+                        txtPassword.setEchoChar('*');
+                }
+
+            }
+        });
         panelPassword.add(lblIconPassword);
 
         // Button Login
         JLabel lblLoginMessage = new JLabel("");
         lblLoginMessage.setForeground(Color.RED);
         lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
-        lblLoginMessage.setBounds(20, 269, 250, 18);
+        lblLoginMessage.setBounds(60, 270, 250, 18);
         setLocationRelativeTo(null);
         contentPaneRight.add(lblLoginMessage);
 
