@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 
     private Color exitedColor = new Color(56, 72, 97);
     private Color enteredColor = new Color(210, 220, 230);
-    private Color clickedColor = new Color(60, 179, 113);
+    private Color clickedColor = new Color(56, 165, 111);
     private Dimension btnSize = new Dimension(230, 40);
     private JPanel contentPane;
     private JLabel Logo;
@@ -302,7 +302,7 @@ public class MainFrame extends JFrame {
         this.cardPanelIndex = new JPanel();
         this.cardPanel.add((Component) this.cardPanelIndex, "index");
 
-        this.cardOverviewPanel = new HomePanel();
+        this.cardOverviewPanel = new _HomePanel();
         this.cardPanel.add((Component) this.cardOverviewPanel, "overview");
 
         detailsPanel.add((Component) this.cardPanel, "Center");
