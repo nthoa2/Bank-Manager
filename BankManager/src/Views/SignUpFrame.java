@@ -34,8 +34,12 @@ public class SignUpFrame extends JFrame
     private Image img_Birth_Day = new ImageIcon(SignUpFrame.class.getResource("/Res/birthday.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_Address = new ImageIcon(SignUpFrame.class.getResource("/Res/address.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_Username = new ImageIcon(SignUpFrame.class.getResource("/Res/businessman.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Password = new ImageIcon(SignUpFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_hide_password = new ImageIcon(LoginFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_show_password = new ImageIcon(LoginFrame.class.getResource("/Res/show_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_logo_bank = new ImageIcon(SignUpFrame.class.getResource("/Res/logobank.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+
+    private int count1 = 0;
+    private int count2 = 0;
 
     public SignUpFrame()
     {
@@ -68,6 +72,7 @@ public class SignUpFrame extends JFrame
         panelCMND.setLayout(null);
         contentPane.add(panelCMND);
 
+
         txtCMND = new JTextField();
         txtCMND.addKeyListener(new KeyAdapter()
         {
@@ -83,24 +88,48 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
-                {
-                    Pattern regEx = Pattern.compile("\\d*");
-
-                    @Override
-                    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                    {
-                        Matcher matcher = regEx.matcher(text);
-                        if (!matcher.matches())
-                        {
-                            return;
-                        }
-                        super.replace(fb, offset, length, text, attrs);
-                    }
-                });
                 if (txtCMND.getText().equals("Citizen identification number"))
                 {
                     txtCMND.setText("");
+                    ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\d*"); // thay đổi regEx để lấy chữ or số
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                }else txtCMND.selectAll(); // cho phép chọn text và nhập số sửa lun k cần nhấn nút xóa
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if (txtCMND.getText().equals(""))
+                {
+                    ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                    txtCMND.setText("Citizen identification number");
                 }
             }
         });
@@ -138,6 +167,21 @@ public class SignUpFrame extends JFrame
             {
                 if (txtFullname.getText().length() >= 30)
                     e.consume();
+            }
+        });
+        ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
+        {
+            Pattern regEx = Pattern.compile("\\D*");
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+            {
+                Matcher matcher = regEx.matcher(text);
+                if (!matcher.matches())
+                {
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
             }
         });
         txtFullname.addFocusListener(new FocusAdapter()
@@ -199,6 +243,21 @@ public class SignUpFrame extends JFrame
                     e.consume();
             }
 
+        });
+        ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
+        {
+            Pattern regEx = Pattern.compile("\\D*");
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+            {
+                Matcher matcher = regEx.matcher(text);
+                if (!matcher.matches())
+                {
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
         });
         txtGender.addFocusListener(new FocusAdapter()
         {
@@ -264,24 +323,48 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
-                {
-                    Pattern regEx = Pattern.compile("\\d*");
-
-                    @Override
-                    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                    {
-                        Matcher matcher = regEx.matcher(text);
-                        if (!matcher.matches())
-                        {
-                            return;
-                        }
-                        super.replace(fb, offset, length, text, attrs);
-                    }
-                });
                 if (txtPhoneNumber.getText().equals("Phone number"))
                 {
                     txtPhoneNumber.setText("");
+                    ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\d*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                }else txtPhoneNumber.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if(txtPhoneNumber.getText().equals(""))
+                {
+                    ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                    txtPhoneNumber.setText("Phone number");
                 }
             }
         });
@@ -334,23 +417,49 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                ((AbstractDocument) txtDay.getDocument()).setDocumentFilter(new DocumentFilter()
-                {
-                    Pattern regEx = Pattern.compile("\\d*");
-
-                    @Override
-                    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                    {
-                        Matcher matcher = regEx.matcher(text);
-                        if (!matcher.matches())
-                        {
-                            return;
-                        }
-                        super.replace(fb, offset, length, text, attrs);
-                    }
-                });
                 if (txtDay.getText().equals("Day"))
+                {
                     txtDay.setText("");
+                    ((AbstractDocument) txtDay.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\d*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                }else txtDay.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if(txtDay.getText().equals(""))
+                {
+                    ((AbstractDocument) txtDay.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                    txtDay.setText("Day");
+                }
             }
         });
         panelBirthDay.add(txtDay);
@@ -383,23 +492,49 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                ((AbstractDocument) txtMonth.getDocument()).setDocumentFilter(new DocumentFilter()
-                {
-                    Pattern regEx = Pattern.compile("\\d*");
-
-                    @Override
-                    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                    {
-                        Matcher matcher = regEx.matcher(text);
-                        if (!matcher.matches())
-                        {
-                            return;
-                        }
-                        super.replace(fb, offset, length, text, attrs);
-                    }
-                });
                 if (txtMonth.getText().equals("Month"))
+                {
                     txtMonth.setText("");
+                    ((AbstractDocument) txtMonth.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\d*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                }else txtMonth.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if(txtMonth.getText().equals(""))
+                {
+                    ((AbstractDocument) txtMonth.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                    txtMonth.setText("Month");
+                }
             }
         });
         panelBirthDay.add(txtMonth);
@@ -432,23 +567,49 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                ((AbstractDocument) txtYear.getDocument()).setDocumentFilter(new DocumentFilter()
-                {
-                    Pattern regEx = Pattern.compile("\\d*");
-
-                    @Override
-                    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                    {
-                        Matcher matcher = regEx.matcher(text);
-                        if (!matcher.matches())
-                        {
-                            return;
-                        }
-                        super.replace(fb, offset, length, text, attrs);
-                    }
-                });
                 if (txtYear.getText().equals("Year"))
+                {
                     txtYear.setText("");
+                    ((AbstractDocument) txtYear.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\d*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                }else txtYear.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if(txtYear.getText().equals(""))
+                {
+                    ((AbstractDocument) txtYear.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
+                    txtYear.setText("Year");
+                }
             }
         });
         panelBirthDay.add(txtYear);
@@ -588,13 +749,26 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtPassword.getText().equals("Password"))
+                if(SignUpFrame.this.count1 % 2 == 0)
                 {
-                    txtPassword.setEchoChar('*');
-                    txtPassword.setText("");
-                } else
+                    if (txtPassword.getText().equals("Password"))
+                    {
+                        txtPassword.setEchoChar('*');
+                        txtPassword.setText("");
+                    } else
+                    {
+                        txtPassword.selectAll();
+                    }
+                }else
                 {
-                    txtPassword.selectAll();
+                    if (txtPassword.getText().equals("Password"))
+                    {
+                        txtPassword.setEchoChar((char)0);
+                        txtPassword.setText("");
+                    } else
+                    {
+                        txtPassword.selectAll();
+                    }
                 }
             }
 
@@ -625,7 +799,26 @@ public class SignUpFrame extends JFrame
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPassword.setBounds(210, 0, 40, 40);
-        lblIconPassword.setIcon(new ImageIcon(img_Password));
+        lblIconPassword.setIcon(new ImageIcon(img_hide_password));
+        lblIconPassword.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                if(SignUpFrame.this.count1 % 2 == 0)
+                {
+                    SignUpFrame.this.count1++;
+                    lblIconPassword.setIcon(new ImageIcon(img_show_password));
+                    txtPassword.setEchoChar((char) 0);
+                }else
+                {
+                    SignUpFrame.this.count1++;
+                    lblIconPassword.setIcon(new ImageIcon(img_hide_password));
+                    if(!txtPassword.getText().equals("Password"))
+                        txtPassword.setEchoChar('*');
+                }
+            }
+        });
         panelPassword.add(lblIconPassword);
 
         JPanel panelPasswordConfirm = new RadiusAndShadow();
@@ -640,13 +833,26 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtPasswordConfirm.getText().equals("Password confirm"))
+                if(SignUpFrame.this.count2 % 2 == 0)
                 {
-                    txtPasswordConfirm.setEchoChar('*');
-                    txtPasswordConfirm.setText("");
-                } else
+                    if (txtPasswordConfirm.getText().equals("Password confirm"))
+                    {
+                        txtPasswordConfirm.setEchoChar('*');
+                        txtPasswordConfirm.setText("");
+                    } else
+                    {
+                        txtPasswordConfirm.selectAll();
+                    }
+                }else
                 {
-                    txtPasswordConfirm.selectAll();
+                    if (txtPasswordConfirm.getText().equals("Password confirm"))
+                    {
+                        txtPasswordConfirm.setEchoChar((char)0);
+                        txtPasswordConfirm.setText("");
+                    } else
+                    {
+                        txtPasswordConfirm.selectAll();
+                    }
                 }
             }
 
@@ -677,7 +883,27 @@ public class SignUpFrame extends JFrame
         JLabel lblIconPasswordConfirm = new JLabel("");
         lblIconPasswordConfirm.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPasswordConfirm.setBounds(210, 0, 40, 40);
-        lblIconPasswordConfirm.setIcon(new ImageIcon(img_Password));
+        lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
+        lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
+        lblIconPasswordConfirm.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                if(SignUpFrame.this.count2 % 2 == 0)
+                {
+                    SignUpFrame.this.count2++;
+                    lblIconPasswordConfirm.setIcon(new ImageIcon(img_show_password));
+                    txtPasswordConfirm.setEchoChar((char) 0);
+                }else
+                {
+                    SignUpFrame.this.count2++;
+                    lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
+                    if(!txtPasswordConfirm.getText().equals("Password confirm"))
+                        txtPasswordConfirm.setEchoChar('*');
+                }
+            }
+        });
         panelPasswordConfirm.add(lblIconPasswordConfirm);
 
         // Back

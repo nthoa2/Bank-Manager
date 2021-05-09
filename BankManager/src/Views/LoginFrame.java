@@ -134,13 +134,26 @@ public class LoginFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtPassword.getText().equals("Password"))
+                if(LoginFrame.this.count % 2 == 0)
                 {
-                    txtPassword.setEchoChar('*');
-                    txtPassword.setText("");
-                } else
+                    if (txtPassword.getText().equals("Password"))
+                    {
+                        txtPassword.setEchoChar('*');
+                        txtPassword.setText("");
+                    } else
+                    {
+                        txtPassword.selectAll();
+                    }
+                }else
                 {
-                    txtPassword.selectAll();
+                    if (txtPassword.getText().equals("Password"))
+                    {
+                        txtPassword.setEchoChar((char)0);
+                        txtPassword.setText("");
+                    } else
+                    {
+                        txtPassword.selectAll();
+                    }
                 }
             }
 

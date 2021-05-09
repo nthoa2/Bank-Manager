@@ -23,7 +23,7 @@ public class PanelRecharge extends JPanel
 
 
         JPanel accountNumber = new RadiusAndShadow();
-        accountNumber.setBackground(Color.WHITE);
+        accountNumber.setBackground(Color.white);
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
         txtAccountNumber.setText("Số tài khoản nạp tiền");
@@ -31,7 +31,7 @@ public class PanelRecharge extends JPanel
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
-        txtAccountNumber.setFont(new Font("Arial", Font.PLAIN, 12));
+        txtAccountNumber.setFont(new Font("Arial", Font.PLAIN, 15));
         accountNumber.add(txtAccountNumber, gbc3);
 
 
@@ -46,17 +46,17 @@ public class PanelRecharge extends JPanel
 
         JPanel panelVND = new JPanel();
         panelVND.setBackground(Color.WHITE);
-        panelVND.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        panelVND.setLayout(new BoxLayout(panelVND, BoxLayout.X_AXIS));
 
         JSeparator sptVND = new JSeparator();
-        sptVND.setPreferredSize(new Dimension(10, 10));
+        sptVND.setPreferredSize(new Dimension(10, 0));
         sptVND.setForeground(Color.GRAY);
         sptVND.setOrientation(SwingConstants.VERTICAL);
         panelVND.add(sptVND);
 
         JLabel lblVND = new JLabel("VNĐ");
         lblVND.setForeground(Color.GRAY);
-        lblVND.setFont(new Font("Arial", Font.BOLD, 12));
+        lblVND.setFont(new Font("Arial", Font.BOLD, 13));
         panelVND.add(lblVND);
 
         JTextField txtAmount = new JTextField();
@@ -78,13 +78,13 @@ public class PanelRecharge extends JPanel
         txtAmount.setBackground(Color.WHITE);
         txtAmount.setBorder(null);
         txtAmount.setColumns(20);
-        txtAmount.setFont(new Font("Arial", Font.PLAIN, 12));
+        txtAmount.setFont(new Font("Arial", Font.PLAIN, 15));
         panelAmount.add(txtAmount);
         panelAmount.add(Box.createHorizontalGlue());
         panelAmount.add(panelVND);
 
 
-        gbc3.ipady = 170;
+        gbc3.ipady = 70;
         JPanel content = new RadiusAndShadow();
         content.setBackground(Color.WHITE);
         content.setLayout(new GridBagLayout());
@@ -94,54 +94,55 @@ public class PanelRecharge extends JPanel
         txtContent.setBorder(null);
         txtContent.setRows(10);
         txtContent.setColumns(20);
-        txtContent.setFont(new Font("Arial", Font.PLAIN, 12));
+        txtContent.setFont(new Font("Arial", Font.PLAIN, 15));
         content.add(txtContent, gbc3);
 
 
         this.setLayout(new BorderLayout(0, 0));
 
         JPanel panelGBLHeader = new JPanel();
-        panelGBLHeader.setPreferredSize(new Dimension(200, 80));
+        panelGBLHeader.setPreferredSize(new Dimension(200, 100));
         this.add(panelGBLHeader, "North");
 
         JPanel panelGBLFooter = new JPanel();
-        panelGBLFooter.setPreferredSize(new Dimension(200, 80));
+        panelGBLFooter.setPreferredSize(new Dimension(200, 100));
         this.add(panelGBLFooter, "South");
 
         JPanel panelGBLEast = new JPanel();
-        panelGBLEast.setPreferredSize(new Dimension(50, 200));
+        panelGBLEast.setPreferredSize(new Dimension(300, 200));
         this.add(panelGBLEast, "East");
 
         JPanel panelGBLWest = new JPanel();
-        panelGBLWest.setPreferredSize(new Dimension(100, 200));
+        panelGBLWest.setPreferredSize(new Dimension(250, 200));
         this.add(panelGBLWest, "West");
+
 
         JPanel panelCenter = new JPanel();
         panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
         this.add(panelCenter, "Center");
 
-        JPanel GBL = new JPanel();
-        GBL.setLayout(new GridBagLayout());
-        panelCenter.add(GBL);
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new BorderLayout());
+        panel1.add(new JLabel("Account number received"), "Center");
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0, 20, 0, 0);
-        GBL.add(new JLabel("Account number received"), gbc);
-        gbc.gridy++;
-        GBL.add(new JLabel("Amount"), gbc);
-        gbc.gridy++;
-        GBL.add(new JLabel("Content"), gbc);
-        gbc.gridx++;
-        gbc.gridy = 0;
-        GBL.add(accountNumber, gbc);
-        gbc.gridy++;
-        GBL.add(amount, gbc);
-        gbc.gridy++;
-        GBL.add(content, gbc);
+        panelCenter.add(panel1);
+        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        panelCenter.add(accountNumber);
+
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new BorderLayout());
+        panel2.add(new JLabel("Amount"), "Center");
+
+        panelCenter.add(panel2);
+        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        panelCenter.add(amount);
+
+        JPanel panel3 = new JPanel();
+        panel3.setLayout(new BorderLayout());
+        panel3.add(new JLabel("Content"), "Center");
+
+        panelCenter.add(panel3);
+        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        panelCenter.add(content);
     }
 }
