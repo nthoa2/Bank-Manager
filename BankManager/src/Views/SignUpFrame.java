@@ -34,31 +34,37 @@ public class SignUpFrame extends JFrame
     private Image img_Birth_Day = new ImageIcon(SignUpFrame.class.getResource("/Res/birthday.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_Address = new ImageIcon(SignUpFrame.class.getResource("/Res/address.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_Username = new ImageIcon(SignUpFrame.class.getResource("/Res/businessman.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Password = new ImageIcon(SignUpFrame.class.getResource("/Res/padlock.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Password = new ImageIcon(SignUpFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_logo_bank = new ImageIcon(SignUpFrame.class.getResource("/Res/logobank.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 
     public SignUpFrame()
     {
         setUndecorated(true);
-        setBounds(100, 100, 600, 450);
+        setBounds(100, 100, 600, 500);
         setLocationRelativeTo(null);
         contentPane = new JPanel();
-
         contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(new LineBorder(new Color(0, 0, 128), 2));
         contentPane.setLayout(null);
         contentPane.setFocusable(true);
         setContentPane(contentPane);
 
+        JLabel lblTitle = new JLabel();
+        lblTitle.setText("Signup Form");
+        lblTitle.setForeground(Color.GRAY);
+        lblTitle.setBounds(220, 10,200,30);
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
+        contentPane.add(lblTitle);
+
         JLabel lblIconLogoBank = new JLabel("");
         lblIconLogoBank.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIconLogoBank.setBounds(280, 40, 300, 150);
+        lblIconLogoBank.setBounds(280, 60, 300, 150);
         lblIconLogoBank.setIcon(new ImageIcon(img_logo_bank));
         contentPane.add(lblIconLogoBank);
 
         JPanel panelCMND = new RadiusAndShadow();
         panelCMND.setBackground(Color.WHITE);
-        panelCMND.setBounds(20, 50, 260, 55);
+        panelCMND.setBounds(20, 60, 260, 55);
         panelCMND.setLayout(null);
         contentPane.add(panelCMND);
 
@@ -120,7 +126,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelFullname = new RadiusAndShadow();
         panelFullname.setBackground(Color.WHITE);
-        panelFullname.setBounds(20, 100, 260, 55);
+        panelFullname.setBounds(20, 120, 260, 55);
         panelFullname.setLayout(null);
         contentPane.add(panelFullname);
 
@@ -179,7 +185,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelGender = new RadiusAndShadow();
         panelGender.setBackground(Color.WHITE);
-        panelGender.setBounds(20, 150, 260, 55);
+        panelGender.setBounds(20, 170, 260, 55);
         panelGender.setLayout(null);
         contentPane.add(panelGender);
 
@@ -239,7 +245,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelPhoneNumber = new RadiusAndShadow();
         panelPhoneNumber.setBackground(Color.WHITE);
-        panelPhoneNumber.setBounds(20, 200, 260, 55);
+        panelPhoneNumber.setBounds(20, 220, 260, 55);
         panelPhoneNumber.setLayout(null);
         contentPane.add(panelPhoneNumber);
 
@@ -301,7 +307,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelBirthDay = new RadiusAndShadow();
         panelBirthDay.setBackground(Color.WHITE);
-        panelBirthDay.setBounds(20, 250, 260, 55);
+        panelBirthDay.setBounds(20, 270, 260, 55);
         panelBirthDay.setLayout(null);
 
         contentPane.add(panelBirthDay);
@@ -472,7 +478,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelAddress = new RadiusAndShadow();
         panelAddress.setBackground(Color.WHITE);
-        panelAddress.setBounds(20, 300, 260, 55);
+        panelAddress.setBounds(20, 320, 260, 55);
         panelAddress.setLayout(null);
         contentPane.add(panelAddress);
 
@@ -522,7 +528,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelUsername = new RadiusAndShadow();
         panelUsername.setBackground(Color.WHITE);
-        panelUsername.setBounds(300, 200, 260, 55);
+        panelUsername.setBounds(300, 220, 260, 55);
         panelUsername.setLayout(null);
         contentPane.add(panelUsername);
 
@@ -572,7 +578,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelPassword = new RadiusAndShadow();
         panelPassword.setBackground(Color.WHITE);
-        panelPassword.setBounds(300, 250, 260, 55);
+        panelPassword.setBounds(300, 270, 260, 55);
         panelPassword.setLayout(null);
         contentPane.add(panelPassword);
 
@@ -624,7 +630,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelPasswordConfirm = new RadiusAndShadow();
         panelPasswordConfirm.setBackground(Color.WHITE);
-        panelPasswordConfirm.setBounds(300, 300, 260, 55);
+        panelPasswordConfirm.setBounds(300, 320, 260, 55);
         panelPasswordConfirm.setLayout(null);
         contentPane.add(panelPasswordConfirm);
 
@@ -734,7 +740,7 @@ public class SignUpFrame extends JFrame
         JLabel lblLoginMessage = new JLabel("");
         lblLoginMessage.setForeground(Color.RED);
         lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
-        lblLoginMessage.setBounds(200, 360, 250, 18);
+        lblLoginMessage.setBounds(200, 380, 250, 18);
         setLocationRelativeTo(null);
         contentPane.add(lblLoginMessage);
 
@@ -836,7 +842,7 @@ public class SignUpFrame extends JFrame
             }
         });
         pnlBtnSignUp.setBackground(Color.WHITE);
-        pnlBtnSignUp.setBounds(165, 380, 250, 50);
+        pnlBtnSignUp.setBounds(165, 400, 250, 50);
         pnlBtnSignUp.setLayout(null);
         contentPane.add(pnlBtnSignUp);
 
