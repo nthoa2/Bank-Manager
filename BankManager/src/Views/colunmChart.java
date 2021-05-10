@@ -23,19 +23,17 @@ public class colunmChart
     public BarChart createChart() {
 
         CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
-        XYChart.Series dataSeries1 = new XYChart.Series();
-        dataSeries1.setName("Chi Ra");
-        dataSeries1.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (this.spending)));
-        XYChart.Series dataSeries2 = new XYChart.Series();
-        dataSeries2.setName("Nhận Vào");
-        dataSeries2.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) this.received));
+        XYChart.Series dataSpendingSeries = new XYChart.Series();
+        dataSpendingSeries.setName("Chi Ra");
+        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (this.spending)));
+        XYChart.Series dataReceivedSeries = new XYChart.Series();
+        dataReceivedSeries.setName("Nhận Vào");
+        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) this.received));
         BarChart chart = new BarChart((Axis) xAxis, (Axis) yAxis);
-        chart.getData().addAll(new Object[]{dataSeries1});
-        chart.getData().addAll(new Object[]{dataSeries2});
-        chart.setTitle("");
+        chart.getData().addAll(new Object[]{dataSpendingSeries});
+        chart.getData().addAll(new Object[]{dataReceivedSeries});
         return chart;
     }
 

@@ -51,34 +51,34 @@ public class _HomePanel extends JPanel {
 
     private JPanel panel_south() {
         this.panel_South = new JPanel();
-        GridBagLayout gbl_panel_center = new GridBagLayout();
-        int[] arrn = new int[3];
-        arrn[0] = 453;
-        arrn[1] = 453;
-        gbl_panel_center.columnWidths = arrn;
-        int[] arrn2 = new int[4];
-        arrn2[0] = 249;
-        arrn2[1] = 249;
-        gbl_panel_center.rowHeights = arrn2;
-        gbl_panel_center.columnWeights = new double[]{1.0, 0.0, 1.0};
-        gbl_panel_center.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-        this.panel_South.setLayout(gbl_panel_center);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = 3;
-        gbc.ipady = 5;
-        gbc.ipadx = 5;
-        gbc.fill = 1;
-        gbc.insets = new Insets(0, 0, 5, 0);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        GridBagLayout panelLayout = new GridBagLayout();
+        int[] columnWidths = new int[3];
+        columnWidths[0] = 453;
+        columnWidths[1] = 453;
+        panelLayout.columnWidths = columnWidths;
+        int[] rowHeights = new int[4];
+        rowHeights[0] = 249;
+        rowHeights[1] = 249;
+        panelLayout.rowHeights = rowHeights;
+        panelLayout.columnWeights = new double[]{1.0, 0.0, 1.0};
+        panelLayout.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+        this.panel_South.setLayout(panelLayout);
+        GridBagConstraints gbcLineChart = new GridBagConstraints();
+        gbcLineChart.gridwidth = 3;
+        gbcLineChart.ipady = 5;
+        gbcLineChart.ipadx = 5;
+        gbcLineChart.fill = 1;
+        gbcLineChart.insets = new Insets(0, 0, 5, 0);
+        gbcLineChart.gridx = 0;
+        gbcLineChart.gridy = 0;
         this.lineChart = new lineChart();
-        this.panel_South.add((Component)((Object)this.lineChart), gbc);
-        GridBagConstraints gbc_1 = new GridBagConstraints();
-        gbc_1.fill = 1;
-        gbc_1.insets = new Insets(0, 0, 5, 5);
-        gbc_1.gridx = 0;
-        gbc_1.gridy = 1;
-        this.panel_South.add((Component)((Object)this.barChart), gbc_1);
+        this.panel_South.add((Component)((Object)this.lineChart), gbcLineChart);
+        GridBagConstraints gbcBarChart = new GridBagConstraints();
+        gbcBarChart.fill = 1;
+        gbcBarChart.insets = new Insets(0, 0, 5, 5);
+        gbcBarChart.gridx = 0;
+        gbcBarChart.gridy = 1;
+        this.panel_South.add((Component)((Object)this.barChart), gbcBarChart);
 
         return this.panel_South;
     }
@@ -88,44 +88,44 @@ public class _HomePanel extends JPanel {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
         catch (Exception e) {
-            System.out.println("Look and Feel not set");
+            e.printStackTrace();
         }
         this.setLayout(new BorderLayout());
-        JPanel pn = new JPanel(new BorderLayout(10, 10));
-        JScrollPane js = new JScrollPane(pn);
-        js.getVerticalScrollBar().setUnitIncrement(10);
-        pn.add((Component)this.panel_north(), "North");
-        pn.add((Component)this.panel_center(), "Center");
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        mainPanel.add((Component)this.panel_north(), "North");
+        mainPanel.add((Component)this.panel_center(), "Center");
         this.barChart = new colunmChart();
-        pn.add((Component)this.panel_south(), "South");
-        this.add((Component)js, "Center");
+        mainPanel.add((Component)this.panel_south(), "South");
+        this.add((Component)scrollPane, "Center");
     }
 
-
+// viett them ham update để khi cập nhật lại dư liêu thì tự động vẽ lại
 
     private void updateBarCharts() {
         this.panel_South.remove((Component)((Object)this.barChart));
-        GridBagConstraints gbc_1 = new GridBagConstraints();
-        gbc_1.fill = 1;
-        gbc_1.insets = new Insets(0, 0, 0, 5);
-        gbc_1.gridx = 0;
-        gbc_1.gridy = 1;
+        GridBagConstraints barChartConstraints = new GridBagConstraints();
+        barChartConstraints.fill = 1;
+        barChartConstraints.insets = new Insets(0, 0, 0, 5);
+        barChartConstraints.gridx = 0;
+        barChartConstraints.gridy = 1;
         this.barChart = new colunmChart();
-        this.panel_South.add((Component)((Object)this.barChart), gbc_1);
+        this.panel_South.add((Component)((Object)this.barChart), barChartConstraints);
     }
 
     private void updateLineChart() {
         this.panel_South.remove((Component)((Object)this.lineChart));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = 3;
-        gbc.ipady = 5;
-        gbc.ipadx = 5;
-        gbc.fill = 1;
-        gbc.insets = new Insets(0, 0, 5, 5);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        GridBagConstraints lineChartConstraints = new GridBagConstraints();
+        lineChartConstraints.gridwidth = 3;
+        lineChartConstraints.ipady = 5;
+        lineChartConstraints.ipadx = 5;
+        lineChartConstraints.fill = 1;
+        lineChartConstraints.insets = new Insets(0, 0, 5, 5);
+        lineChartConstraints.gridx = 0;
+        lineChartConstraints.gridy = 0;
         this.lineChart = new lineChart();
-        this.panel_South.add((Component)((Object)this.lineChart), gbc);
+        this.panel_South.add((Component)((Object)this.lineChart), lineChartConstraints);
     }
 
 }
