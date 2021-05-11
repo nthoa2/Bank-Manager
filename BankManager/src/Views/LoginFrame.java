@@ -1,7 +1,5 @@
 package Views;
 
-import Model.Login;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

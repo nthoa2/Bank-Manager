@@ -8,8 +8,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import Model.Login;
-
 public class SignUpFrame extends JFrame
 {
     private JPanel contentPane;

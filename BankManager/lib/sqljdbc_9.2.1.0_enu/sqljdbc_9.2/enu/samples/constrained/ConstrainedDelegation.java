@@ -44,10 +44,10 @@ import com.sun.security.jgss.ExtendedGSSCredential;
 
 public class ConstrainedDelegation {
 
-    // Connection properties
+    // connection properties
     private static final String CONNECTION_URI = "jdbc:sqlserver://<server>:<port>";
 
-    private static final String TARGET_USER_NAME = "User to be impersonated";
+    private static final String TARGET_USER_NAME = "Model_User to be impersonated";
 
     // Impersonation service properties
     private static final String SERVICE_PRINCIPAL = "SPN";
@@ -82,7 +82,7 @@ public class ConstrainedDelegation {
 
         // Create a connection for target service thanks S4U2proxy mechanism
         try (Connection con = createConnection(impersonatedUserCreds)) {
-            System.out.println("Connection succesfully: " + con);
+            System.out.println("connection succesfully: " + con);
         }
     }
 

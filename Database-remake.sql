@@ -1,6 +1,6 @@
-﻿CREATE DATABASE QLNH_test
+﻿CREATE DATABASE BankManager
 GO
-USE QLNH_test
+USE BankManager
 GO
 
 CREATE TABLE KHACHHANG
@@ -35,12 +35,12 @@ CREATE TABLE TAIKHOAN
 (
     SoTK VARCHAR(20) PRIMARY KEY,
 	MaKH VARCHAR(20) NOT NULL,
-	account INT,
+	accountID INT,
 	NgayDangKy DATETIME DEFAULT GETDATE(), --mặc định ngày đăng kí là ngày thực hiện tạo TK
 	loaiTK INT NOT NULL,
 	SoDu BIGINT DEFAULT 5000000,
 
-	FOREIGN KEY (account) REFERENCES dbo.account(id),
+	FOREIGN KEY (accountID) REFERENCES dbo.account(id),
 	FOREIGN KEY (MaKH) REFERENCES dbo.KHACHHANG(CMND),
 	FOREIGN KEY(loaiTK)REFERENCES dbo.LoaiTK(id),
 )
@@ -52,7 +52,7 @@ CREATE TABLE GIAODICH
 (
 	MaGD VARCHAR(20) PRIMARY KEY,
 	SoTK VARCHAR(20) NOT NULL, -- tài khoản nguồn
-	LoaiGD NVARCHAR(30),
+	LoaiGD INT NOT NULL, -- 1 la chuyen tien 2 nhan tien 3 rut tien
 	NgayGD DATETIME NOT NULL DEFAULT GETDATE(),
 	FOREIGN KEY (SoTK) REFERENCES  dbo.TAIKHOAN(SoTK),
 )
