@@ -2,7 +2,6 @@ package Views;
 
 
 import Model.*;
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -302,7 +301,7 @@ public class MainFrame extends JFrame {
         this.cardPanelIndex = new JPanel();
         this.cardPanel.add((Component) this.cardPanelIndex, "index");
 
-        this.cardOverviewPanel = new _HomePanel();
+        this.cardOverviewPanel = new HomePanel();
         this.cardPanel.add((Component) this.cardOverviewPanel, "overview");
 
         detailsPanel.add((Component) this.cardPanel, "Center");
