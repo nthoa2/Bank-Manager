@@ -56,7 +56,7 @@ public class SignUpFrame extends JFrame
         JLabel lblTitle = new JLabel();
         lblTitle.setText("Signup Form");
         lblTitle.setForeground(Color.GRAY);
-        lblTitle.setBounds(220, 10,200,30);
+        lblTitle.setBounds(220, 10, 200, 30);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
         contentPane.add(lblTitle);
 
@@ -65,6 +65,13 @@ public class SignUpFrame extends JFrame
         lblIconLogoBank.setBounds(280, 60, 300, 150);
         lblIconLogoBank.setIcon(new ImageIcon(img_logo_bank));
         contentPane.add(lblIconLogoBank);
+
+        JLabel lblLoginMessage = new JLabel("");
+        lblLoginMessage.setForeground(Color.RED);
+        lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
+        lblLoginMessage.setBounds(200, 380, 250, 18);
+        setLocationRelativeTo(null);
+        contentPane.add(lblLoginMessage);
 
         JPanel panelCMND = new RadiusAndShadow();
         panelCMND.setBackground(Color.WHITE);
@@ -93,20 +100,22 @@ public class SignUpFrame extends JFrame
                     txtCMND.setText("");
                     ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
-                        Pattern regEx = Pattern.compile("\\d*"); // thay đổi regEx để lấy chữ or số
+                        Pattern regEx = Pattern.compile("\\d*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
                         {
                             Matcher matcher = regEx.matcher(text);
                             if (!matcher.matches())
                             {
+                                lblLoginMessage.setText("Enter only numeric digits(0-9)");
                                 return;
                             }
+                            lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                }else txtCMND.selectAll(); // cho phép chọn text và nhập số sửa lun k cần nhấn nút xóa
+                } else txtCMND.selectAll(); // cho phép chọn text và nhập số sửa lun k cần nhấn nút xóa
             }
 
             @Override
@@ -169,21 +178,6 @@ public class SignUpFrame extends JFrame
                     e.consume();
             }
         });
-        ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
-        {
-            Pattern regEx = Pattern.compile("\\D*");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-            {
-                Matcher matcher = regEx.matcher(text);
-                if (!matcher.matches())
-                {
-                    return;
-                }
-                super.replace(fb, offset, length, text, attrs);
-            }
-        });
         txtFullname.addFocusListener(new FocusAdapter()
         {
             @Override
@@ -192,6 +186,23 @@ public class SignUpFrame extends JFrame
                 if (txtFullname.getText().equals("Full Name"))
                 {
                     txtFullname.setText("");
+                    ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("[\\p{L}\\s]");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                lblLoginMessage.setText("Enter only text");
+                                return;
+                            }
+                            lblLoginMessage.setText("");
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
                 } else
                 {
                     txtFullname.selectAll();
@@ -203,6 +214,21 @@ public class SignUpFrame extends JFrame
             {
                 if (txtFullname.getText().equals(""))
                 {
+                    ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
                     txtFullname.setText("Full Name");
                 }
             }
@@ -244,21 +270,6 @@ public class SignUpFrame extends JFrame
             }
 
         });
-        ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
-        {
-            Pattern regEx = Pattern.compile("\\D*");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-            {
-                Matcher matcher = regEx.matcher(text);
-                if (!matcher.matches())
-                {
-                    return;
-                }
-                super.replace(fb, offset, length, text, attrs);
-            }
-        });
         txtGender.addFocusListener(new FocusAdapter()
         {
             @Override
@@ -267,6 +278,23 @@ public class SignUpFrame extends JFrame
                 if (txtGender.getText().equals("Gender"))
                 {
                     txtGender.setText("");
+                    ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("[\\p{L}\\s]");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                lblLoginMessage.setText("Enter only 'nam' or 'nữ'");
+                                return;
+                            }
+                            lblLoginMessage.setText("");
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
                 } else
                 {
                     txtGender.selectAll();
@@ -278,6 +306,21 @@ public class SignUpFrame extends JFrame
             {
                 if (txtGender.getText().equals(""))
                 {
+                    ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
                     txtGender.setText("Gender");
                 }
             }
@@ -336,18 +379,20 @@ public class SignUpFrame extends JFrame
                             Matcher matcher = regEx.matcher(text);
                             if (!matcher.matches())
                             {
+                                lblLoginMessage.setText("Enter only numeric digits(0-9)");
                                 return;
                             }
+                            lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                }else txtPhoneNumber.selectAll();
+                } else txtPhoneNumber.selectAll();
             }
 
             @Override
             public void focusLost(FocusEvent e)
             {
-                if(txtPhoneNumber.getText().equals(""))
+                if (txtPhoneNumber.getText().equals(""))
                 {
                     ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
@@ -430,18 +475,20 @@ public class SignUpFrame extends JFrame
                             Matcher matcher = regEx.matcher(text);
                             if (!matcher.matches())
                             {
+                                lblLoginMessage.setText("Enter only numeric digits(1-31)");
                                 return;
                             }
+                            lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                }else txtDay.selectAll();
+                } else txtDay.selectAll();
             }
 
             @Override
             public void focusLost(FocusEvent e)
             {
-                if(txtDay.getText().equals(""))
+                if (txtDay.getText().equals(""))
                 {
                     ((AbstractDocument) txtDay.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
@@ -505,18 +552,20 @@ public class SignUpFrame extends JFrame
                             Matcher matcher = regEx.matcher(text);
                             if (!matcher.matches())
                             {
+                                lblLoginMessage.setText("Enter only numeric digits(1-12)");
                                 return;
                             }
+                            lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                }else txtMonth.selectAll();
+                } else txtMonth.selectAll();
             }
 
             @Override
             public void focusLost(FocusEvent e)
             {
-                if(txtMonth.getText().equals(""))
+                if (txtMonth.getText().equals(""))
                 {
                     ((AbstractDocument) txtMonth.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
@@ -580,18 +629,20 @@ public class SignUpFrame extends JFrame
                             Matcher matcher = regEx.matcher(text);
                             if (!matcher.matches())
                             {
+                                lblLoginMessage.setText("Enter only numeric digits(1920-2003)");
                                 return;
                             }
+                            lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                }else txtYear.selectAll();
+                } else txtYear.selectAll();
             }
 
             @Override
             public void focusLost(FocusEvent e)
             {
-                if(txtYear.getText().equals(""))
+                if (txtYear.getText().equals(""))
                 {
                     ((AbstractDocument) txtYear.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
@@ -623,18 +674,6 @@ public class SignUpFrame extends JFrame
         lblIconBirthDay.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconBirthDay.setBounds(210, 0, 40, 40);
         lblIconBirthDay.setIcon(new ImageIcon(img_Birth_Day));
-        lblIconBirthDay.addMouseListener(new MouseAdapter()
-        {
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                JFrame frame = new JFrame();
-                frame.setVisible(true);
-                frame.setSize(400, 400);
-                frame.setLocationRelativeTo(null);
-                frame.setContentPane(new JLabel("Đéo có Calendar đâu mà bấm vào địt con mẹ mày!"));
-            }
-        });
         panelBirthDay.add(lblIconBirthDay);
 
         JPanel panelAddress = new RadiusAndShadow();
@@ -652,6 +691,23 @@ public class SignUpFrame extends JFrame
                 if (txtAddress.getText().equals("Address"))
                 {
                     txtAddress.setText("");
+                    ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("[Z0-9-\\p{L}\\s]");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                lblLoginMessage.setText("Not enter char special");
+                                return;
+                            }
+                            lblLoginMessage.setText("");
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
                 } else
                 {
                     txtAddress.selectAll();
@@ -663,6 +719,21 @@ public class SignUpFrame extends JFrame
             {
                 if (txtAddress.getText().equals(""))
                 {
+                    ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
+                        Pattern regEx = Pattern.compile("\\D*");
+
+                        @Override
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
+                            Matcher matcher = regEx.matcher(text);
+                            if (!matcher.matches())
+                            {
+                                return;
+                            }
+                            super.replace(fb, offset, length, text, attrs);
+                        }
+                    });
                     txtAddress.setText("Address");
                 }
             }
@@ -749,7 +820,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                if(SignUpFrame.this.count1 % 2 == 0)
+                if (SignUpFrame.this.count1 % 2 == 0)
                 {
                     if (txtPassword.getText().equals("Password"))
                     {
@@ -759,11 +830,11 @@ public class SignUpFrame extends JFrame
                     {
                         txtPassword.selectAll();
                     }
-                }else
+                } else
                 {
                     if (txtPassword.getText().equals("Password"))
                     {
-                        txtPassword.setEchoChar((char)0);
+                        txtPassword.setEchoChar((char) 0);
                         txtPassword.setText("");
                     } else
                     {
@@ -805,16 +876,16 @@ public class SignUpFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if(SignUpFrame.this.count1 % 2 == 0)
+                if (SignUpFrame.this.count1 % 2 == 0)
                 {
                     SignUpFrame.this.count1++;
                     lblIconPassword.setIcon(new ImageIcon(img_show_password));
                     txtPassword.setEchoChar((char) 0);
-                }else
+                } else
                 {
                     SignUpFrame.this.count1++;
                     lblIconPassword.setIcon(new ImageIcon(img_hide_password));
-                    if(!txtPassword.getText().equals("Password"))
+                    if (!txtPassword.getText().equals("Password"))
                         txtPassword.setEchoChar('*');
                 }
             }
@@ -833,7 +904,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
-                if(SignUpFrame.this.count2 % 2 == 0)
+                if (SignUpFrame.this.count2 % 2 == 0)
                 {
                     if (txtPasswordConfirm.getText().equals("Password confirm"))
                     {
@@ -843,11 +914,11 @@ public class SignUpFrame extends JFrame
                     {
                         txtPasswordConfirm.selectAll();
                     }
-                }else
+                } else
                 {
                     if (txtPasswordConfirm.getText().equals("Password confirm"))
                     {
-                        txtPasswordConfirm.setEchoChar((char)0);
+                        txtPasswordConfirm.setEchoChar((char) 0);
                         txtPasswordConfirm.setText("");
                     } else
                     {
@@ -890,16 +961,16 @@ public class SignUpFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if(SignUpFrame.this.count2 % 2 == 0)
+                if (SignUpFrame.this.count2 % 2 == 0)
                 {
                     SignUpFrame.this.count2++;
                     lblIconPasswordConfirm.setIcon(new ImageIcon(img_show_password));
                     txtPasswordConfirm.setEchoChar((char) 0);
-                }else
+                } else
                 {
                     SignUpFrame.this.count2++;
                     lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
-                    if(!txtPasswordConfirm.getText().equals("Password confirm"))
+                    if (!txtPasswordConfirm.getText().equals("Password confirm"))
                         txtPasswordConfirm.setEchoChar('*');
                 }
             }
@@ -963,12 +1034,6 @@ public class SignUpFrame extends JFrame
         lblX.setBounds(580, 0, 20, 20);
         contentPane.add(lblX);
 
-        JLabel lblLoginMessage = new JLabel("");
-        lblLoginMessage.setForeground(Color.RED);
-        lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
-        lblLoginMessage.setBounds(200, 380, 250, 18);
-        setLocationRelativeTo(null);
-        contentPane.add(lblLoginMessage);
 
         JPanel pnlBtnSignUp = new RadiusAndShadow();
         pnlBtnSignUp.addMouseListener(new MouseAdapter()
@@ -982,14 +1047,7 @@ public class SignUpFrame extends JFrame
                 // obj.replaceAll("\\s+","") xóa tất cả các khoảng trắng và các ký tự không nhìn thấy (ví dụ: tab, \n).
                 // obj.replaceAll("[^a-zA-Z0-9]", "") xóa tất cả ký tự đặc biệt và thay bằng khoảng trắng
                 // [^\p{L}\s] xóa các ký tự đặc biệt trừ dấu tiếng Việt
-                txtFullname.setText(txtFullname.getText().replaceAll("[^\\p{L}\\s]", " "));
-                txtFullname.setText(txtFullname.getText().replaceAll("\\s+", " "));
 
-                txtGender.setText(txtGender.getText().replaceAll("\\s+", ""));
-                txtGender.setText(txtGender.getText().replaceAll("[^\\p{L}\\s]", ""));
-
-                txtAddress.setText(txtAddress.getText().replaceAll("[^a-zA-Z0-9-\\p{L}\\s]", " "));
-                txtAddress.setText(txtAddress.getText().replaceAll("\\s+", " "));
 
                 if (txtCMND.getText().equals("") || txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtDay.getText().equals("") || txtMonth.getText().equals("") || txtYear.getText().equals("") || txtAddress.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("")
                         || txtCMND.getText().equals("Citizen identification number") || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") || txtDay.getText().equals("Day") || txtMonth.getText().equals("Month") || txtAddress.getText().equals("Year") || txtAddress.getText().equals("Address") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password") || txtPasswordConfirm.getText().equals("Password confirm"))

@@ -1,15 +1,11 @@
 package Views;
 
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.text.NumberFormat;
 
 
 public class PanelTransfer extends JPanel
@@ -18,34 +14,43 @@ public class PanelTransfer extends JPanel
 
     public PanelTransfer()
     {
+        this.setLayout(new BorderLayout(40, 0));
+
         gbc3 = new GridBagConstraints();
         gbc3.insets = new Insets(10, 10, 10, 10);
         gbc3.weightx = 1;
         gbc3.weighty = 1;
         gbc3.fill = GridBagConstraints.BOTH;
 
+        JLabel lblMessage = new JLabel();
+        lblMessage.setFont(new Font("Arial", Font.BOLD, 15));
+        lblMessage.setForeground(Color.red);
+
+        JPanel panelGBLHeader = new JPanel();
+        panelGBLHeader.setPreferredSize(new Dimension(200, 100));
+        this.add(panelGBLHeader, "North");
+
+        JPanel panelGBLFooter = new JPanel();
+        panelGBLFooter.add(lblMessage);
+        panelGBLFooter.setPreferredSize(new Dimension(200, 100));
+        this.add(panelGBLFooter, "South");
+
 
         JPanel accountNumber = new RadiusAndShadow();
         accountNumber.setBackground(Color.white);
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
-        ((AbstractDocument) txtAccountNumber.getDocument()).setDocumentFilter(new DocumentFilter()
-        {
-            Pattern regEx = Pattern.compile("\\d*");
-
+        txtAccountNumber.addKeyListener(new KeyAdapter() {
             @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-            {
-                Matcher matcher = regEx.matcher(text);
-                if (!matcher.matches())
-                {
-                    return;
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    txtAccountNumber.setEditable(true);
+                    lblMessage.setText("");
+                } else {
+                    txtAccountNumber.setEditable(false);
+                    lblMessage.setText("Enter only numeric digits(0-9)");
                 }
-                super.replace(fb, offset, length, text, attrs);
             }
-        });
-        txtAccountNumber.addKeyListener(new KeyAdapter()
-        {
             @Override
             public void keyTyped(KeyEvent e)
             {
@@ -81,30 +86,41 @@ public class PanelTransfer extends JPanel
 
         JLabel lblVND = new JLabel("VNĐ");
         lblVND.setForeground(Color.GRAY);
-        lblVND.setFont(new Font("Arial", Font.BOLD, 13));
+        lblVND.setFont(new Font("Arial", Font.BOLD, 15));
         panelVND.add(lblVND);
 
-        JTextField txtAmount = new JTextField();
-        ((AbstractDocument) txtAmount.getDocument()).setDocumentFilter(new DocumentFilter()
-        {
-            Pattern regEx = Pattern.compile("\\d*");
-
+        NumberFormat format = NumberFormat.getInstance();
+        format.setMaximumFractionDigits(0);
+        NumberFormatter numberFormat = new NumberFormatter(format);
+        numberFormat.setAllowsInvalid(false);
+        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormat);
+        formattedTextField.setFont(new Font("Arial", Font.PLAIN, 15));
+        formattedTextField.setBorder(null);
+        formattedTextField.setText("0");
+        formattedTextField.addKeyListener(new KeyAdapter() {
             @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-            {
-                Matcher matcher = regEx.matcher(text);
-                if (!matcher.matches())
-                {
-                    return;
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    txtAccountNumber.setEditable(true);
+                    lblMessage.setText("");
+                } else {
+                    txtAccountNumber.setEditable(false);
+                    lblMessage.setText("Enter only numeric digits(0-9)");
                 }
-                super.replace(fb, offset, length, text, attrs);
+                if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                    if(formattedTextField.getText().length() == 1){
+                        formattedTextField.setText("0");
+                    }
+                }
+            }
+            @Override
+            public void keyTyped(KeyEvent e)
+            {
+                    if(formattedTextField.getText().length() == 27)
+                        e.consume();
             }
         });
-        txtAmount.setBackground(Color.WHITE);
-        txtAmount.setBorder(null);
-        txtAmount.setColumns(20);
-        txtAmount.setFont(new Font("Arial", Font.PLAIN, 15));
-        panelAmount.add(txtAmount);
+        panelAmount.add(formattedTextField);
         panelAmount.add(Box.createHorizontalGlue());
         panelAmount.add(panelVND);
 
@@ -123,23 +139,47 @@ public class PanelTransfer extends JPanel
         content.add(txtContent, gbc3);
 
 
-        this.setLayout(new BorderLayout(0, 0));
+        JPanel panelGBLEast = new RadiusAndShadow();
+        panelGBLEast.setPreferredSize(new Dimension(500, 200));
+        panelGBLEast.setBackground(Color.WHITE);
+        panelGBLEast.setLayout(new BoxLayout(panelGBLEast, BoxLayout.Y_AXIS));
 
-        JPanel panelGBLHeader = new JPanel();
-        panelGBLHeader.setPreferredSize(new Dimension(200, 100));
-        this.add(panelGBLHeader, "North");
 
-        JPanel panelGBLFooter = new JPanel();
-        panelGBLFooter.setPreferredSize(new Dimension(200, 100));
-        this.add(panelGBLFooter, "South");
+        JLabel lblName = new JLabel("VÕ ĐOÀN HOÀNG LONG");
+        lblName.setForeground(Color.RED);
+        lblName.setFont(new Font("Arial", Font.BOLD, 20));
+        lblName.setAlignmentX(CENTER_ALIGNMENT);
+        panelGBLEast.add(Box.createRigidArea(new Dimension(0,20)));
+        panelGBLEast.add(lblName);
+        panelGBLEast.add(Box.createRigidArea(new Dimension(0,20)));
 
-        JPanel panelGBLEast = new JPanel();
-        panelGBLEast.setPreferredSize(new Dimension(300, 200));
+        JPanel panelInformation =  new JPanel();
+        panelInformation.setBackground(Color.white);
+        panelInformation.setLayout(new FlowLayout(FlowLayout.LEFT,20,20));
+        panelGBLEast.add(panelInformation);
+
+
+        JLabel lblAccountNumber = new JLabel("Account Number: ");
+        lblAccountNumber.setFont(new Font("Arial", Font.BOLD, 15));
+        JPanel panelAccountNumber = new JPanel();
+        panelAccountNumber.setBackground(Color.WHITE);
+        panelAccountNumber.add(lblAccountNumber);
+        panelAccountNumber.add(new JLabel("Số tài khoản của tôi"));
+        panelInformation.add(panelAccountNumber);
+
+
+        JLabel lblBalance = new JLabel("Balance: ");
+        lblBalance.setFont(new Font("Arial", Font.BOLD, 15));
+        JPanel panelBalance = new JPanel();
+        panelBalance.setBackground(Color.WHITE);
+        panelBalance.add(lblBalance);
+        panelBalance.add(new JLabel("10000000000000000000000000000000000000000000000000000"));
+        panelBalance.add(new JLabel("VNĐ"));
+        panelInformation.add(panelBalance);
+
+
         this.add(panelGBLEast, "East");
-
-        JPanel panelGBLWest = new JPanel();
-        panelGBLWest.setPreferredSize(new Dimension(250, 200));
-        this.add(panelGBLWest, "West");
+        this.add(new JPanel(), "West");
 
 
         JPanel panelCenter = new JPanel();

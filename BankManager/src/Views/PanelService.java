@@ -21,12 +21,10 @@ public class PanelService extends JPanel
         flowLayout.setVgap(40);
 
         JPanel panelHeader = new JPanel();
-        panelHeader.setBackground(Color.WHITE);
         panelHeader.setLayout(flowLayout);
         this.add(panelHeader, "North");
 
         JPanel panelFooter = new JPanel();
-        panelFooter.setBackground(Color.WHITE);
         panelFooter.setLayout(new BorderLayout(0,0));
         panelFooter.setVisible(false);
         this.add(panelFooter, "South");
@@ -40,7 +38,6 @@ public class PanelService extends JPanel
 
         JPanel panelMessage = new JPanel();
         panelMessage.setLayout(new FlowLayout(FlowLayout.CENTER,0,10));
-        panelMessage.setBackground(Color.WHITE);
         panelMessage.setPreferredSize(new Dimension(500,30));
         panelFooter.add(panelMessage, "North");
 
@@ -52,7 +49,6 @@ public class PanelService extends JPanel
 
         flowLayout.setVgap(10);
         JPanel footer = new JPanel();
-        footer.setBackground(Color.WHITE);
         footer.setLayout(flowLayout);
         panelFooter.add(footer, "Center");
 
