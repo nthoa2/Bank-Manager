@@ -20,7 +20,7 @@ import javafx.scene.paint.Paint;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class lineChart
+public class LineGraph
         extends JFXPanel {
     private int d1 = 1;
     private int m1 = 5;
@@ -30,12 +30,12 @@ public class lineChart
     private int y2 = 2021;
 
 
-    private LineChart createChart() {
+    private javafx.scene.chart.LineChart createChart() {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
-        LineChart lineChart = new LineChart((Axis)xAxis, (Axis)yAxis);
+        javafx.scene.chart.LineChart lineChart = new javafx.scene.chart.LineChart((Axis)xAxis, (Axis)yAxis);
         XYChart.Series spendingSeries = new XYChart.Series();
         spendingSeries.setName("Chi Tiêu");
         XYChart.Series receivedSeries = new XYChart.Series();
@@ -78,7 +78,7 @@ public class lineChart
         return scene;
     }
 
-    public lineChart() {
+    public LineGraph() {
         this.setScene(this.createScene());
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
         this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Biến Động Thu Chi Trong Tháng", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));

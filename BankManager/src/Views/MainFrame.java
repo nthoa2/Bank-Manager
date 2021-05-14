@@ -1,8 +1,6 @@
 package Views;
 
 
-import Model.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
@@ -11,17 +9,17 @@ import java.awt.event.*;
 
 public class MainFrame extends JFrame {
 
-    private Image img_logo = new ImageIcon(Login.class.getResource("/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-    private Image img_home = new ImageIcon("src/Res/home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_logo = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+    private Image img_overview = new ImageIcon("src/Res/overview.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
     private Image img_history = new ImageIcon("src/Res/history.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_service = new ImageIcon("src/Res/transfer.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_sign_out = new ImageIcon("src/Res/sign-out.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
-    private Image img_home_actived = new ImageIcon("src/Res/home-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_history_actived = new ImageIcon("src/Res/history-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_service_actived = new ImageIcon("src/Res/transfer-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_sign_out_actived = new ImageIcon("src/Res/sign-out-actived.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    private Image img_overview_actived = new ImageIcon("src/Res/overview-active.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_history_actived = new ImageIcon("src/Res/history-active.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_service_actived = new ImageIcon("src/Res/transfer-active.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_sign_out_actived = new ImageIcon("src/Res/sign-out-active.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
     private Color exitedColor = new Color(56, 72, 97);
     private Color enteredColor = new Color(210, 220, 230);
@@ -97,7 +95,7 @@ public class MainFrame extends JFrame {
         this.btnHome = new JToggleButton("Tổng Quan");
         this.btnHome.setUI(this.metalToggleButton);
         this.btnHome.setIconTextGap(10);
-        this.btnHome.setIcon(new ImageIcon(img_home));
+        this.btnHome.setIcon(new ImageIcon(img_overview));
         this.btnHome.setFocusable(false);
         this.btnHome.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.btnHome.setForeground(Color.WHITE);
@@ -115,14 +113,14 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseEntered(MouseEvent e) {
                 MainFrame.this.btnHome.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnHome.setIcon(new ImageIcon(img_home_actived));
+                MainFrame.this.btnHome.setIcon(new ImageIcon(img_overview_actived));
                 MainFrame.this.btnHome.setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 MainFrame.this.btnHome.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnHome.setIcon(new ImageIcon(img_home));
+                MainFrame.this.btnHome.setIcon(new ImageIcon(img_overview));
                 MainFrame.this.btnHome.setForeground(Color.WHITE);
             }
         });
@@ -225,8 +223,6 @@ public class MainFrame extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 1) {
                     MainFrame.this.dispose();
-                    LoginFrame login = new LoginFrame();
-                    login.run();
                 }
             }
 
@@ -301,7 +297,7 @@ public class MainFrame extends JFrame {
         this.cardPanelIndex = new JPanel();
         this.cardPanel.add((Component) this.cardPanelIndex, "index");
 
-        this.cardOverviewPanel = new HomePanel();
+        this.cardOverviewPanel = new Overview();
         this.cardPanel.add((Component) this.cardOverviewPanel, "overview");
 
         detailsPanel.add((Component) this.cardPanel, "Center");

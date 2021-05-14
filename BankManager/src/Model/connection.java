@@ -6,7 +6,7 @@ public class connection {
     private static final String DatabaseURL = "jdbc:sqlserver://localhost:1433;databaseName=BankManager;";
     private static final String USER_NAME = "sa";
     private static final String PASSWORD = "admin";
-    public static java.sql.Connection conn = null;
+    public static Connection conn = null;
 
     static PreparedStatement preparedStatement(String strQuery) {
         throw new UnsupportedOperationException("Not supported yet.");

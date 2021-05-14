@@ -7,12 +7,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class HomePanel extends JPanel {
+public class Overview extends JPanel {
     static JLabel accountBalanceLabelValue;
     static JLabel totalSpendingValue;
     static JLabel totalReceivedValue;
-    private colunmChart barChart;
-    private lineChart lineChart;
+    private ColumnChart barChart;
+    private LineGraph lineChart;
 
 
     private JPanel northPanel() {
@@ -130,7 +130,7 @@ public class HomePanel extends JPanel {
         gbcLineChart.insets = new Insets(0, 0, 5, 0);
         gbcLineChart.gridx = 0;
         gbcLineChart.gridy = 0;
-        this.lineChart = new lineChart();
+        this.lineChart = new LineGraph();
         mainPanel.add((Component) ((Object) this.lineChart), gbcLineChart);
         GridBagConstraints gbcBarChart = new GridBagConstraints();
         gbcBarChart.fill = 1;
@@ -141,7 +141,7 @@ public class HomePanel extends JPanel {
 
 
         JPanel recentTransactionsPanel = new JPanel();
-        recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Các Giao Dịch Gần Đây", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
+        recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Giao Dịch Gần Đây", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
         recentTransactionsPanel.setLayout(new BorderLayout(0, 0));
         recentTransactionsPanel.setPreferredSize(new Dimension(100, 265));
         JTable recentTransactionsTable = new JTable();
@@ -150,15 +150,15 @@ public class HomePanel extends JPanel {
         recentTransactionsTable.setFillsViewportHeight(true);
         recentTransactionsTable.setSelectionMode(0);
         recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 16));
-        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Loại", "Ngày", "Chi Tiết", "Số Tiền"}) {
+        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Loại GD", "Ngày GD", "Chi Tiết", "Số Tiền"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
-        recentTransactionsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
-        recentTransactionsTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-        recentTransactionsTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+        recentTransactionsTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+        recentTransactionsTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+        recentTransactionsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
         recentTransactionsTable.setRowHeight(30);
         recentTransactionsTable.getColumn("Chi Tiết").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -183,7 +183,7 @@ public class HomePanel extends JPanel {
         return mainPanel;
     }
 
-    public HomePanel() {
+    public Overview() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -192,10 +192,11 @@ public class HomePanel extends JPanel {
         this.setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         mainPanel.add((Component) this.northPanel(), "North");
         mainPanel.add((Component) this.centerPanel(), "Center");
-        this.barChart = new colunmChart();
+        this.barChart = new ColumnChart();
         mainPanel.add((Component) this.southPanel(), "South");
         this.add((Component) scrollPane, "Center");
     }
