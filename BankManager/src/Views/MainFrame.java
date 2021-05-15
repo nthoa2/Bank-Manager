@@ -36,6 +36,7 @@ public class MainFrame extends JFrame {
     private JPanel cardPanelIndex;
     private JPanel cardPanel;
     private JPanel cardOverviewPanel;
+    private JPanel cardHistoryPanel;
     MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI() {
         @Override
         protected Color getSelectColor() {
@@ -145,7 +146,9 @@ public class MainFrame extends JFrame {
         this.btnHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // goi panel History
+                if (e.getButton() == 1) {
+                    MainFrame.this.showDetailsPanel("history");
+                }
             }
 
             @Override
@@ -299,6 +302,9 @@ public class MainFrame extends JFrame {
 
         this.cardOverviewPanel = new Overview();
         this.cardPanel.add((Component) this.cardOverviewPanel, "overview");
+
+        this.cardHistoryPanel = new HistoryPanel();
+        this.cardPanel.add((Component) this.cardHistoryPanel, "history");
 
         detailsPanel.add((Component) this.cardPanel, "Center");
 
