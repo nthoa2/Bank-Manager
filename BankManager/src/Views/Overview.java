@@ -5,6 +5,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class Overview extends JPanel {
@@ -16,8 +17,8 @@ public class Overview extends JPanel {
 
 
     private JPanel northPanel() {
-        JPanel overViewPanel = new JPanel();
-        overViewPanel.setPreferredSize(new Dimension(50, 70));
+        JPanel rootPanel = new JPanel();
+        rootPanel.setPreferredSize(new Dimension(50, 70));
         GridBagLayout overViewPanelLayout = new GridBagLayout();
         int[] columnWidths = new int[5];
         columnWidths[0] = 34;
@@ -28,7 +29,7 @@ public class Overview extends JPanel {
         overViewPanelLayout.rowHeights = rowHeights;
         overViewPanelLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         overViewPanelLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-        overViewPanel.setLayout(overViewPanelLayout);
+        rootPanel.setLayout(overViewPanelLayout);
         JLabel panelTitle = new JLabel("Tổng Quan");
         panelTitle.setIconTextGap(0);
         panelTitle.setHorizontalAlignment(0);
@@ -42,9 +43,9 @@ public class Overview extends JPanel {
         TitleConstraints.insets = new Insets(0, 0, 5, 5);
         TitleConstraints.gridx = 0;
         TitleConstraints.gridy = 1;
-        overViewPanel.add((Component) panelTitle, TitleConstraints);
+        rootPanel.add((Component) panelTitle, TitleConstraints);
 
-        return overViewPanel;
+        return rootPanel;
     }
 
     private JPanel centerPanel() {
@@ -149,7 +150,7 @@ public class Overview extends JPanel {
         recentTransactionsPanel.add(scrollPane);
         recentTransactionsTable.setFillsViewportHeight(true);
         recentTransactionsTable.setSelectionMode(0);
-        recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 12));
         recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Loại GD", "Ngày GD", "Chi Tiết", "Số Tiền"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -172,6 +173,12 @@ public class Overview extends JPanel {
                 super.setHorizontalAlignment(4);
             }
         });
+        JTableHeader headerTable = recentTransactionsTable.getTableHeader();
+        headerTable.setFont(new Font("Open Sans", Font.BOLD, 13));
+        headerTable.setBackground(new Color(240, 240, 240));
+        headerTable.setOpaque(true);
+        headerTable.setAlignmentY(SwingConstants.CENTER);
+        headerTable.setPreferredSize(new Dimension(50, 25));
         GridBagConstraints gbcRecentTransactions = new GridBagConstraints();
         gbcRecentTransactions.gridwidth = 2;
         gbcRecentTransactions.insets = new Insets(0, 5, 5, 0);
