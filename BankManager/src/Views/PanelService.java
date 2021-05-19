@@ -10,6 +10,7 @@ public class PanelService extends JPanel
 {
     private FlowLayout flowLayout = new FlowLayout();
     private CardLayout cardLayout = new CardLayout();
+    public static JLabel lblMessage;
 
     public PanelService()
     {
@@ -41,10 +42,9 @@ public class PanelService extends JPanel
         panelMessage.setPreferredSize(new Dimension(500,30));
         panelFooter.add(panelMessage, "North");
 
-        JLabel lblMessage = new JLabel("Số tài khoản không tồn tại");
+        lblMessage = new JLabel("");
         lblMessage.setForeground(Color.RED);
         lblMessage.setFont(new Font("Arial", Font.BOLD, 12));
-        lblMessage.setVisible(false);
         panelMessage.add(lblMessage);
 
         flowLayout.setVgap(10);
@@ -101,7 +101,6 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                lblMessage.setVisible(true);
             }
             @Override
             public void mouseEntered(MouseEvent e)
@@ -139,7 +138,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                lblMessage.setVisible(false);
+                lblMessage.setText("");
                 panelForm.add(new PanelTransfer(), "1");
                 panelForm.setVisible(true);
                 cardLayout.show(panelForm, "1");
@@ -182,7 +181,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                lblMessage.setVisible(false);
+                lblMessage.setText("");
                 panelForm.add(new PanelRecharge(), "2");
                 panelForm.setVisible(true);
                 cardLayout.show(panelForm, "2");
@@ -225,7 +224,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                lblMessage.setVisible(false);
+                lblMessage.setText("");
                 panelForm.add(new PanelWithdraw(), "3");
                 panelForm.setVisible(true);
                 cardLayout.show(panelForm, "3");

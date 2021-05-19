@@ -1,5 +1,7 @@
 package Views;
 
+import Model.Login;
+
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -21,16 +23,11 @@ public class PanelWithdraw extends JPanel
         gbc3.weighty = 1;
         gbc3.fill = GridBagConstraints.BOTH;
 
-        JLabel lblMessage = new JLabel();
-        lblMessage.setFont(new Font("Arial", Font.BOLD, 15));
-        lblMessage.setForeground(Color.red);
-
         JPanel panelGBLHeader = new JPanel();
         panelGBLHeader.setPreferredSize(new Dimension(200, 100));
         this.add(panelGBLHeader, "North");
 
         JPanel panelGBLFooter = new JPanel();
-        panelGBLFooter.add(lblMessage);
         panelGBLFooter.setPreferredSize(new Dimension(200, 100));
         this.add(panelGBLFooter, "South");
 
@@ -40,7 +37,7 @@ public class PanelWithdraw extends JPanel
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
         txtAccountNumber.setEnabled(false);
-        txtAccountNumber.setText("Số tài khoản rút");
+        txtAccountNumber.setText(Login.accountNumber);
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
@@ -80,26 +77,33 @@ public class PanelWithdraw extends JPanel
         formattedTextField.setFont(new Font("Arial", Font.PLAIN, 15));
         formattedTextField.setBorder(null);
         formattedTextField.setText("0");
-        formattedTextField.addKeyListener(new KeyAdapter() {
+        formattedTextField.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
                     txtAccountNumber.setEditable(true);
-                    lblMessage.setText("");
-                } else {
+                    PanelService.lblMessage.setText("");
+                } else
+                {
                     txtAccountNumber.setEditable(false);
-                    lblMessage.setText("Enter only numeric digits(0-9)");
+                    PanelService.lblMessage.setText("Enter only numeric digits(0-9)");
                 }
-                if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
-                    if(formattedTextField.getText().length() == 1){
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
+                    if (formattedTextField.getText().length() == 1)
+                    {
                         formattedTextField.setText("0");
                     }
                 }
             }
+
             @Override
             public void keyTyped(KeyEvent e)
             {
-                if(formattedTextField.getText().length() == 27)
+                if (formattedTextField.getText().length() == 27)
                     e.consume();
             }
         });
@@ -112,34 +116,29 @@ public class PanelWithdraw extends JPanel
         JPanel content = new RadiusAndShadow();
         content.setBackground(Color.WHITE);
         content.setLayout(new GridBagLayout());
-        JTextArea txtContent = new JTextArea();
-        txtContent.setBackground(Color.WHITE);
-        txtContent.setLineWrap(true);
-        txtContent.setBorder(null);
-        txtContent.setRows(10);
-        txtContent.setColumns(20);
-        txtContent.setFont(new Font("Arial", Font.PLAIN, 15));
-        content.add(txtContent, gbc3);
+        JTextArea txtContentWithdraw = new JTextArea();
+        txtContentWithdraw.setBackground(Color.WHITE);
+        txtContentWithdraw.setLineWrap(true);
+        txtContentWithdraw.setBorder(null);
+        txtContentWithdraw.setRows(10);
+        txtContentWithdraw.setColumns(20);
+        txtContentWithdraw.setFont(new Font("Arial", Font.PLAIN, 15));
+        content.add(txtContentWithdraw, gbc3);
 
 
         JPanel panelGBLEast = new RadiusAndShadow();
         panelGBLEast.setPreferredSize(new Dimension(500, 200));
         panelGBLEast.setBackground(Color.WHITE);
-        panelGBLEast.setLayout(new BoxLayout(panelGBLEast, BoxLayout.Y_AXIS));
+        panelGBLEast.setLayout(new GridLayout(10, 1, 20, 0));
 
 
-        JLabel lblName = new JLabel("VÕ ĐOÀN HOÀNG LONG");
+        JLabel lblName = new JLabel(Login.fullname);
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Arial", Font.BOLD, 20));
-        lblName.setAlignmentX(CENTER_ALIGNMENT);
-        panelGBLEast.add(Box.createRigidArea(new Dimension(0,20)));
-        panelGBLEast.add(lblName);
-        panelGBLEast.add(Box.createRigidArea(new Dimension(0,20)));
-
-        JPanel panelInformation =  new JPanel();
-        panelInformation.setBackground(Color.white);
-        panelInformation.setLayout(new FlowLayout(FlowLayout.LEFT,20,20));
-        panelGBLEast.add(panelInformation);
+        JPanel panelName = new JPanel();
+        panelName.add(lblName);
+        panelName.setBackground(Color.WHITE);
+        panelGBLEast.add(panelName);
 
 
         JLabel lblAccountNumber = new JLabel("Account Number: ");
@@ -147,8 +146,8 @@ public class PanelWithdraw extends JPanel
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
-        panelAccountNumber.add(new JLabel("Số tài khoản của tôi"));
-        panelInformation.add(panelAccountNumber);
+        panelAccountNumber.add(new JLabel(Login.accountNumber));
+        panelGBLEast.add(panelAccountNumber);
 
 
         JLabel lblBalance = new JLabel("Balance: ");
@@ -156,9 +155,9 @@ public class PanelWithdraw extends JPanel
         JPanel panelBalance = new JPanel();
         panelBalance.setBackground(Color.WHITE);
         panelBalance.add(lblBalance);
-        panelBalance.add(new JLabel("10000000000000000000000000000000000000000000000000000"));
+        panelBalance.add(new JLabel(Login.balance));
         panelBalance.add(new JLabel("VNĐ"));
-        panelInformation.add(panelBalance);
+        panelGBLEast.add(panelBalance);
 
 
         this.add(panelGBLEast, "East");
@@ -174,7 +173,7 @@ public class PanelWithdraw extends JPanel
         panel1.add(new JLabel("Account number received"), "Center");
 
         panelCenter.add(panel1);
-        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(accountNumber);
 
         JPanel panel2 = new JPanel();
@@ -182,7 +181,7 @@ public class PanelWithdraw extends JPanel
         panel2.add(new JLabel("Amount"), "Center");
 
         panelCenter.add(panel2);
-        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(amount);
 
         JPanel panel3 = new JPanel();
@@ -190,7 +189,7 @@ public class PanelWithdraw extends JPanel
         panel3.add(new JLabel("Content"), "Center");
 
         panelCenter.add(panel3);
-        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(content);
     }
 }

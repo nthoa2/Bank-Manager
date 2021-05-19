@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 public class LoginFrame extends JFrame
 {
 
+    public static String username;
+    public static String password;
 
     private JPanel mainPane;
     private JTextField txtUsername;
@@ -58,6 +60,13 @@ public class LoginFrame extends JFrame
         contentPaneRight.setBounds(700, 2, 298,596);
         contentPaneRight.setLayout(null);
         mainPane.add(contentPaneRight);
+
+        JLabel lblLoginMessage = new JLabel("");
+        lblLoginMessage.setForeground(Color.RED);
+        lblLoginMessage.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
+        lblLoginMessage.setBounds(0, 350, 298, 20);
+        contentPaneRight.add(lblLoginMessage);
 
         JLabel lblIconLogoBank = new JLabel("");
         lblIconLogoBank.setHorizontalAlignment(SwingConstants.CENTER);
@@ -209,20 +218,17 @@ public class LoginFrame extends JFrame
 
 
         // Button Login
-        JLabel lblLoginMessage = new JLabel("");
-        lblLoginMessage.setForeground(Color.RED);
-        lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
-        lblLoginMessage.setBounds(60, 350, 250, 20);
-        contentPaneRight.add(lblLoginMessage);
-
         JPanel pnlBtnLogin = new RadiusAndShadow();
         pnlBtnLogin.addMouseListener(new MouseAdapter()
         {
             @Override
             public void mouseClicked(MouseEvent e)
             {
+
                 if (new Login().CheckLogin(txtUsername.getText(), txtPassword.getText()))
                 {
+                    LoginFrame.password = txtPassword.getText();
+                    LoginFrame.username = txtUsername.getText();
                     new MainFrame().setVisible(true);
                     LoginFrame.this.dispose();
                 } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))

@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame
 {
-
     private Image img_logo = new ImageIcon(Login.class.getResource("/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
     private Image img_home = new ImageIcon("src/Res/home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -364,4 +363,5 @@ public class MainFrame extends JFrame
     {
         this.cardPanelLayout.show(this.cardPanel, constraints);
     }
+
 }

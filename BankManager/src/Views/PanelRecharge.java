@@ -1,5 +1,7 @@
 package Views;
 
+import Model.Login;
+
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -11,6 +13,7 @@ public class PanelRecharge extends JPanel
 {
     private GridBagConstraints gbc3;
 
+
     public PanelRecharge()
     {
         this.setLayout(new BorderLayout(40, 0));
@@ -21,16 +24,12 @@ public class PanelRecharge extends JPanel
         gbc3.weighty = 1;
         gbc3.fill = GridBagConstraints.BOTH;
 
-        JLabel lblMessage = new JLabel();
-        lblMessage.setFont(new Font("Arial", Font.BOLD, 15));
-        lblMessage.setForeground(Color.red);
 
         JPanel panelGBLHeader = new JPanel();
         panelGBLHeader.setPreferredSize(new Dimension(200, 100));
         this.add(panelGBLHeader, "North");
 
         JPanel panelGBLFooter = new JPanel();
-        panelGBLFooter.add(lblMessage);
         panelGBLFooter.setPreferredSize(new Dimension(200, 100));
         this.add(panelGBLFooter, "South");
 
@@ -40,7 +39,7 @@ public class PanelRecharge extends JPanel
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
         txtAccountNumber.setEnabled(false);
-        txtAccountNumber.setText("Số tài khoản nạp");
+        txtAccountNumber.setText(Login.accountNumber);
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
@@ -85,10 +84,10 @@ public class PanelRecharge extends JPanel
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                     txtAccountNumber.setEditable(true);
-                    lblMessage.setText("");
+                    PanelService.lblMessage.setText("");
                 } else {
                     txtAccountNumber.setEditable(false);
-                    lblMessage.setText("Enter only numeric digits(0-9)");
+                    PanelService.lblMessage.setText("Enter only numeric digits(0-9)");
                 }
                 if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
                     if(formattedTextField.getText().length() == 1){
@@ -125,21 +124,16 @@ public class PanelRecharge extends JPanel
         JPanel panelGBLEast = new RadiusAndShadow();
         panelGBLEast.setPreferredSize(new Dimension(500, 200));
         panelGBLEast.setBackground(Color.WHITE);
-        panelGBLEast.setLayout(new BoxLayout(panelGBLEast, BoxLayout.Y_AXIS));
+        panelGBLEast.setLayout(new GridLayout(10,1,20,0));
 
 
-        JLabel lblName = new JLabel("VÕ ĐOÀN HOÀNG LONG");
+        JLabel lblName = new JLabel(Login.fullname);
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Arial", Font.BOLD, 20));
-        lblName.setAlignmentX(CENTER_ALIGNMENT);
-        panelGBLEast.add(Box.createRigidArea(new Dimension(0,20)));
-        panelGBLEast.add(lblName);
-        panelGBLEast.add(Box.createRigidArea(new Dimension(0,20)));
-
-        JPanel panelInformation =  new JPanel();
-        panelInformation.setBackground(Color.white);
-        panelInformation.setLayout(new FlowLayout(FlowLayout.LEFT,20,20));
-        panelGBLEast.add(panelInformation);
+        JPanel panelName = new JPanel();
+        panelName.add(lblName);
+        panelName.setBackground(Color.WHITE);
+        panelGBLEast.add(panelName);
 
 
         JLabel lblAccountNumber = new JLabel("Account Number: ");
@@ -147,8 +141,8 @@ public class PanelRecharge extends JPanel
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
-        panelAccountNumber.add(new JLabel("Số tài khoản của tôi"));
-        panelInformation.add(panelAccountNumber);
+        panelAccountNumber.add(new JLabel(Login.accountNumber));
+        panelGBLEast.add(panelAccountNumber);
 
 
         JLabel lblBalance = new JLabel("Balance: ");
@@ -156,9 +150,9 @@ public class PanelRecharge extends JPanel
         JPanel panelBalance = new JPanel();
         panelBalance.setBackground(Color.WHITE);
         panelBalance.add(lblBalance);
-        panelBalance.add(new JLabel("10000000000000000000000000000000000000000000000000000"));
+        panelBalance.add(new JLabel(Login.balance));
         panelBalance.add(new JLabel("VNĐ"));
-        panelInformation.add(panelBalance);
+        panelGBLEast.add(panelBalance);
 
 
         this.add(panelGBLEast, "East");

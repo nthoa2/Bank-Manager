@@ -68,8 +68,9 @@ public class SignUpFrame extends JFrame
 
         JLabel lblLoginMessage = new JLabel("");
         lblLoginMessage.setForeground(Color.RED);
+        lblLoginMessage.setHorizontalAlignment(SwingConstants.CENTER);
         lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
-        lblLoginMessage.setBounds(200, 380, 250, 18);
+        lblLoginMessage.setBounds(0, 380, 600, 18);
         setLocationRelativeTo(null);
         contentPane.add(lblLoginMessage);
 
@@ -1056,9 +1057,9 @@ public class SignUpFrame extends JFrame
                     lblLoginMessage.setText("Invalid citizen identification number");
                 else if (txtPhoneNumber.getText().length() < 10)
                     lblLoginMessage.setText("Invalid phone number");
-                else if (Integer.parseInt(txtDay.getText()) > 31)
+                else if (Integer.parseInt(txtDay.getText()) > 31 || Integer.parseInt(txtDay.getText()) == 0)
                     lblLoginMessage.setText("Invalid day");
-                else if (Integer.parseInt(txtMonth.getText()) > 12)
+                else if (Integer.parseInt(txtMonth.getText()) > 12 || Integer.parseInt(txtMonth.getText()) == 0)
                     lblLoginMessage.setText("Invalid month");
                 else if (txtYear.getText().length() < 4)
                     lblLoginMessage.setText("Invalid year of birth");
@@ -1133,7 +1134,7 @@ public class SignUpFrame extends JFrame
         JLabel lblSignUp = new JLabel("Register");
         lblSignUp.setForeground(Color.BLACK);
         lblSignUp.setFont(new Font("Arial", Font.BOLD, 15));
-        lblSignUp.setBounds(90, 6, 64, 28);
+        lblSignUp.setBounds(100, 6, 64, 28);
         pnlBtnSignUp.add(lblSignUp);
 
     }
