@@ -1,6 +1,8 @@
 package Views;
 
 
+import Model.connection;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
@@ -8,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainFrame extends JFrame {
-
+    public static connection connect = new connection();
     private Image img_logo = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
     private Image img_overview = new ImageIcon("src/Res/overview.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -59,7 +61,7 @@ public class MainFrame extends JFrame {
     }
 
     public MainFrame() {
-        this.setDefaultCloseOperation(3);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //        this.setIconImage(new ImageIcon());
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();

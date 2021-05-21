@@ -1,5 +1,8 @@
 package Views;
 
+import Controller.Control_Trading;
+import Model.connection;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -7,17 +10,21 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
 
 public class HistoryPanel extends JPanel {
     static JLabel accountDetailsName;
     static JLabel accountBalance;
+    private JTable contentTable;
 
     private JPanel headerPanel() {
         JPanel rootPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout(5, 0));
-        rootPanel.setPreferredSize(new Dimension(50,90));
+        rootPanel.setPreferredSize(new Dimension(50, 90));
         JPanel headerPanel = new JPanel(); // Title
         GridBagLayout headerPanelLayout = new GridBagLayout();
         int[] columnWidths = new int[5];
@@ -31,7 +38,7 @@ public class HistoryPanel extends JPanel {
         headerPanelLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         headerPanel.setLayout(headerPanelLayout);
         JLabel headerTitle = new JLabel("Lịch Sử Giao Dịch");
-        headerTitle.setFont(new Font("Open Sans",Font.BOLD,29));
+        headerTitle.setFont(new Font("Open Sans", Font.BOLD, 29));
         headerTitle.setIconTextGap(0);
         headerTitle.setHorizontalAlignment(SwingConstants.CENTER);
         headerTitle.setAlignmentX(1.0f);
@@ -43,68 +50,48 @@ public class HistoryPanel extends JPanel {
         TitleConstraints.insets = new Insets(0, 0, 5, 5);
         TitleConstraints.gridx = 0;
         TitleConstraints.gridy = 1;
-        headerPanel.add(headerTitle,TitleConstraints);
+        headerPanel.add(headerTitle, TitleConstraints);
 
         rootPanel.add((Component) headerPanel, "North");
         return rootPanel;
     }
-    private JPanel contentPanel(){
-        JPanel cardDetailsPanel = new JPanel(); // card details
-        cardDetailsPanel.setLayout(new GridLayout(0,3,5,5));
-        JPanel accountDetailsPanel = new JPanel();
-        accountDetailsPanel.setBorder(new EtchedBorder(1, null, Color.DARK_GRAY));
-        accountDetailsPanel.setBackground(Color.WHITE);
-        accountDetailsPanel.setLayout(new BorderLayout(0, 0));
-        accountDetailsName = new JLabel("Nguyễn Thanh Hòa");
-        accountDetailsName.setVerticalTextPosition(0);
-        accountDetailsName.setHorizontalAlignment(0);
-        accountDetailsName.setFont(new Font("Open Sans", Font.PLAIN, 18));
-        accountDetailsPanel.add((Component) accountDetailsName, "North");
-        accountBalance = new JLabel("0");
-        accountBalance.setHorizontalAlignment(0);
-        accountBalance.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        accountDetailsPanel.add((Component) accountBalance, "Center");
-        cardDetailsPanel.add(accountDetailsPanel);
 
-        return cardDetailsPanel;
-    }
     private JPanel dataPanel() {
         JPanel rootPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout(0, 0));
 
         JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
-        JLabel filterLabel = new JLabel("Lọc Theo");
+        JLabel filterLabel = new JLabel("Lọc   ");
         filterLabel.setFont(new Font("Open Sans", Font.BOLD, 14));
         JComboBox<String> comboBoxFilter = new JComboBox<String>();
         comboBoxFilter.setFont(new Font("Open Sans", Font.BOLD, 13));
-        comboBoxFilter.setPreferredSize(new Dimension(150, 25));
-        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Mặc Định", "Loại Giao Dịch", "Người Nhận", "Ngày Giao Dịch"}));
+        comboBoxFilter.setPreferredSize(new Dimension(170, 25));
+        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Chuyển Khoản", "Nhận Chuyển Khoản"}));
         comboBoxFilter.setMaximumRowCount(10);
-
+        comboBoxFilter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Control_Trading.uploadTradingByType(HistoryPanel.this.contentTable,(String)comboBoxFilter.getSelectedItem());
+            }
+        });
         filterPanel.add(filterLabel);
         filterPanel.add(comboBoxFilter);
         rootPanel.add((Component) filterPanel, "North");
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);
-        JTable contentTable = new JTable();
+        contentTable = new JTable();
         scrollPane.setViewportView(contentTable);
         contentTable.setSelectionMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-        DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "TK Thụ Hưởng", "Nội Dung", "Số Tiền"}, 0) {
+        DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Nhận", "Nội Dung", "Số Tiền"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
         contentTable.setModel(tableModel);
-        contentTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // hien thi chi tiet giao dịch
-            }
-        });
-        contentTable.setFont(new Font("Open Sans", Font.PLAIN, 12));
+        contentTable.setFont(new Font("Open Sans", Font.BOLD, 13));
         contentTable.setFillsViewportHeight(true);
         contentTable.setRowHeight(25);
         contentTable.getColumnModel().getColumn(0).setPreferredWidth(15);
@@ -117,11 +104,12 @@ public class HistoryPanel extends JPanel {
             }
         });
         JTableHeader headerTable = contentTable.getTableHeader();
-        headerTable.setFont(new Font("Open Sans", Font.BOLD, 13));
+        headerTable.setFont(new Font("Open Sans", Font.BOLD, 14));
         headerTable.setBackground(new Color(240, 240, 240));
         headerTable.setOpaque(true);
         headerTable.setAlignmentY(SwingConstants.CENTER);
-        headerTable.setPreferredSize(new Dimension(55, 35));
+        headerTable.setPreferredSize(new Dimension(50, 30));
+        headerTable.setReorderingAllowed(false);
 
 
         rootPanel.add(scrollPane, "Center");
@@ -132,12 +120,9 @@ public class HistoryPanel extends JPanel {
     public HistoryPanel() {
         this.setLayout(new BorderLayout(0, 0));
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
-        this.setAlignmentY(SwingConstants.LEADING);
-
         this.add((Component) this.headerPanel(), "North");
-        this.add((Component) this.contentPanel(), "Center");
-        this.add((Component) this.dataPanel(),"South");
-
+        this.add((Component) this.dataPanel(), "Center");
+        Control_Trading.uploadAllTradingData(this.contentTable);
     }
 
 

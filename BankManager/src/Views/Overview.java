@@ -151,7 +151,7 @@ public class Overview extends JPanel {
         recentTransactionsTable.setFillsViewportHeight(true);
         recentTransactionsTable.setSelectionMode(0);
         recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Loại GD", "Ngày GD", "Chi Tiết", "Số Tiền"}) {
+        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Loại GD", "Ngày GD", "Nội Dung", "Số Tiền"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -161,7 +161,7 @@ public class Overview extends JPanel {
         recentTransactionsTable.getColumnModel().getColumn(1).setPreferredWidth(50);
         recentTransactionsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
         recentTransactionsTable.setRowHeight(30);
-        recentTransactionsTable.getColumn("Chi Tiết").setCellRenderer(new DefaultTableCellRenderer() {
+        recentTransactionsTable.getColumn("Nội Dung").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public void setHorizontalAlignment(int alignment) {
                 super.setHorizontalAlignment(4);
