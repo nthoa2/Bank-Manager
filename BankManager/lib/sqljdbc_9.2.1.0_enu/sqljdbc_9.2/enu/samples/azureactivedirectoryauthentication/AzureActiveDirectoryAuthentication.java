@@ -90,7 +90,7 @@ public class AzureActiveDirectoryAuthentication {
 
             try (Connection con = ds.getConnection(); Statement stmt = con.createStatement();) {
                 System.out.println();
-                System.out.println("connection established successfully.");
+                System.out.println("Connection established successfully.");
 
                 // Create and execute an SQL statement that returns user name.
                 String SQL = "SELECT SUSER_SNAME()";

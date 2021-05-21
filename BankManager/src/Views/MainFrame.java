@@ -1,31 +1,32 @@
 package Views;
 
 
-import Model.connection;
+import Model.Login;
 
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class MainFrame extends JFrame {
-    public static connection connect = new connection();
-    private Image img_logo = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-    private Image img_overview = new ImageIcon("src/Res/overview.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+public class MainFrame extends JFrame
+{
+    private Image img_logo = new ImageIcon(Login.class.getResource("/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+    private Image img_home = new ImageIcon("src/Res/home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
     private Image img_history = new ImageIcon("src/Res/history.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_service = new ImageIcon("src/Res/transfer.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_sign_out = new ImageIcon("src/Res/sign-out.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
-    private Image img_overview_actived = new ImageIcon("src/Res/overview-active.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_history_actived = new ImageIcon("src/Res/history-active.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_service_actived = new ImageIcon("src/Res/transfer-active.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_sign_out_actived = new ImageIcon("src/Res/sign-out-active.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    private Image img_home_actived = new ImageIcon("src/Res/home-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_history_actived = new ImageIcon("src/Res/history-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_service_actived = new ImageIcon("src/Res/transfer-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_sign_out_actived = new ImageIcon("src/Res/sign-out-actived.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
     private Color exitedColor = new Color(56, 72, 97);
     private Color enteredColor = new Color(210, 220, 230);
-    private Color clickedColor = new Color(56, 165, 111);
+    private Color clickedColor = new Color(60, 179, 113);
     private Dimension btnSize = new Dimension(230, 40);
     private JPanel contentPane;
     private JLabel Logo;
@@ -34,40 +35,48 @@ public class MainFrame extends JFrame {
     private JToggleButton btnService;
     private JToggleButton btnLogOut;
 
+    private JLabel lblHome;
+    private JLabel lblTextHome;
+    private JLabel lblHistory;
+    private JLabel lblTextHistory;
+    private JLabel lblService;
+    private JLabel lblTextService;
+    private JLabel lblLogOut;
+    private JLabel lblTextLogOut;
+
     private CardLayout cardPanelLayout;
-    private JPanel cardPanelIndex;
     private JPanel cardPanel;
-    private JPanel cardOverviewPanel;
-    private JPanel cardHistoryPanel;
-    MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI() {
+    MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI()
+    {
         @Override
-        protected Color getSelectColor() {
+        protected Color getSelectColor()
+        {
             return MainFrame.this.clickedColor;
         }
     };
 
-    public void run() {
-        EventQueue.invokeLater(new Runnable() {
+    public static void main(String[] args)
+    {
+        EventQueue.invokeLater(new Runnable()
+        {
 
             @Override
-            public void run() {
-                try {
-                    MainFrame.this.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void run()
+            {
+                new MainFrame().setVisible(true);
             }
         });
     }
 
-    public MainFrame() {
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        this.setIconImage(new ImageIcon());
+    public MainFrame()
+    {
+        this.setDefaultCloseOperation(3);
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.contentPane.setLayout(new BorderLayout(0, 0));
         this.contentPane.setBackground(new Color(49, 47, 47));
+        this.setLocationRelativeTo(null);
         this.setContentPane(contentPane);
 
         JPanel menuPane = new JPanel();
@@ -87,6 +96,14 @@ public class MainFrame extends JFrame {
         this.Logo.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.Logo.setHorizontalAlignment(SwingConstants.CENTER);
         this.Logo.setIcon(new ImageIcon(img_logo));
+        this.Logo.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                MainFrame.this.showDetailsPanel("index");
+            }
+        });
 
         GridBagConstraints logoConstraints = new GridBagConstraints();
         logoConstraints.insets = new Insets(15, 0, 50, 0);
@@ -95,160 +112,194 @@ public class MainFrame extends JFrame {
         logoConstraints.gridy = 0;
         menuPane.add((Component) this.Logo, logoConstraints);
 
-        this.btnHome = new JToggleButton("Tổng Quan");
+        this.lblHome = new JLabel("");
+        this.lblHome.setIcon(new ImageIcon(img_home));
+        this.lblTextHome = new JLabel("Tổng Quan");
+        this.lblTextHome.setForeground(Color.WHITE);
+        this.lblTextHome.setFont(new Font("Open Sans", 1, 15));
+        this.btnHome = new JToggleButton();
         this.btnHome.setUI(this.metalToggleButton);
-        this.btnHome.setIconTextGap(10);
-        this.btnHome.setIcon(new ImageIcon(img_overview));
+        this.btnHome.setLayout(new FlowLayout(FlowLayout.LEADING, 25, 5));
+        this.btnHome.add(lblHome);
+        this.btnHome.add(lblTextHome);
         this.btnHome.setFocusable(false);
         this.btnHome.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.btnHome.setForeground(Color.WHITE);
         this.btnHome.setBackground(this.exitedColor);
-        this.btnHome.setFont(new Font("Open Sans", 1, 15));
         this.btnHome.setPreferredSize(this.btnSize);
-        this.btnHome.addMouseListener(new MouseAdapter() {
+        this.btnHome.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
+            public void mouseClicked(MouseEvent e)
+            {
+                if (e.getButton() == 1)
+                {
                     MainFrame.this.showDetailsPanel("overview");
                 }
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(MouseEvent e)
+            {
                 MainFrame.this.btnHome.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnHome.setIcon(new ImageIcon(img_overview_actived));
-                MainFrame.this.btnHome.setForeground(Color.BLACK);
+                MainFrame.this.lblHome.setIcon(new ImageIcon(img_home_actived));
+                MainFrame.this.lblTextHome.setForeground(Color.BLACK);
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e)
+            {
                 MainFrame.this.btnHome.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnHome.setIcon(new ImageIcon(img_overview));
-                MainFrame.this.btnHome.setForeground(Color.WHITE);
+                MainFrame.this.lblHome.setIcon(new ImageIcon(img_home));
+                MainFrame.this.lblTextHome.setForeground(Color.WHITE);
             }
         });
 
         GridBagConstraints btnHomeLayout = new GridBagConstraints();
         btnHomeLayout.anchor = GridBagConstraints.LINE_START;
-        btnHomeLayout.fill = 2;
         btnHomeLayout.gridx = 0;
         btnHomeLayout.gridy = 2;
-        menuPane.add((Component) btnHome, btnHomeLayout);
+        menuPane.add((Component) this.btnHome, btnHomeLayout);
 
-        this.btnHistory = new JToggleButton("Lịch Sử");
-        this.btnHistory.setUI(this.metalToggleButton);
-        this.btnHistory.setIconTextGap(25);
-        this.btnHistory.setIcon(new ImageIcon(img_history));
-        this.btnHistory.setFocusable(false);
-        this.btnHistory.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.btnHistory.setPreferredSize(this.btnSize);
-        this.btnHistory.setBackground(this.exitedColor);
-        this.btnHistory.setForeground(Color.WHITE);
-        this.btnHistory.setFont(new Font("Open Sans", 1, 15));
-        this.btnHistory.addMouseListener(new MouseAdapter() {
+
+        this.lblService = new JLabel("");
+        this.lblService.setIcon(new ImageIcon(img_service));
+        this.lblTextService = new JLabel("Dịch Vụ");
+        this.lblTextService.setForeground(Color.WHITE);
+        this.lblTextService.setFont(new Font("Open Sans", 1, 15));
+        this.btnService = new JToggleButton();
+        this.btnService.setUI(this.metalToggleButton);
+        this.btnService.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
+        this.btnService.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.btnService.add(lblService);
+        this.btnService.add(lblTextService);
+        this.btnService.setFocusable(false);
+        this.btnService.setPreferredSize(this.btnSize);
+        this.btnService.setBackground(this.exitedColor);
+        this.btnService.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    MainFrame.this.showDetailsPanel("history");
+            public void mouseClicked(MouseEvent e)
+            {
+                if (e.getButton() == 1)
+                {
+                    MainFrame.this.showDetailsPanel("service");
                 }
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-                MainFrame.this.btnHistory.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnHistory.setIcon(new ImageIcon(img_history_actived));
-                MainFrame.this.btnHistory.setForeground(Color.BLACK);
+            public void mouseEntered(MouseEvent e)
+            {
+                MainFrame.this.btnService.setBackground(MainFrame.this.enteredColor);
+                MainFrame.this.lblService.setIcon(new ImageIcon(img_service_actived));
+                MainFrame.this.lblTextService.setForeground(Color.BLACK);
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e)
+            {
+                MainFrame.this.btnService.setBackground(MainFrame.this.exitedColor);
+                MainFrame.this.lblService.setIcon(new ImageIcon(img_service));
+                MainFrame.this.lblTextService.setForeground(Color.WHITE);
+            }
+        });
+
+        GridBagConstraints btnServiceConstraints = new GridBagConstraints();
+        btnServiceConstraints.anchor = GridBagConstraints.LINE_START;
+        btnServiceConstraints.gridx = 0;
+        btnServiceConstraints.gridy = 3;
+        menuPane.add((Component) this.btnService, btnServiceConstraints);
+
+
+        this.lblHistory = new JLabel("");
+        this.lblHistory.setIcon(new ImageIcon(img_history));
+        this.lblTextHistory = new JLabel("Lịch Sử");
+        this.lblTextHistory.setForeground(Color.WHITE);
+        this.lblTextHistory.setFont(new Font("Open Sans", 1, 15));
+        this.btnHistory = new JToggleButton();
+        this.btnHistory.setUI(this.metalToggleButton);
+        this.btnHistory.setLayout(new FlowLayout(FlowLayout.LEADING, 25,5));
+        this.btnHistory.add(lblHistory);
+        this.btnHistory.add(lblTextHistory);
+        this.btnHistory.setFocusable(false);
+        this.btnHistory.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.btnHistory.setPreferredSize(this.btnSize);
+        this.btnHistory.setBackground(this.exitedColor);
+        this.btnHistory.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                MainFrame.this.showDetailsPanel("history");
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                MainFrame.this.btnHistory.setBackground(MainFrame.this.enteredColor);
+                MainFrame.this.lblHistory.setIcon(new ImageIcon(img_history_actived));
+                MainFrame.this.lblTextHistory.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
                 MainFrame.this.btnHistory.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnHistory.setIcon(new ImageIcon(img_history));
-                MainFrame.this.btnHistory.setForeground(Color.WHITE);
+                MainFrame.this.lblHistory.setIcon(new ImageIcon(img_history));
+                MainFrame.this.lblTextHistory.setForeground(Color.WHITE);
             }
         });
 
         GridBagConstraints btnHistoryConstraints = new GridBagConstraints();
         btnHistoryConstraints.anchor = GridBagConstraints.LINE_START;
         btnHistoryConstraints.gridx = 0;
-        btnHistoryConstraints.gridy = 5;
+        btnHistoryConstraints.gridy = 4;
         menuPane.add((Component) this.btnHistory, btnHistoryConstraints);
 
-        this.btnService = new JToggleButton("Giao Dịch");
-        this.btnService.setUI(this.metalToggleButton);
-        this.btnService.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.btnService.setIconTextGap(15);
-        this.btnService.setIcon(new ImageIcon(img_service));
-        this.btnService.setFocusable(false);
-        this.btnService.setPreferredSize(this.btnSize);
-        this.btnService.setForeground(Color.WHITE);
-        this.btnService.setBackground(this.exitedColor);
-        this.btnService.setFont(new Font("Open Sans", 1, 15));
-        this.btnService.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    // goi layout service
-                }
-            }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                MainFrame.this.btnService.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnService.setIcon(new ImageIcon(img_service_actived));
-                MainFrame.this.btnService.setForeground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                MainFrame.this.btnService.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnService.setIcon(new ImageIcon(img_service));
-                MainFrame.this.btnService.setForeground(Color.WHITE);
-            }
-        });
-
-        GridBagConstraints btnServiceConstraints = new GridBagConstraints();
-        btnServiceConstraints.gridx = 0;
-        btnServiceConstraints.gridy = 3;
-        menuPane.add((Component) this.btnService, btnServiceConstraints);
-
-
-        this.btnLogOut = new JToggleButton("Đăng Xuất");
+        this.lblLogOut = new JLabel("");
+        this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
+        this.lblTextLogOut = new JLabel("Đăng Xuất");
+        this.lblTextLogOut.setForeground(Color.WHITE);
+        this.lblTextLogOut.setFont(new Font("Open Sans", 1, 15));
+        this.btnLogOut = new JToggleButton();
         this.btnLogOut.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.btnLogOut.setUI(this.metalToggleButton);
-        this.btnLogOut.setIconTextGap(15);
+        this.btnLogOut.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
+        this.btnLogOut.add(lblLogOut);
+        this.btnLogOut.add(lblTextLogOut);
         this.btnLogOut.setFocusable(false);
-        this.btnLogOut.setIcon(new ImageIcon(img_sign_out));
         this.btnLogOut.setBackground(this.exitedColor);
-        this.btnLogOut.setForeground(Color.WHITE);
         this.btnLogOut.setPreferredSize(this.btnSize);
-        this.btnLogOut.setFont(new Font("Open Sans", 1, 15));
-        this.btnLogOut.addMouseListener(new MouseAdapter() {
+        this.btnLogOut.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
+            public void mouseClicked(MouseEvent e)
+            {
+                if (e.getButton() == 1)
+                {
+                    new LoginFrame().setVisible(true);
                     MainFrame.this.dispose();
                 }
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(MouseEvent e)
+            {
                 MainFrame.this.btnLogOut.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnLogOut.setIcon(new ImageIcon(img_sign_out_actived));
-                MainFrame.this.btnLogOut.setForeground(Color.BLACK);
+                MainFrame.this.lblLogOut.setIcon(new ImageIcon(img_sign_out_actived));
+                MainFrame.this.lblTextLogOut.setForeground(Color.BLACK);
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e)
+            {
                 MainFrame.this.btnLogOut.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnLogOut.setIcon(new ImageIcon(img_sign_out));
-                MainFrame.this.btnLogOut.setForeground(Color.WHITE);
+                MainFrame.this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
+                MainFrame.this.lblTextLogOut.setForeground(Color.WHITE);
             }
         });
 
         GridBagConstraints btnLogOutConstraints = new GridBagConstraints();
         btnLogOutConstraints.anchor = GridBagConstraints.LINE_START;
-        btnLogOutConstraints.anchor = 15;
         btnLogOutConstraints.gridx = 0;
         btnLogOutConstraints.gridy = 15;
         menuPane.add((Component) this.btnLogOut, btnLogOutConstraints);
@@ -262,7 +313,6 @@ public class MainFrame extends JFrame {
         btnGroup.add(this.btnHome);
         btnGroup.add(this.btnHistory);
         btnGroup.add(this.btnService);
-        btnGroup.add(this.btnLogOut);
 
 
         JPanel detailsPanel = new JPanel();
@@ -289,7 +339,7 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 1) {
-                    System.out.println("Hien thi thong tin ca nhan");
+                    MainFrame.this.showDetailsPanel("profile");
                 }
             }
         });
@@ -298,21 +348,20 @@ public class MainFrame extends JFrame {
         this.cardPanelLayout = new CardLayout();
         this.cardPanel = new JPanel(this.cardPanelLayout);
         this.cardPanel.setBackground(Color.WHITE);
-
-        this.cardPanelIndex = new JPanel();
-        this.cardPanel.add((Component) this.cardPanelIndex, "index");
-
-        this.cardOverviewPanel = new Overview();
-        this.cardPanel.add((Component) this.cardOverviewPanel, "overview");
-
-        this.cardHistoryPanel = new HistoryPanel();
-        this.cardPanel.add((Component) this.cardHistoryPanel, "history");
+        this.cardPanel.add(new PanelIndex(), "index");
+        this.cardPanelLayout.show(this.cardPanel, "index");
+        this.cardPanel.add(new PanelHome(), "overview");
+        this.cardPanel.add(new PanelService(), "service");
+        this.cardPanel.add(new PanelHistory(), "history");
+        this.cardPanel.add(new PanelProfile(), "profile");
 
         detailsPanel.add((Component) this.cardPanel, "Center");
 
     }
 
-    public void showDetailsPanel(String constraints) {
+    public void showDetailsPanel(String constraints)
+    {
         this.cardPanelLayout.show(this.cardPanel, constraints);
     }
+
 }
