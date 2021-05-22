@@ -1,22 +1,17 @@
 package Views;
 
-import Controller.Control_Trading;
-import Model.connection;
+import Controller.TradingsController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
 
-public class HistoryPanel extends JPanel {
+public class TradingsHistoryPanel extends JPanel {
     static JLabel accountDetailsName;
     static JLabel accountBalance;
     private JTable contentTable;
@@ -72,7 +67,7 @@ public class HistoryPanel extends JPanel {
         comboBoxFilter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Control_Trading.uploadTradingByType(HistoryPanel.this.contentTable,(String)comboBoxFilter.getSelectedItem());
+                TradingsController.uploadTradingByType(TradingsHistoryPanel.this.contentTable,(String)comboBoxFilter.getSelectedItem());
             }
         });
         filterPanel.add(filterLabel);
@@ -117,12 +112,12 @@ public class HistoryPanel extends JPanel {
     }
 
 
-    public HistoryPanel() {
+    public TradingsHistoryPanel() {
         this.setLayout(new BorderLayout(0, 0));
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add((Component) this.headerPanel(), "North");
         this.add((Component) this.dataPanel(), "Center");
-        Control_Trading.uploadAllTradingData(this.contentTable);
+        TradingsController.uploadAllTradingData(this.contentTable);
     }
 
 

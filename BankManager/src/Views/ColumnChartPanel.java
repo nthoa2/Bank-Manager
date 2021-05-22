@@ -14,7 +14,7 @@ import javafx.scene.paint.Paint;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class ColumnChart
+public class ColumnChartPanel
         extends JFXPanel {
     private double received = 3000;
     private double spending = 3500;
@@ -44,7 +44,7 @@ public class ColumnChart
         return scene;
     }
 
-    public ColumnChart() {
+    public ColumnChartPanel() {
         this.setScene(this.createScene());
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
         this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Tổng Thu Chi Trong Tháng ", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));

@@ -1,15 +1,15 @@
 package Controller;
 
-import Model.Model_Trading;
+import Model.TradingsData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Control_Trading {
+public class TradingsController {
     public static void uploadAllTradingData(JTable table) {
-        ResultSet resultSet = Model_Trading.getAllTrading();
+        ResultSet resultSet = TradingsData.getAllTrading();
         showHistoryTrading(table, resultSet);
     }
 
@@ -18,7 +18,7 @@ public class Control_Trading {
             uploadAllTradingData(table);
             return;
         }
-        ResultSet resultSet = Model_Trading.getTradedByType(type);
+        ResultSet resultSet = TradingsData.getTradedByType(type);
         showHistoryTrading(table, resultSet);
     }
 

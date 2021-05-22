@@ -20,7 +20,7 @@ import javafx.scene.paint.Paint;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class LineGraph
+public class LineGraphPanel
         extends JFXPanel {
     private int d1 = 1;
     private int m1 = 5;
@@ -78,7 +78,7 @@ public class LineGraph
         return scene;
     }
 
-    public LineGraph() {
+    public LineGraphPanel() {
         this.setScene(this.createScene());
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
         this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Biến Động Thu Chi Trong Tháng", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));

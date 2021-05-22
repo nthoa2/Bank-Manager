@@ -9,7 +9,7 @@ import javax.swing.plaf.metal.MetalToggleButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainFrame extends JFrame {
+public class Main extends JFrame {
     public static connection connect = new connection();
     private Image img_logo = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
     private Image img_overview = new ImageIcon("src/Res/overview.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
     MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI() {
         @Override
         protected Color getSelectColor() {
-            return MainFrame.this.clickedColor;
+            return Main.this.clickedColor;
         }
     };
 
@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
             @Override
             public void run() {
                 try {
-                    MainFrame.this.setVisible(true);
+                    Main.this.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
         });
     }
 
-    public MainFrame() {
+    public Main() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //        this.setIconImage(new ImageIcon());
         this.setBounds(100, 100, 1383, 773);
@@ -96,6 +96,7 @@ public class MainFrame extends JFrame {
         menuPane.add((Component) this.Logo, logoConstraints);
 
         this.btnHome = new JToggleButton("Tổng Quan");
+        this.btnHome.setLayout(new FlowLayout(FlowLayout.LEADING, 25, 5));
         this.btnHome.setUI(this.metalToggleButton);
         this.btnHome.setIconTextGap(10);
         this.btnHome.setIcon(new ImageIcon(img_overview));
@@ -109,22 +110,22 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 1) {
-                    MainFrame.this.showDetailsPanel("overview");
+                    Main.this.showDetailsPanel("overview");
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                MainFrame.this.btnHome.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnHome.setIcon(new ImageIcon(img_overview_actived));
-                MainFrame.this.btnHome.setForeground(Color.BLACK);
+                Main.this.btnHome.setBackground(Main.this.enteredColor);
+                Main.this.btnHome.setIcon(new ImageIcon(img_overview_actived));
+                Main.this.btnHome.setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                MainFrame.this.btnHome.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnHome.setIcon(new ImageIcon(img_overview));
-                MainFrame.this.btnHome.setForeground(Color.WHITE);
+                Main.this.btnHome.setBackground(Main.this.exitedColor);
+                Main.this.btnHome.setIcon(new ImageIcon(img_overview));
+                Main.this.btnHome.setForeground(Color.WHITE);
             }
         });
 
@@ -136,8 +137,9 @@ public class MainFrame extends JFrame {
         menuPane.add((Component) btnHome, btnHomeLayout);
 
         this.btnHistory = new JToggleButton("Lịch Sử");
+        this.btnHistory.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
         this.btnHistory.setUI(this.metalToggleButton);
-        this.btnHistory.setIconTextGap(25);
+        this.btnHistory.setIconTextGap(10);
         this.btnHistory.setIcon(new ImageIcon(img_history));
         this.btnHistory.setFocusable(false);
         this.btnHistory.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -149,22 +151,22 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 1) {
-                    MainFrame.this.showDetailsPanel("history");
+                    Main.this.showDetailsPanel("history");
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                MainFrame.this.btnHistory.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnHistory.setIcon(new ImageIcon(img_history_actived));
-                MainFrame.this.btnHistory.setForeground(Color.BLACK);
+                Main.this.btnHistory.setBackground(Main.this.enteredColor);
+                Main.this.btnHistory.setIcon(new ImageIcon(img_history_actived));
+                Main.this.btnHistory.setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                MainFrame.this.btnHistory.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnHistory.setIcon(new ImageIcon(img_history));
-                MainFrame.this.btnHistory.setForeground(Color.WHITE);
+                Main.this.btnHistory.setBackground(Main.this.exitedColor);
+                Main.this.btnHistory.setIcon(new ImageIcon(img_history));
+                Main.this.btnHistory.setForeground(Color.WHITE);
             }
         });
 
@@ -175,9 +177,10 @@ public class MainFrame extends JFrame {
         menuPane.add((Component) this.btnHistory, btnHistoryConstraints);
 
         this.btnService = new JToggleButton("Giao Dịch");
+        this.btnService.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
         this.btnService.setUI(this.metalToggleButton);
         this.btnService.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.btnService.setIconTextGap(15);
+        this.btnService.setIconTextGap(10);
         this.btnService.setIcon(new ImageIcon(img_service));
         this.btnService.setFocusable(false);
         this.btnService.setPreferredSize(this.btnSize);
@@ -194,16 +197,16 @@ public class MainFrame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                MainFrame.this.btnService.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnService.setIcon(new ImageIcon(img_service_actived));
-                MainFrame.this.btnService.setForeground(Color.BLACK);
+                Main.this.btnService.setBackground(Main.this.enteredColor);
+                Main.this.btnService.setIcon(new ImageIcon(img_service_actived));
+                Main.this.btnService.setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                MainFrame.this.btnService.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnService.setIcon(new ImageIcon(img_service));
-                MainFrame.this.btnService.setForeground(Color.WHITE);
+                Main.this.btnService.setBackground(Main.this.exitedColor);
+                Main.this.btnService.setIcon(new ImageIcon(img_service));
+                Main.this.btnService.setForeground(Color.WHITE);
             }
         });
 
@@ -214,9 +217,10 @@ public class MainFrame extends JFrame {
 
 
         this.btnLogOut = new JToggleButton("Đăng Xuất");
+        this.btnLogOut.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
         this.btnLogOut.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.btnLogOut.setUI(this.metalToggleButton);
-        this.btnLogOut.setIconTextGap(15);
+        this.btnLogOut.setIconTextGap(10);
         this.btnLogOut.setFocusable(false);
         this.btnLogOut.setIcon(new ImageIcon(img_sign_out));
         this.btnLogOut.setBackground(this.exitedColor);
@@ -227,22 +231,22 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 1) {
-                    MainFrame.this.dispose();
+                    Main.this.dispose();
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                MainFrame.this.btnLogOut.setBackground(MainFrame.this.enteredColor);
-                MainFrame.this.btnLogOut.setIcon(new ImageIcon(img_sign_out_actived));
-                MainFrame.this.btnLogOut.setForeground(Color.BLACK);
+                Main.this.btnLogOut.setBackground(Main.this.enteredColor);
+                Main.this.btnLogOut.setIcon(new ImageIcon(img_sign_out_actived));
+                Main.this.btnLogOut.setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                MainFrame.this.btnLogOut.setBackground(MainFrame.this.exitedColor);
-                MainFrame.this.btnLogOut.setIcon(new ImageIcon(img_sign_out));
-                MainFrame.this.btnLogOut.setForeground(Color.WHITE);
+                Main.this.btnLogOut.setBackground(Main.this.exitedColor);
+                Main.this.btnLogOut.setIcon(new ImageIcon(img_sign_out));
+                Main.this.btnLogOut.setForeground(Color.WHITE);
             }
         });
 
@@ -302,10 +306,10 @@ public class MainFrame extends JFrame {
         this.cardPanelIndex = new JPanel();
         this.cardPanel.add((Component) this.cardPanelIndex, "index");
 
-        this.cardOverviewPanel = new Overview();
+        this.cardOverviewPanel = new OverviewPanel();
         this.cardPanel.add((Component) this.cardOverviewPanel, "overview");
 
-        this.cardHistoryPanel = new HistoryPanel();
+        this.cardHistoryPanel = new TradingsHistoryPanel();
         this.cardPanel.add((Component) this.cardHistoryPanel, "history");
 
         detailsPanel.add((Component) this.cardPanel, "Center");

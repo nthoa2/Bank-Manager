@@ -26,4 +26,14 @@ public class connection {
         }
 
     }
+
+    public static int executeQuery(String query) {
+        try {
+            Statement statement = connect.createStatement();
+            return statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            System.out.println("ExecuteQuery fail");
+            return -1;
+        }
+    }
 }

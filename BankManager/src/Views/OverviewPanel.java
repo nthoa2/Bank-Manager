@@ -8,12 +8,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
-public class Overview extends JPanel {
+public class OverviewPanel extends JPanel {
     static JLabel accountBalanceLabelValue;
     static JLabel totalSpendingValue;
     static JLabel totalReceivedValue;
-    private ColumnChart barChart;
-    private LineGraph lineChart;
+    private ColumnChartPanel barChart;
+    private LineGraphPanel lineChart;
 
 
     private JPanel northPanel() {
@@ -131,7 +131,7 @@ public class Overview extends JPanel {
         gbcLineChart.insets = new Insets(0, 0, 5, 0);
         gbcLineChart.gridx = 0;
         gbcLineChart.gridy = 0;
-        this.lineChart = new LineGraph();
+        this.lineChart = new LineGraphPanel();
         mainPanel.add((Component) ((Object) this.lineChart), gbcLineChart);
         GridBagConstraints gbcBarChart = new GridBagConstraints();
         gbcBarChart.fill = 1;
@@ -190,7 +190,7 @@ public class Overview extends JPanel {
         return mainPanel;
     }
 
-    public Overview() {
+    public OverviewPanel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -203,7 +203,7 @@ public class Overview extends JPanel {
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         mainPanel.add((Component) this.northPanel(), "North");
         mainPanel.add((Component) this.centerPanel(), "Center");
-        this.barChart = new ColumnChart();
+        this.barChart = new ColumnChartPanel();
         mainPanel.add((Component) this.southPanel(), "South");
         this.add((Component) scrollPane, "Center");
     }

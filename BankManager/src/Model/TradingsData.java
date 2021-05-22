@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.ResultSet;
 
-public class Model_Trading {
+public class TradingsData {
 
     public static ResultSet getAllTrading() {
         String queryString = "SELECT dbo.GIAODICH.LoaiGD, dbo.GIAODICH.NgayGD,dbo.CHITIETGD.SoTKNhan,dbo.CHITIETGD.GhiChu,dbo.CHITIETGD.SoTien FROM dbo.GIAODICH FULL OUTER JOIN dbo.CHITIETGD ON CHITIETGD.MaGD = GIAODICH.MaGD";
