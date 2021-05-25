@@ -3,6 +3,7 @@ package Views;
 import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import javafx.embed.swing.JFXPanel;
@@ -22,13 +23,8 @@ import javax.swing.border.TitledBorder;
 
 public class LineGraphPanel
         extends JFXPanel {
-    private int d1 = 1;
-    private int m1 = 5;
-    private int y1 = 2021;
-    private int d2 = 5;
-    private int m2 = 6;
-    private int y2 = 2021;
-
+    private LocalDate today = LocalDate.now();
+    private LocalDate lastDay = today.minusDays(30);
 
     private javafx.scene.chart.LineChart createChart() {
         CategoryAxis xAxis = new CategoryAxis();
@@ -40,9 +36,9 @@ public class LineGraphPanel
         spendingSeries.setName("Chi Tiêu");
         XYChart.Series receivedSeries = new XYChart.Series();
         receivedSeries.setName("Nhận Vào");
-        SimpleDateFormat simple = new SimpleDateFormat("d/M/yy");
-        String startDay = String.valueOf(this.d1) + "/" + this.m1 + "/" + this.y1;
-        String endDay = String.valueOf(this.d2) + "/" + this.m2 + "/" + this.y2;
+        SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yy");
+        String startDay = lastDay.getDayOfMonth() + "/" + lastDay.getMonthValue() + "/" + lastDay.getYear();
+        String endDay = today.getDayOfMonth() + "/" + today.getMonthValue() + "/" + today.getYear();
         Calendar calendar = Calendar.getInstance();
         long totalDays = 0L;
         try {

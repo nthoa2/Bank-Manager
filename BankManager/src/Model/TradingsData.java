@@ -15,4 +15,5 @@ public class TradingsData {
                 "WHERE LoaiGD = N'" + type + "'";
         return connection.getData(queryString);
     }
+
 }

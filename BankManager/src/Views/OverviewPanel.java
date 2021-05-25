@@ -151,26 +151,26 @@ public class OverviewPanel extends JPanel {
         recentTransactionsTable.setFillsViewportHeight(true);
         recentTransactionsTable.setSelectionMode(0);
         recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Loại GD", "Ngày GD", "Nội Dung", "Số Tiền"}) {
+        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Người Nhận/Chuyển", "Nội Dung", "Số Tiền"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
-        recentTransactionsTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-        recentTransactionsTable.getColumnModel().getColumn(1).setPreferredWidth(50);
-        recentTransactionsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+        recentTransactionsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+        recentTransactionsTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        recentTransactionsTable.getColumnModel().getColumn(2).setPreferredWidth(70);
         recentTransactionsTable.setRowHeight(30);
         recentTransactionsTable.getColumn("Nội Dung").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public void setHorizontalAlignment(int alignment) {
-                super.setHorizontalAlignment(4);
+                super.setHorizontalAlignment(SwingConstants.CENTER);
             }
         });
         recentTransactionsTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public void setHorizontalAlignment(int alignment) {
-                super.setHorizontalAlignment(4);
+                super.setHorizontalAlignment(SwingConstants.RIGHT);
             }
         });
         JTableHeader headerTable = recentTransactionsTable.getTableHeader();
