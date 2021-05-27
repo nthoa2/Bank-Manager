@@ -1,5 +1,6 @@
 package Views;
 
+import Controller.LoginController;
 import Model.Login;
 
 import javax.swing.*;
@@ -18,8 +19,7 @@ public class LoginFrame extends JFrame
     public static String password;
 
     private JPanel mainPane;
-    private JTextField txtUsername;
-    private JPasswordField txtPassword;
+
 
     private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/logoright.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
     private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_login.jpg")).getImage().getScaledInstance(698, 596, Image.SCALE_SMOOTH);
@@ -31,6 +31,7 @@ public class LoginFrame extends JFrame
 
     public LoginFrame()
     {
+        new Login();
         // GUI login
         setUndecorated(true);
         setBounds(100, 100, 1000, 600);
@@ -87,7 +88,7 @@ public class LoginFrame extends JFrame
         panelUsername.setLayout(null);
         contentPaneRight.add(panelUsername);
 
-        txtUsername = new JTextField();
+        JTextField txtUsername = new JTextField();
         txtUsername.addFocusListener(new FocusAdapter()
         {
             @Override
@@ -137,7 +138,7 @@ public class LoginFrame extends JFrame
         panelPassword.setLayout(null);
         contentPaneRight.add(panelPassword);
 
-        txtPassword = new JPasswordField();
+        JPasswordField txtPassword = new JPasswordField();
         txtPassword.addFocusListener(new FocusAdapter()
         {
             @Override
@@ -224,11 +225,11 @@ public class LoginFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-
-                if (new Login().CheckLogin(txtUsername.getText(), txtPassword.getText()))
+                if (LoginController.CheckLogin(txtUsername.getText(), txtPassword.getText()))
                 {
                     LoginFrame.password = txtPassword.getText();
                     LoginFrame.username = txtUsername.getText();
+                    LoginController.getUserData(LoginFrame.username);
                     new MainFrame().setVisible(true);
                     LoginFrame.this.dispose();
                 } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))
@@ -345,4 +346,5 @@ public class LoginFrame extends JFrame
         lblX.setBounds(280, 0, 20, 20);
         contentPaneRight.add(lblX);
     }
+
 }

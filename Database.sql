@@ -1,55 +1,81 @@
-﻿CREATE DATABASE BankManager
+﻿CREATE DATABASE QLNH
 GO
-USE BankManager
+USE QLNH
 GO
 
-CREATE TABLE Account
+CREATE TABLE KHACHHANG
 (
-	id INT IDENTITY PRIMARY KEY,
-	accountNumber VARCHAR(50),
-	accountName NVARCHAR(50),
-	phone VARCHAR(20),
-	isActived TINYINT,
-)
-GO
-CREATE TABLE Trading
-(
-	id BIGINT IDENTITY PRIMARY KEY,
-	accountID int,
-	tradeDate DATETIME DEFAULT GETDATE(),
-	typeTrade VARCHAR(20),
-	amount INT,
-	FOREIGN KEY (accountID) REFERENCES dbo.Account(id)
+    CMND VARCHAR(20),
+	TenKH NVARCHAR(30),
+	NgaySinh DATE,
+	GioiTinh BIT, 
+	DiaChi NVARCHAR(50),
+	SoDienThoai VARCHAR(10), 
+
+	CONSTRAINT PK_KHACHHANG PRIMARY KEY(CMND)
 )
 GO
 
-CREATE PROC Trade
-	@accountID int,
-	@amount int,
-	@typeTrade nvarchar(20)
-AS
-	INSERT INTO dbo.Trading(accountID,amount,typeTrade)
-	VALUES(@accountID,@amount,@typeTrade);
-	SELECT @@ROWCOUNT AS result;
 
-CREATE PROC getBalance
-	@userID INT
-AS
-	SELECT (SUM(CASE WHEN typeTrade = 'loaded' THEN amount ELSE 0 END) + SUM(CASE WHEN typeTrade = 'receive' THEN amount ELSE 0 END) - SUM(CASE WHEN typeTrade = 'withdraw' THEN amount ELSE 0 END) - SUM(CASE WHEN typeTrade = 'transfer' THEN amount ELSE 0 END)) AS balance
-	FROM dbo.Trading
-	WHERE accountID = @userID
+CREATE TABLE TAIKHOAN
+(
+    SoTK VARCHAR(20),
+	TenTK NVARCHAR(30) UNIQUE NOT NULL,
+	MatKhau VARCHAR(20),
+	NgayDangKy DATE DEFAULT GETDATE(),
+	SoThe VARCHAR(20),
+	SoDu BIGINT DEFAULT 0,
+	CMND VARCHAR(20) NOT NULL,
 
-CREATE PROC getHistory
-	@userID int
-AS
-SELECT 
-	tradeDate,
-	CASE
-	WHEN typeTrade = 'loaded' THEN N'Nạp Tiền'
-	WHEN typeTrade = 'withdraw' THEN N'Rút Tiền'
-	WHEN typeTrade = 'transfer' THEN N'Chuyển Khoản'
-	WHEN typeTrade = 'receive' THEN N'Nhận Chuyển Khoản'
-	END AS typeTrade,
-	amount
-FROM Trading
-WHERE accountID = @userID
+	CONSTRAINT PK_TAIKHOAN PRIMARY KEY(SoTK),
+	CONSTRAINT FK_TAIKHOAN FOREIGN KEY (CMND) REFERENCES dbo.KHACHHANG(CMND)
+)
+GO
+
+
+CREATE TABLE GIAODICH
+(
+	MaGD VARCHAR(20),
+	LoaiGD NVARCHAR(20),
+	NgayGD DATE DEFAULT GETDATE() NOT NULL,
+
+
+	CONSTRAINT PK_GIAODICH PRIMARY KEY(MaGD),
+	
+)
+GO
+
+CREATE TABLE CHITIETGD
+(
+	STT INT IDENTITY,
+	MaGD VARCHAR(20),
+	SoTK VARCHAR(20),
+	SoTKNhan VARCHAR(20),
+	SoTien BIGINT,
+	GhiChu NVARCHAR(50)
+
+	CONSTRAINT PK_CHITIETGD PRIMARY KEY(MaGD, SoTK)
+	CONSTRAINT FK_GIAODICH_SoTKNhan FOREIGN KEY (SoTKNhan) REFERENCES TAIKHOAN(SoTK)
+)
+GO 
+
+
+
+ALTER TABLE CHITIETGD ADD FOREIGN KEY(MaGD) REFERENCES GIAODICH(MaGD)
+ALTER TABLE CHITIETGD ADD FOREIGN KEY(SoTK) REFERENCES TAIKHOAN(SoTK)
+
+
+
+INSERT  INTO KHACHHANG(CMND, TenKH, NgaySinh, GioiTinh, DiaChi, SoDienThoai)
+VALUES(2804, N'Hoàng Long', '2001-03-03', 1, N'Quận 9', 0909)
+
+
+INSERT INTO TAIKHOAN(SoTK, TenTK, MatKhau, NgayDangKy, SoThe, SoDu, CMND)
+VALUES(123, N'hoanglong', '03032001', '2020-05-22', 321, 0, 2804)
+
+INSERT INTO GIAODICH(MaGD, LoaiGD)
+VALUES(1, N'Nạp Tiền')
+
+INSERT INTO CHITIETGD(MaGD, SoTK, SoTien, GhiChu)
+VALUES(1, 123, 10000000, N'Nạp tý cho vui')
+

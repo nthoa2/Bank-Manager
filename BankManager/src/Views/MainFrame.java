@@ -1,7 +1,7 @@
 package Views;
 
 
-import Model.Login;
+import Controller.LoginController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame
 {
-    private Image img_logo = new ImageIcon(Login.class.getResource("/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+    private Image img_logo = new ImageIcon(("src/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
     private Image img_home = new ImageIcon("src/Res/home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
     private Image img_history = new ImageIcon("src/Res/history.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -55,22 +55,12 @@ public class MainFrame extends JFrame
         }
     };
 
-    public static void main(String[] args)
-    {
-        EventQueue.invokeLater(new Runnable()
-        {
-
-            @Override
-            public void run()
-            {
-                new MainFrame().setVisible(true);
-            }
-        });
-    }
+    public static JLabel btnProfile;
 
     public MainFrame()
     {
-        this.setDefaultCloseOperation(3);
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -101,7 +91,7 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                MainFrame.this.showDetailsPanel("index");
+                MainFrame.this.showDetailsPanel("home");
             }
         });
 
@@ -263,6 +253,7 @@ public class MainFrame extends JFrame
         this.lblTextLogOut.setFont(new Font("Open Sans", 1, 15));
         this.btnLogOut = new JToggleButton();
         this.btnLogOut.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.btnLogOut.setUI(this.metalToggleButton);
         this.btnLogOut.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
         this.btnLogOut.add(lblLogOut);
         this.btnLogOut.add(lblTextLogOut);
@@ -274,10 +265,10 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if (e.getButton() == 1)
+                if(e.getButton() == 1)
                 {
                     new LoginFrame().setVisible(true);
-                    MainFrame.this.dispose();
+                    MainFrame.this.setVisible(false);
                 }
             }
 
@@ -326,11 +317,10 @@ public class MainFrame extends JFrame
         toolPanel.setBorder(null);
         detailsPanel.add((Component) toolPanel, "North");
 
-
-        JLabel btnProfile = new JLabel();
+        btnProfile = new JLabel(LoginController.fullname);
         btnProfile.setIcon(new ImageIcon(img_profile));
         btnProfile.setFocusable(false);
-        btnProfile.setHorizontalTextPosition(4);
+        btnProfile.setHorizontalTextPosition(SwingConstants.LEADING);
         btnProfile.setBorder(null);
         btnProfile.setToolTipText("Thông tin cá nhân");
         btnProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -348,11 +338,11 @@ public class MainFrame extends JFrame
         this.cardPanelLayout = new CardLayout();
         this.cardPanel = new JPanel(this.cardPanelLayout);
         this.cardPanel.setBackground(Color.WHITE);
-        this.cardPanel.add(new PanelIndex(), "index");
-        this.cardPanelLayout.show(this.cardPanel, "index");
-        this.cardPanel.add(new PanelHome(), "overview");
+        this.cardPanel.add(new PanelHome(), "home");
+        this.cardPanelLayout.show(this.cardPanel, "home");
+        this.cardPanel.add(new PanelOverview(), "overview");
         this.cardPanel.add(new PanelService(), "service");
-        this.cardPanel.add(new PanelHistory(), "history");
+        this.cardPanel.add(new PanelTradingsHistory(), "history");
         this.cardPanel.add(new PanelProfile(), "profile");
 
         detailsPanel.add((Component) this.cardPanel, "Center");

@@ -1,5 +1,7 @@
 package Views;
 
+import Controller.LoginController;
+import Controller.TradingsController;
 import Model.Login;
 
 import javax.swing.*;
@@ -12,6 +14,9 @@ import java.text.NumberFormat;
 public class PanelWithdraw extends JPanel
 {
     private GridBagConstraints gbc3;
+    private JFormattedTextField txtAmount;
+    private JTextArea txtContent;
+    private JLabel lblBalanceData = new JLabel(LoginController.balance);
 
     public PanelWithdraw()
     {
@@ -37,7 +42,7 @@ public class PanelWithdraw extends JPanel
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
         txtAccountNumber.setEnabled(false);
-        txtAccountNumber.setText(Login.accountNumber);
+        txtAccountNumber.setText(LoginController.accountNumber);
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
@@ -73,11 +78,11 @@ public class PanelWithdraw extends JPanel
         format.setMaximumFractionDigits(0);
         NumberFormatter numberFormat = new NumberFormatter(format);
         numberFormat.setAllowsInvalid(false);
-        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormat);
-        formattedTextField.setFont(new Font("Arial", Font.PLAIN, 15));
-        formattedTextField.setBorder(null);
-        formattedTextField.setText("0");
-        formattedTextField.addKeyListener(new KeyAdapter()
+        txtAmount = new JFormattedTextField(numberFormat);
+        txtAmount.setFont(new Font("Arial", Font.PLAIN, 15));
+        txtAmount.setBorder(null);
+        txtAmount.setText("0");
+        txtAmount.addKeyListener(new KeyAdapter()
         {
             @Override
             public void keyPressed(KeyEvent e)
@@ -93,9 +98,9 @@ public class PanelWithdraw extends JPanel
                 }
                 if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
                 {
-                    if (formattedTextField.getText().length() == 1)
+                    if (txtAmount.getText().length() == 1)
                     {
-                        formattedTextField.setText("0");
+                        txtAmount.setText("0");
                     }
                 }
             }
@@ -103,11 +108,11 @@ public class PanelWithdraw extends JPanel
             @Override
             public void keyTyped(KeyEvent e)
             {
-                if (formattedTextField.getText().length() == 27)
+                if (txtAmount.getText().length() == 27)
                     e.consume();
             }
         });
-        panelAmount.add(formattedTextField);
+        panelAmount.add(txtAmount);
         panelAmount.add(Box.createHorizontalGlue());
         panelAmount.add(panelVND);
 
@@ -116,14 +121,14 @@ public class PanelWithdraw extends JPanel
         JPanel content = new RadiusAndShadow();
         content.setBackground(Color.WHITE);
         content.setLayout(new GridBagLayout());
-        JTextArea txtContentWithdraw = new JTextArea();
-        txtContentWithdraw.setBackground(Color.WHITE);
-        txtContentWithdraw.setLineWrap(true);
-        txtContentWithdraw.setBorder(null);
-        txtContentWithdraw.setRows(10);
-        txtContentWithdraw.setColumns(20);
-        txtContentWithdraw.setFont(new Font("Arial", Font.PLAIN, 15));
-        content.add(txtContentWithdraw, gbc3);
+        txtContent = new JTextArea();
+        txtContent.setBackground(Color.WHITE);
+        txtContent.setLineWrap(true);
+        txtContent.setBorder(null);
+        txtContent.setRows(10);
+        txtContent.setColumns(20);
+        txtContent.setFont(new Font("Arial", Font.PLAIN, 15));
+        content.add(txtContent, gbc3);
 
 
         JPanel panelGBLEast = new RadiusAndShadow();
@@ -132,7 +137,7 @@ public class PanelWithdraw extends JPanel
         panelGBLEast.setLayout(new GridLayout(10, 1, 20, 0));
 
 
-        JLabel lblName = new JLabel(Login.fullname);
+        JLabel lblName = new JLabel(LoginController.fullname);
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Arial", Font.BOLD, 20));
         JPanel panelName = new JPanel();
@@ -146,7 +151,7 @@ public class PanelWithdraw extends JPanel
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
-        panelAccountNumber.add(new JLabel(Login.accountNumber));
+        panelAccountNumber.add(new JLabel(LoginController.accountNumber));
         panelGBLEast.add(panelAccountNumber);
 
 
@@ -155,7 +160,7 @@ public class PanelWithdraw extends JPanel
         JPanel panelBalance = new JPanel();
         panelBalance.setBackground(Color.WHITE);
         panelBalance.add(lblBalance);
-        panelBalance.add(new JLabel(Login.balance));
+        panelBalance.add(lblBalanceData);
         panelBalance.add(new JLabel("VNĐ"));
         panelGBLEast.add(panelBalance);
 
@@ -191,5 +196,21 @@ public class PanelWithdraw extends JPanel
         panelCenter.add(panel3);
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(content);
+    }
+
+    public String check()
+    {
+        if (this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
+            return "Please input full";
+        else if(!LoginController.updateWithDrawAndRecharge("Rút tiền", LoginController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
+            return "Balance enough";
+        else
+        {
+            LoginController.getUserData(LoginFrame.username);
+            this.lblBalanceData.setText(LoginController.balance);
+            PanelProfile.lblBalance.setText(LoginController.balance);
+            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
+            return "Success";
+        }
     }
 }
