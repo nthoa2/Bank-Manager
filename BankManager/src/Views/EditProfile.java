@@ -1,5 +1,9 @@
 package Views;
 
+<<<<<<< HEAD
+=======
+import Controller.LoginController;
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 import Model.Login;
 
 import javax.swing.*;
@@ -664,6 +668,7 @@ public class EditProfile extends JDialog
                 {
                     JOptionPane.showMessageDialog(null, "Save Successful");
                     EditProfile.this.dispose();
+<<<<<<< HEAD
                     Login login = new Login();
                     login.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
 
@@ -676,6 +681,21 @@ public class EditProfile extends JDialog
                     PanelProfile.lblPhone.setText(Login.phone = txtPhoneNumber.getText());
                     PanelProfile.lblBirthday.setText(login.getBorn(LoginFrame.username));
                     PanelProfile.lblAddress.setText(Login.address = txtAddress.getText());
+=======
+                    LoginController.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
+                    LoginController.getUserData(LoginFrame.username);
+                    if(LoginController.CheckGender(LoginFrame.username))
+                        PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
+                    else PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
+
+                    MainFrame.btnProfile.setText(LoginController.fullname);
+
+                    PanelProfile.lblFullName.setText(LoginController.fullname);
+                    PanelProfile.lblGender.setText(LoginController.gender);
+                    PanelProfile.lblPhone.setText(LoginController.phone);
+                    PanelProfile.lblBirthday.setText(LoginController.born);
+                    PanelProfile.lblAddress.setText(LoginController.address);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
                 }
             }
             @Override

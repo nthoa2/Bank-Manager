@@ -1,5 +1,10 @@
 package Views;
 
+<<<<<<< HEAD
+=======
+import Controller.LoginController;
+import Controller.TradingsController;
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 import Model.Login;
 
 import javax.swing.*;
@@ -13,6 +18,13 @@ import java.text.NumberFormat;
 public class PanelTransfer extends JPanel
 {
     private GridBagConstraints gbc3;
+<<<<<<< HEAD
+=======
+    private JTextField txtAccountNumber;
+    private JFormattedTextField txtAmount;
+    private JTextArea txtContent;
+    private JLabel lblBalanceData = new JLabel(LoginController.balance);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 
     public PanelTransfer()
     {
@@ -37,7 +49,11 @@ public class PanelTransfer extends JPanel
         JPanel accountNumber = new RadiusAndShadow();
         accountNumber.setBackground(Color.white);
         accountNumber.setLayout(new GridBagLayout());
+<<<<<<< HEAD
         JTextField txtAccountNumber = new JTextField();
+=======
+        txtAccountNumber = new JTextField();
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         txtAccountNumber.addKeyListener(new KeyAdapter()
         {
             @Override
@@ -96,11 +112,19 @@ public class PanelTransfer extends JPanel
         format.setMaximumFractionDigits(0);
         NumberFormatter numberFormat = new NumberFormatter(format);
         numberFormat.setAllowsInvalid(false);
+<<<<<<< HEAD
         JFormattedTextField formattedTextField = new JFormattedTextField(numberFormat);
         formattedTextField.setFont(new Font("Arial", Font.PLAIN, 15));
         formattedTextField.setBorder(null);
         formattedTextField.setText("0");
         formattedTextField.addKeyListener(new KeyAdapter()
+=======
+        txtAmount = new JFormattedTextField(numberFormat);
+        txtAmount.setFont(new Font("Arial", Font.PLAIN, 15));
+        txtAmount.setBorder(null);
+        txtAmount.setText("0");
+        txtAmount.addKeyListener(new KeyAdapter()
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         {
             @Override
             public void keyPressed(KeyEvent e)
@@ -116,9 +140,15 @@ public class PanelTransfer extends JPanel
                 }
                 if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
                 {
+<<<<<<< HEAD
                     if (formattedTextField.getText().length() == 1)
                     {
                         formattedTextField.setText("0");
+=======
+                    if (txtAmount.getText().length() == 1)
+                    {
+                        txtAmount.setText("0");
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
                     }
                 }
             }
@@ -126,11 +156,19 @@ public class PanelTransfer extends JPanel
             @Override
             public void keyTyped(KeyEvent e)
             {
+<<<<<<< HEAD
                 if (formattedTextField.getText().length() == 27)
                     e.consume();
             }
         });
         panelAmount.add(formattedTextField);
+=======
+                if (txtAmount.getText().length() == 27)
+                    e.consume();
+            }
+        });
+        panelAmount.add(txtAmount);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         panelAmount.add(Box.createHorizontalGlue());
         panelAmount.add(panelVND);
 
@@ -139,7 +177,11 @@ public class PanelTransfer extends JPanel
         JPanel content = new RadiusAndShadow();
         content.setBackground(Color.WHITE);
         content.setLayout(new GridBagLayout());
+<<<<<<< HEAD
         JTextArea txtContent = new JTextArea();
+=======
+        txtContent = new JTextArea();
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         txtContent.setBackground(Color.WHITE);
         txtContent.setLineWrap(true);
         txtContent.setBorder(null);
@@ -155,7 +197,11 @@ public class PanelTransfer extends JPanel
         panelGBLEast.setLayout(new GridLayout(10, 1, 20, 0));
 
 
+<<<<<<< HEAD
         JLabel lblName = new JLabel(Login.fullname);
+=======
+        JLabel lblName = new JLabel(LoginController.fullname);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Arial", Font.BOLD, 20));
         JPanel panelName = new JPanel();
@@ -169,7 +215,11 @@ public class PanelTransfer extends JPanel
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
+<<<<<<< HEAD
         panelAccountNumber.add(new JLabel(Login.accountNumber));
+=======
+        panelAccountNumber.add(new JLabel(LoginController.accountNumber));
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         panelGBLEast.add(panelAccountNumber);
 
 
@@ -178,7 +228,11 @@ public class PanelTransfer extends JPanel
         JPanel panelBalance = new JPanel();
         panelBalance.setBackground(Color.WHITE);
         panelBalance.add(lblBalance);
+<<<<<<< HEAD
         panelBalance.add(new JLabel(Login.balance));
+=======
+        panelBalance.add(lblBalanceData);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         panelBalance.add(new JLabel("VNĐ"));
         panelGBLEast.add(panelBalance);
 
@@ -215,4 +269,27 @@ public class PanelTransfer extends JPanel
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(content);
     }
+<<<<<<< HEAD
+=======
+
+    public String check()
+    {
+        if (this.txtAccountNumber.getText().equals("") || this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
+            return "Please input full";
+        else if(LoginController.accountNumber.equals(txtAccountNumber.getText()))
+            return "Account number received must different your account number";
+        else if(!LoginController.CheckSignUpSoTK(txtAccountNumber.getText()))
+            return "Account number do not exist";
+        else if(!LoginController.updateTransfer("Chuyển tiền", LoginController.accountNumber, txtAccountNumber.getText(), Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
+            return "Balance enough";
+        else
+        {
+            LoginController.getUserData(LoginFrame.username);
+            this.lblBalanceData.setText(LoginController.balance);
+            PanelProfile.lblBalance.setText(LoginController.balance);
+            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
+            return "Success";
+        }
+    }
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 }

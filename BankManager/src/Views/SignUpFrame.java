@@ -1,5 +1,9 @@
 package Views;
 
+<<<<<<< HEAD
+=======
+import Controller.LoginController;
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 import Model.Login;
 
 import javax.swing.*;
@@ -1039,8 +1043,8 @@ public class SignUpFrame extends JFrame
         JPanel pnlBtnSignUp = new RadiusAndShadow();
         pnlBtnSignUp.addMouseListener(new MouseAdapter()
         {
-            Login login = new Login();
-            String accountNumber = login.Random(0, 9, 10);
+
+            String accountNumber = LoginController.Random(0, 9, 10);
 
             @Override
             public void mouseClicked(MouseEvent e)
@@ -1049,7 +1053,10 @@ public class SignUpFrame extends JFrame
                 // obj.replaceAll("[^a-zA-Z0-9]", "") xóa tất cả ký tự đặc biệt và thay bằng khoảng trắng
                 // [^\p{L}\s] xóa các ký tự đặc biệt trừ dấu tiếng Việt
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
                 if (txtCMND.getText().equals("") || txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtDay.getText().equals("") || txtMonth.getText().equals("") || txtYear.getText().equals("") || txtAddress.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("")
                         || txtCMND.getText().equals("Citizen identification number") || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") || txtDay.getText().equals("Day") || txtMonth.getText().equals("Month") || txtAddress.getText().equals("Year") || txtAddress.getText().equals("Address") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password") || txtPasswordConfirm.getText().equals("Password confirm"))
                     lblLoginMessage.setText("Please input all requirements!");
@@ -1069,24 +1076,26 @@ public class SignUpFrame extends JFrame
                     lblLoginMessage.setText("Username must be 6 characters or more");
                 else if (txtPassword.getText().length() < 8)
                     lblLoginMessage.setText("Password must be 8 characters or more");
+<<<<<<< HEAD
+=======
+                else if (LoginController.CheckSignUpTenTK(txtUsername.getText()))
+                    lblLoginMessage.setText("Username already exists, please enter another name!");
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
                 else if (!txtPassword.getText().equals(txtPasswordConfirm.getText()))
                     lblLoginMessage.setText("Password confirm is not correct!");
-                else if (login.CheckCMND(txtCMND.getText()))
+                else if (LoginController.CheckCMND(txtCMND.getText()))
                 {
-                    while (login.CheckSignUpSoTK(accountNumber))
-                        accountNumber = login.Random(0, 9, 10);
-                    if (!login.CheckSignUpTenTK(txtUsername.getText()))
-                    {
-                        login.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
-                        lblLoginMessage.setText("");
-                        JOptionPane.showMessageDialog(null, "SignUp Successful");
-                        new LoginFrame().setVisible(true);
-                        SignUpFrame.this.dispose();
-                    } else
-                        lblLoginMessage.setText("Username already exists, please enter another name!");
+                    while (LoginController.CheckSignUpSoTK(accountNumber))
+                        accountNumber = LoginController.Random(0, 9, 10);
+                    LoginController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
+                    lblLoginMessage.setText("");
+                    JOptionPane.showMessageDialog(null, "SignUp Successful");
+                    new LoginFrame().setVisible(true);
+                    SignUpFrame.this.dispose();
                 } else
                 {
                     birthDay = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
+<<<<<<< HEAD
                     login.InsertDataKHACHHANG(txtCMND.getText(), txtFullname.getText(), txtPhoneNumber.getText(), txtGender.getText(), birthDay, txtAddress.getText());
                     while (login.CheckSignUpSoTK(accountNumber))
                         accountNumber = login.Random(0, 9, 10);
@@ -1099,6 +1108,16 @@ public class SignUpFrame extends JFrame
                         SignUpFrame.this.dispose();
                     } else
                         lblLoginMessage.setText("Username already exists, please enter another name!");
+=======
+                    LoginController.InsertDataKHACHHANG(txtCMND.getText(), txtFullname.getText(), txtPhoneNumber.getText(), txtGender.getText(), birthDay, txtAddress.getText());
+                    while (LoginController.CheckSignUpSoTK(accountNumber))
+                        accountNumber = LoginController.Random(0, 9, 10);
+                    LoginController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
+                    lblLoginMessage.setText("");
+                    JOptionPane.showMessageDialog(null, "SignUp Successful");
+                    new LoginFrame().setVisible(true);
+                    SignUpFrame.this.dispose();
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
                 }
             }
 

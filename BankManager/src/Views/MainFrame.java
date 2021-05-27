@@ -1,7 +1,11 @@
 package Views;
 
 
+<<<<<<< HEAD
 import Model.Login;
+=======
+import Controller.LoginController;
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +16,11 @@ import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame
 {
+<<<<<<< HEAD
     private Image img_logo = new ImageIcon(Login.class.getResource("/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+=======
+    private Image img_logo = new ImageIcon(("src/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
     private Image img_home = new ImageIcon("src/Res/home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
     private Image img_history = new ImageIcon("src/Res/history.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -55,6 +63,7 @@ public class MainFrame extends JFrame
         }
     };
 
+<<<<<<< HEAD
     public static void main(String[] args)
     {
         EventQueue.invokeLater(new Runnable()
@@ -71,6 +80,14 @@ public class MainFrame extends JFrame
     public MainFrame()
     {
         this.setDefaultCloseOperation(3);
+=======
+    public static JLabel btnProfile;
+
+    public MainFrame()
+    {
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -101,7 +118,11 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+<<<<<<< HEAD
                 MainFrame.this.showDetailsPanel("index");
+=======
+                MainFrame.this.showDetailsPanel("home");
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
             }
         });
 
@@ -226,6 +247,7 @@ public class MainFrame extends JFrame
         this.btnHistory.setBackground(this.exitedColor);
         this.btnHistory.addMouseListener(new MouseAdapter()
         {
+<<<<<<< HEAD
             @Override
             public void mouseClicked(MouseEvent e)
             {
@@ -233,6 +255,15 @@ public class MainFrame extends JFrame
             }
 
             @Override
+=======
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                MainFrame.this.showDetailsPanel("history");
+            }
+
+            @Override
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
             public void mouseEntered(MouseEvent e)
             {
                 MainFrame.this.btnHistory.setBackground(MainFrame.this.enteredColor);
@@ -263,6 +294,10 @@ public class MainFrame extends JFrame
         this.lblTextLogOut.setFont(new Font("Open Sans", 1, 15));
         this.btnLogOut = new JToggleButton();
         this.btnLogOut.setBorder(new EmptyBorder(0, 0, 0, 0));
+<<<<<<< HEAD
+=======
+        this.btnLogOut.setUI(this.metalToggleButton);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         this.btnLogOut.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
         this.btnLogOut.add(lblLogOut);
         this.btnLogOut.add(lblTextLogOut);
@@ -274,10 +309,17 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+<<<<<<< HEAD
                 if (e.getButton() == 1)
                 {
                     new LoginFrame().setVisible(true);
                     MainFrame.this.dispose();
+=======
+                if(e.getButton() == 1)
+                {
+                    new LoginFrame().setVisible(true);
+                    MainFrame.this.setVisible(false);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
                 }
             }
 
@@ -326,11 +368,18 @@ public class MainFrame extends JFrame
         toolPanel.setBorder(null);
         detailsPanel.add((Component) toolPanel, "North");
 
+<<<<<<< HEAD
 
         JLabel btnProfile = new JLabel();
         btnProfile.setIcon(new ImageIcon(img_profile));
         btnProfile.setFocusable(false);
         btnProfile.setHorizontalTextPosition(4);
+=======
+        btnProfile = new JLabel(LoginController.fullname);
+        btnProfile.setIcon(new ImageIcon(img_profile));
+        btnProfile.setFocusable(false);
+        btnProfile.setHorizontalTextPosition(SwingConstants.LEADING);
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         btnProfile.setBorder(null);
         btnProfile.setToolTipText("Thông tin cá nhân");
         btnProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -348,11 +397,19 @@ public class MainFrame extends JFrame
         this.cardPanelLayout = new CardLayout();
         this.cardPanel = new JPanel(this.cardPanelLayout);
         this.cardPanel.setBackground(Color.WHITE);
+<<<<<<< HEAD
         this.cardPanel.add(new PanelIndex(), "index");
         this.cardPanelLayout.show(this.cardPanel, "index");
         this.cardPanel.add(new PanelHome(), "overview");
         this.cardPanel.add(new PanelService(), "service");
         this.cardPanel.add(new PanelHistory(), "history");
+=======
+        this.cardPanel.add(new PanelHome(), "home");
+        this.cardPanelLayout.show(this.cardPanel, "home");
+        this.cardPanel.add(new PanelOverview(), "overview");
+        this.cardPanel.add(new PanelService(), "service");
+        this.cardPanel.add(new PanelTradingsHistory(), "history");
+>>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         this.cardPanel.add(new PanelProfile(), "profile");
 
         detailsPanel.add((Component) this.cardPanel, "Center");
