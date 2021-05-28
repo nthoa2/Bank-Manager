@@ -4,7 +4,6 @@ import Model.Login;
 
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
@@ -31,7 +30,7 @@ public class LoginController
             address = resultSet.getString(5);
             phone = resultSet.getString(6);
             accountNumber = resultSet.getString(7);
-            dateRegister = resultSet.getDate(10);
+            dateRegister = resultSet.getDate(11);
             dateSignUp = new SimpleDateFormat("dd-MM-yyyy").format(LoginController.dateRegister);
             balanceService = resultSet.getDouble(12);
             balance = String.format("%,.0f", balanceService);
