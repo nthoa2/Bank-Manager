@@ -359,7 +359,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void keyTyped(KeyEvent e)
             {
-                if (txtPhoneNumber.getText().length() >= 11)
+                if (txtPhoneNumber.getText().length() >= 10)
                     e.consume();
             }
         });

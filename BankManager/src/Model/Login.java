@@ -38,7 +38,7 @@ public class Login
         return Model.connection.getData(SQL);
     }
 
-    public static ResultSet InsertDataKHACHHANG(String cmnd, String fullname, String phoneNumber, String gender, String birthDay, String address)
+    public static int InsertDataKHACHHANG(String cmnd, String fullname, String phoneNumber, String gender, String birthDay, String address)
     {
         int genderLast = -1;
         String SQL;
@@ -49,15 +49,15 @@ public class Login
         SQL = "use QLNH " +
                 "insert into KHACHHANG(CMND, TenKH, NgaySinh, GioiTinh, DiaChi, SoDienThoai)" +
                 " values('" + cmnd + "',N'" + fullname + "','" + birthDay + "'," + genderLast + ",N'" + address + "','" + phoneNumber + "')";
-        return Model.connection.getData(SQL);
+        return Model.connection.executeQuery(SQL);
     }
 
-    public static ResultSet InsertDataTAIKHOAN(String accountNumber, String username, String password, String CMND)
+    public static int InsertDataTAIKHOAN(String accountNumber, String username, String password, String CMND)
     {
         String SQL = "use QLNH" +
                 " insert into TAIKHOAN(SoTK, TenTK, MatKhau, CMND)" +
                 "values('" + accountNumber + "','" + username + "','" + password + "','" + CMND + "')";
-        return Model.connection.getData(SQL);
+        return Model.connection.executeQuery(SQL);
     }
 
     public static ResultSet CheckGender(String username)
@@ -66,7 +66,7 @@ public class Login
         return Model.connection.getData(SQL);
     }
 
-    public static ResultSet UpdateProfile(String fullname, String gender, String phone, String birthDay, String address, String usernme)
+    public static int UpdateProfile(String fullname, String gender, String phone, String birthDay, String address, String usernme)
     {
         int genderLast = -1;
         if (gender.equalsIgnoreCase("nam"))
@@ -76,13 +76,13 @@ public class Login
 
         String SQL = "use QLNH Update KHACHHANG set TenKH = N'" + fullname + "', NgaySinh = '" + birthDay + "', GioiTinh = " + genderLast + ", DiaChi=N'" + address + "', SoDienThoai= '" + phone + "' \n" +
                 "where CMND = (select KH.CMND from KHACHHANG KH INNER JOIN TAIKHOAN TK ON KH.CMND = TK.CMND where TK.TenTK = '" + usernme + "')";
-        return Model.connection.getData(SQL);
+        return Model.connection.executeQuery(SQL);
     }
 
-    public static ResultSet UpdatePassword(String password, String username)
+    public static int UpdatePassword(String password, String username)
     {
         String SQL = "use QLNH Update TAIKHOAN set MatKhau = '" + password + "' where TenTK = '" + username + "'";
-        return Model.connection.getData(SQL);
+        return Model.connection.executeQuery(SQL);
     }
 
 
@@ -99,22 +99,22 @@ public class Login
         return Model.connection.getData(SQL);
     }
 
-    public static ResultSet updateAccountNumberTransfer(String accountNumber, String accountNumberReceived, double amount)
+    public static int updateAccountNumberTransfer(String accountNumber, String accountNumberReceived, double amount)
     {
         String SQL = "use QLNH \n" +
                 " UPDATE TAIKHOAN SET SoDu = SoDu - " + amount + " WHERE SoTK = '" + accountNumber + "'"
                 + " UPDATE TAIKHOAN SET SoDu = SoDu + " + amount + " WHERE SoTK = '" + accountNumberReceived + "'";
-        return Model.connection.getData(SQL);
+        return Model.connection.executeQuery(SQL);
     }
 
-    public static ResultSet updateTransfer(String idTrade, String typeTrade, String accountNumber, String accountNumberReceived, double amount, String content)
+    public static int updateTransfer(String idTrade, String typeTrade, String accountNumber, String accountNumberReceived, double amount, String content)
     {
         String SQL = "use QLNH" +
                 " insert into GIAODICH(MaGD, SoTien, GhiChu) " +
-                "values('" + idTrade + "','" + amount + "',N'" + content + "') " +
+                "values('" + idTrade + "'," + amount + ",N'" + content + "') " +
                 "insert into CHITIETGD(MaGD, LoaiGD, SoTK, SoTKNhan) " +
                 " values ('" + idTrade + "',N'" + typeTrade + "','" + accountNumber + "','" + accountNumberReceived + "')";
-        return connection.getData(SQL);
+        return connection.executeQuery(SQL);
     }
 
     public static int updateAccountNumber(String typeTrade, String accountNumber, double amount)
@@ -128,11 +128,11 @@ public class Login
 
     public static int updateWithDrawAndRecharge(String idTrade, String typeTrade, String accountNumber, double amount, String content)
     {
-        String SQL = "use QLNH" +
-                " insert into GIAODICH(MaGD, SoTien, GhiChu)" +
-                "values('" + idTrade + "','" + amount + "',N'" + content + "')" +
-                "insert into CHITIETGD(MaGD, LoaiGD , SoTK, SoTKNhan)" +
-                "values ('" + idTrade + "',N'" + typeTrade + "', '" + accountNumber + "','" + accountNumber + "')";
+        String SQL = "use QLNH " +
+                " insert into GIAODICH(MaGD, SoTien, GhiChu) " +
+                " values('" + idTrade + "'," + amount + ",N'" + content + "') " +
+                " insert into CHITIETGD(MaGD, LoaiGD , SoTK, SoTKNhan) " +
+                " values ('" + idTrade + "',N'" + typeTrade + "', '" + accountNumber + "','" + accountNumber + "')";
         return Model.connection.executeQuery(SQL);
     }
 }
