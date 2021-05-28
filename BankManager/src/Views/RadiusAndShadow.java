@@ -58,12 +58,12 @@ public class RadiusAndShadow extends JPanel
         Graphics2D tg2d = img.createGraphics();
         applyQualityProperties(g2d);
         // thay đổi màu cho bóng
-        tg2d.setColor(new Color(163, 161, 157));
+        tg2d.setColor(Color.BLACK);
         tg2d.translate(-bounds.x, -bounds.y);
         tg2d.fill(shape);
         tg2d.dispose();
         // thay đổi màu cho bóng và kích hoạt đổ bóng
-        BufferedImage shadow = generateShadow(img, shadowSize, new Color(163, 161, 157), 0.5f);
+        BufferedImage shadow = generateShadow(img, shadowSize, Color.BLACK, 0.5f);
 
         g2d.drawImage(shadow, shadowSize, shadowSize, this);
 
@@ -74,7 +74,7 @@ public class RadiusAndShadow extends JPanel
          * THIS ONE OF THE ONLY OCCASIONS THAT I WOULDN'T CALL
          * super.paintComponent *
          */
-        getUI().paint(g2d, this);
+        this.getUI().paint(g2d, this);
 
         // màu đường viền
         g2d.setColor(Color.GRAY);

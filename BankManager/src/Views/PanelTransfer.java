@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.LoginController;
+import Controller.TradingsController;
 import Model.Login;
 
 import javax.swing.*;
@@ -236,6 +237,7 @@ public class PanelTransfer extends JPanel
             LoginController.getUserData(LoginFrame.username);
             this.lblBalanceData.setText(LoginController.balance);
             PanelProfile.lblBalance.setText(LoginController.balance);
+            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
             return "Success";
         }
     }

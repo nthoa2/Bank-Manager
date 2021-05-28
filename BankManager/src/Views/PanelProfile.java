@@ -18,11 +18,11 @@ public class PanelProfile extends JPanel
     public PanelProfile()
     {
         LoginController.getUserData(LoginFrame.username);
-        this.setLayout(new BorderLayout(100,0));
-        JPanel panelWest = new JPanel();
-        panelWest.setPreferredSize(new Dimension(200,0));
-        JPanel panelEast = new JPanel();
-        panelEast.setPreferredSize(new Dimension(200,0));
+        this.setLayout(new BorderLayout(0,0));
+        JPanel panelWest = new LinearGradient(0);
+        panelWest.setPreferredSize(new Dimension(300, 0));
+        JPanel panelEast = new LinearGradient(0);
+        panelEast.setPreferredSize(new Dimension(300, 0));
         this.add(panelWest, "West");
         this.add(panelEast, "East");
 
@@ -74,6 +74,7 @@ public class PanelProfile extends JPanel
         panelMain.add(panelCenter, "Center");
 
         JPanel panelInformation1 = new RadiusAndShadow();
+        panelInformation1.setBackground(Color.WHITE);
         panelInformation1.setLayout(new GridBagLayout());
         panelCenter.add(panelInformation1);
         lblFullName = new JLabel(LoginController.fullname);
@@ -99,6 +100,7 @@ public class PanelProfile extends JPanel
         panelInformation1.add(lblAccountNumber, gbc);
 
         JPanel pnlBalance = new JPanel();
+        pnlBalance.setBackground(Color.WHITE);
         pnlBalance.setLayout(new BoxLayout(pnlBalance, BoxLayout.X_AXIS));
         gbc.gridy = 2;
         panelInformation1.add(pnlBalance, gbc);
@@ -121,6 +123,7 @@ public class PanelProfile extends JPanel
 
 
         JPanel panelInformation2 = new RadiusAndShadow();
+        panelInformation2.setBackground(Color.WHITE);
         panelInformation2.setLayout(new BoxLayout(panelInformation2, BoxLayout.Y_AXIS));
         panelCenter.add(panelInformation2);
 

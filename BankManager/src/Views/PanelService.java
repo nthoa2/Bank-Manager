@@ -9,7 +9,9 @@ import java.awt.event.MouseEvent;
 public class PanelService extends JPanel
 {
     private FlowLayout flowLayout = new FlowLayout();
-    private CardLayout cardLayout = new CardLayout();
+    public static CardLayout cardLayout = new CardLayout();
+    public static JPanel panelForm;
+    public static JPanel panelFooter;
     public static JLabel lblMessage;
 
     private PanelTransfer transfer;
@@ -26,20 +28,19 @@ public class PanelService extends JPanel
         flowLayout.setHgap(80);
         flowLayout.setVgap(40);
 
-        JPanel panelHeader = new JPanel();
+        JPanel panelHeader = new LinearGradient(1);
         panelHeader.setLayout(flowLayout);
         this.add(panelHeader, "North");
 
-        JPanel panelFooter = new JPanel();
+        panelFooter = new LinearGradient(1);
         panelFooter.setLayout(new BorderLayout(0, 0));
         panelFooter.setVisible(false);
         this.add(panelFooter, "South");
 
 
-        JPanel panelForm = new JPanel();
+        panelForm = new JPanel();
         panelForm.setLayout(cardLayout);
         panelForm.add(new ScaleImg("/Res/img_service.jpg"), "4");
-        cardLayout.show(panelForm, "4");
         this.add(panelForm, "Center");
 
         JPanel panelMessage = new JPanel();
@@ -53,7 +54,7 @@ public class PanelService extends JPanel
         panelMessage.add(lblMessage);
 
         flowLayout.setVgap(10);
-        JPanel footer = new JPanel();
+        JPanel footer = new LinearGradient(1);
         footer.setLayout(flowLayout);
         panelFooter.add(footer, "Center");
 

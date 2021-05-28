@@ -47,7 +47,7 @@ public class SignUpFrame extends JFrame
         setUndecorated(true);
         setBounds(100, 100, 600, 500);
         setLocationRelativeTo(null);
-        contentPane = new JPanel();
+        contentPane = new LinearGradient(0);
         contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(new LineBorder(new Color(0, 0, 128), 2));
         contentPane.setLayout(null);
@@ -56,7 +56,7 @@ public class SignUpFrame extends JFrame
 
         JLabel lblTitle = new JLabel();
         lblTitle.setText("Signup Form");
-        lblTitle.setForeground(Color.GRAY);
+        lblTitle.setForeground(Color.BLACK);
         lblTitle.setBounds(220, 10, 200, 30);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
         contentPane.add(lblTitle);
@@ -77,7 +77,7 @@ public class SignUpFrame extends JFrame
 
         JPanel panelCMND = new RadiusAndShadow();
         panelCMND.setBackground(Color.WHITE);
-        panelCMND.setBounds(20, 60, 260, 55);
+        panelCMND.setBounds(20, 70, 260, 55);
         panelCMND.setLayout(null);
         contentPane.add(panelCMND);
 

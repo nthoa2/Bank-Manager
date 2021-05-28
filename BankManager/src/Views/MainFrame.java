@@ -2,8 +2,6 @@ package Views;
 
 
 import Controller.LoginController;
-import Model.Login;
-import Model.connection;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,6 +29,7 @@ public class MainFrame extends JFrame
     private Color clickedColor = new Color(60, 179, 113);
     private Dimension btnSize = new Dimension(230, 40);
     private JPanel contentPane;
+    private JPanel toolPanel;
     private JLabel Logo;
     private JToggleButton btnHome;
     private JToggleButton btnHistory;
@@ -62,7 +61,7 @@ public class MainFrame extends JFrame
     public MainFrame()
     {
 
-        this.setDefaultCloseOperation(3);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -93,7 +92,8 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                MainFrame.this.showDetailsPanel("index");
+                toolPanel.setVisible(true);
+                MainFrame.this.showDetailsPanel("home");
             }
         });
 
@@ -125,6 +125,7 @@ public class MainFrame extends JFrame
             {
                 if (e.getButton() == 1)
                 {
+                    toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("overview");
                 }
             }
@@ -174,7 +175,10 @@ public class MainFrame extends JFrame
             {
                 if (e.getButton() == 1)
                 {
+                    toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("service");
+                    PanelService.panelFooter.setVisible(false);
+                    PanelService.cardLayout.show(PanelService.panelForm, "4");
                 }
             }
 
@@ -221,6 +225,7 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+                toolPanel.setVisible(true);
                 MainFrame.this.showDetailsPanel("history");
             }
 
@@ -313,7 +318,7 @@ public class MainFrame extends JFrame
         detailsPanel.setLayout(new BorderLayout(0, 0));
         this.contentPane.add((Component) detailsPanel, "Center");
 
-        JPanel toolPanel = new JPanel();
+        toolPanel = new LinearGradient(1);
         toolPanel.setLayout(new FlowLayout(2, 15, 0));
         toolPanel.setBackground(Color.WHITE);
         toolPanel.setBorder(null);
@@ -330,7 +335,9 @@ public class MainFrame extends JFrame
         btnProfile.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
+                if (e.getButton() == 1)
+                {
+                    toolPanel.setVisible(false);
                     MainFrame.this.showDetailsPanel("profile");
                 }
             }
@@ -340,11 +347,11 @@ public class MainFrame extends JFrame
         this.cardPanelLayout = new CardLayout();
         this.cardPanel = new JPanel(this.cardPanelLayout);
         this.cardPanel.setBackground(Color.WHITE);
-        this.cardPanel.add(new PanelIndex(), "index");
-        this.cardPanelLayout.show(this.cardPanel, "index");
-        this.cardPanel.add(new PanelHome(), "overview");
+        this.cardPanel.add(new PanelHome(), "home");
+        this.cardPanelLayout.show(this.cardPanel, "home");
+        this.cardPanel.add(new PanelOverview(), "overview");
         this.cardPanel.add(new PanelService(), "service");
-        this.cardPanel.add(new PanelHistory(), "history");
+        this.cardPanel.add(new PanelTradingsHistory(), "history");
         this.cardPanel.add(new PanelProfile(), "profile");
 
         detailsPanel.add((Component) this.cardPanel, "Center");

@@ -13,18 +13,13 @@ import java.awt.event.MouseEvent;
 public class EditPassword extends JDialog
 {
 
-
-    public static void main(String[] args)
-    {
-        new EditPassword().setVisible(true);
-    }
     public EditPassword()
     {
         this.setModal(true);
         this.setBackground(Color.GRAY);
         this.setUndecorated(true);
         this.setBounds(875, 370, 400, 400);
-        JPanel mainPane = new JPanel();
+        JPanel mainPane = new LinearGradient(1);
         mainPane.setLayout(null);
         mainPane.setFocusable(true);
         mainPane.setBorder(null);

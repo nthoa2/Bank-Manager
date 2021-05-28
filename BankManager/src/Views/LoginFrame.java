@@ -4,7 +4,6 @@ import Controller.LoginController;
 import Model.Login;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -21,9 +20,9 @@ public class LoginFrame extends JFrame
     private JPanel mainPane;
 
 
-    private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/logoright.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_login.jpg")).getImage().getScaledInstance(698, 596, Image.SCALE_SMOOTH);
-    private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/businessman.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/bank.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_left_login.png")).getImage().getScaledInstance(700, 600, Image.SCALE_SMOOTH);
+    private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/login_username.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_hide_password = new ImageIcon(LoginFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_show_password = new ImageIcon(LoginFrame.class.getResource("/Res/show_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
@@ -38,7 +37,7 @@ public class LoginFrame extends JFrame
         setLocationRelativeTo(null);
         mainPane = new JPanel();
         mainPane.setBackground(new Color(49, 47, 47));
-        mainPane.setBorder(new EmptyBorder(0,0,0,0));
+        mainPane.setBorder(null);
         mainPane.setLayout(null);
         mainPane.setFocusable(true); // khi Frame hiện ra sẽ k lấy cái nào làm tiêu điểm
         setContentPane(mainPane);
@@ -46,18 +45,19 @@ public class LoginFrame extends JFrame
         //khung nội dung bên trái
 
         JPanel contentPaneLeft = new JPanel();
-        contentPaneLeft.setBounds(2, 2, 698, 596);
+        contentPaneLeft.setBorder(null);
+        contentPaneLeft.setBounds(2, 2, 700, 600);
         contentPaneLeft.setLayout(null);
         mainPane.add(contentPaneLeft);
 
         JLabel lblIconLogo = new JLabel("");
-        lblIconLogo.setBounds(0,0, 698, 596);
+        lblIconLogo.setBounds(0,0, 700, 600);
         lblIconLogo.setIcon(new ImageIcon(img_logo));
         contentPaneLeft.add(lblIconLogo);;
 
 
         // Khung nội dung bên phải
-        JPanel contentPaneRight = new JPanel();
+        JPanel contentPaneRight = new LinearGradient(0);
         contentPaneRight.setBounds(700, 2, 298,596);
         contentPaneRight.setLayout(null);
         mainPane.add(contentPaneRight);
@@ -71,22 +71,21 @@ public class LoginFrame extends JFrame
 
         JLabel lblIconLogoBank = new JLabel("");
         lblIconLogoBank.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIconLogoBank.setBounds(30, 42, 250, 111);
+        lblIconLogoBank.setBounds(30, 30, 250, 150);
         lblIconLogoBank.setIcon(new ImageIcon(img_logo_right));
         contentPaneRight.add(lblIconLogoBank);
 
-        JLabel lblTitle = new JLabel();
-        lblTitle.setText("Login Form");
-        lblTitle.setForeground(Color.GRAY);
-        lblTitle.setBounds(99,170,200,30);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
-        contentPaneRight.add(lblTitle);
 
         JPanel panelUsername = new RadiusAndShadow();
         panelUsername.setBackground(Color.WHITE);
-        panelUsername.setBounds(20, 220, 260, 55);
+        panelUsername.setBounds(25, 220, 260, 55);
         panelUsername.setLayout(null);
         contentPaneRight.add(panelUsername);
+
+        JSeparator sptUsername = new JSeparator();
+        sptUsername.setForeground(Color.GRAY);
+        sptUsername.setBounds(10,35,210,1);
+        panelUsername.add(sptUsername);
 
         JTextField txtUsername = new JTextField();
         txtUsername.addFocusListener(new FocusAdapter()
@@ -94,6 +93,7 @@ public class LoginFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptUsername.setForeground(new Color(222, 97, 97));
                 if (txtUsername.getText().equals("Username"))
                 {
                     txtUsername.setText("");
@@ -106,6 +106,7 @@ public class LoginFrame extends JFrame
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
+                sptUsername.setForeground(Color.GRAY);
                 if (txtUsername.getText().equals(""))
                 {
                     txtUsername.setText("Username");
@@ -121,11 +122,6 @@ public class LoginFrame extends JFrame
         txtUsername.setColumns(10);
         panelUsername.add(txtUsername);
 
-        JSeparator sptUsername = new JSeparator();
-        sptUsername.setForeground(Color.GRAY);
-        sptUsername.setBounds(10,35,210,1);
-        panelUsername.add(sptUsername);
-
         JLabel lblIconUsername = new JLabel("");
         lblIconUsername.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconUsername.setBounds(210, 0, 40, 40);
@@ -134,9 +130,14 @@ public class LoginFrame extends JFrame
 
         JPanel panelPassword = new RadiusAndShadow();
         panelPassword.setBackground(Color.WHITE);
-        panelPassword.setBounds(20, 280, 260, 55);
+        panelPassword.setBounds(25, 280, 260, 55);
         panelPassword.setLayout(null);
         contentPaneRight.add(panelPassword);
+
+        JSeparator sptPassword = new JSeparator();
+        sptPassword.setForeground(Color.GRAY);
+        sptPassword.setBounds(10,35,210,1);
+        panelPassword.add(sptPassword);
 
         JPasswordField txtPassword = new JPasswordField();
         txtPassword.addFocusListener(new FocusAdapter()
@@ -144,6 +145,7 @@ public class LoginFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptPassword.setForeground(new Color(222, 97, 97));
                 if(LoginFrame.this.count % 2 == 0)
                 {
                     if (txtPassword.getText().equals("Password"))
@@ -170,6 +172,7 @@ public class LoginFrame extends JFrame
             @Override
             public void focusLost(FocusEvent fe)
             {
+                sptPassword.setForeground(Color.GRAY);
                 if (txtPassword.getText().equals(""))
                 {
                     txtPassword.setText("Password");
@@ -185,11 +188,6 @@ public class LoginFrame extends JFrame
         txtPassword.setText("Password");
         txtPassword.setBounds(10, 11, 170, 20);
         panelPassword.add(txtPassword);
-
-        JSeparator sptPassword = new JSeparator();
-        sptPassword.setForeground(Color.GRAY);
-        sptPassword.setBounds(10,35,210,1);
-        panelPassword.add(sptPassword);
 
 
         JLabel lblIconPassword = new JLabel("");
