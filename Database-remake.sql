@@ -5,44 +5,27 @@ GO
 
 CREATE TABLE KHACHHANG
 (
-    CMND VARCHAR(20), -- neu de cmmd làm ID thì có đảm bảo bảo mật ko ??
-	TenKH NVARCHAR(30),
-	NgaySinh DATE,
-	GioiTinh BIT, 
+    MaKH VARCHAR(20), -- neu de cmmd làm ID thì có đảm bảo bảo mật ko ??
+	TenKH NVARCHAR(30) NOT NULL,
+	NgaySinh DATE NOT NULL,
+	GioiTinh BIT NOT NULL, -- 0 = Nam, 1 = Nu
 	DiaChi NVARCHAR(50),
 	SoDienThoai VARCHAR(10), 
-	PRIMARY KEY(CMND)
+	PRIMARY KEY(MaKH)
 )
 GO
 
-
-CREATE TABLE LoaiTK
-(
-	id INT IDENTITY PRIMARY KEY,
-	TenLoaiTK NVARCHAR(30) NOT NULL DEFAULT N'Thông Thường'
-)
-GO
-
-CREATE TABLE account
-(
-	id INT IDENTITY PRIMARY KEY,
-	username VARCHAR(50) NOT NULL,
-	passwords VARCHAR(20) NOT NULL,
-)
-GO
 
 CREATE TABLE TAIKHOAN
 (
     SoTK VARCHAR(20) PRIMARY KEY,
 	MaKH VARCHAR(20) NOT NULL,
-	accountID INT,
+	TenTK VARCHAR(30)NOT NULL,
+	Matkhau VARCHAR(20) NOT NULL,
 	NgayDangKy DATETIME DEFAULT GETDATE(), --mặc định ngày đăng kí là ngày thực hiện tạo TK
-	loaiTK INT NOT NULL,
-	SoDu BIGINT DEFAULT 5000000,
+	SoDu MONEY DEFAULT 5000000,
 
-	FOREIGN KEY (accountID) REFERENCES dbo.account(id),
-	FOREIGN KEY (MaKH) REFERENCES dbo.KHACHHANG(CMND),
-	FOREIGN KEY(loaiTK)REFERENCES dbo.LoaiTK(id),
+	FOREIGN KEY(MaKH) REFERENCES dbo.KHACHHANG(MaKH),
 )
 GO
 
@@ -51,24 +34,97 @@ GO
 CREATE TABLE GIAODICH
 (
 	MaGD VARCHAR(20) PRIMARY KEY,
-	SoTK VARCHAR(20) NOT NULL, -- tài khoản nguồn
-	LoaiGD NVARCHAR(20) NOT NULL, -- 1 la chuyen tien 2 nhan tien 3 rut tien
 	NgayGD DATETIME NOT NULL DEFAULT GETDATE(),
-	FOREIGN KEY (SoTK) REFERENCES  dbo.TAIKHOAN(SoTK),
+	SoTien MONEY NOT NULL,
+	GhiChu NVARCHAR(70),
+
 )
 GO
 
 CREATE TABLE CHITIETGD
 (
+
     MaGD VARCHAR(20) NOT NULL,
-	SoTKNhan VARCHAR(20), -- tai khoan thụ hưởng
-	SoTien FLOAT,
-	GhiChu NVARCHAR(70),
-	PRIMARY KEY(MaGD,SoTKNhan),
+	LoaiGD NVARCHAR(20) NOT NULL,
+	SoTK VARCHAR(20) NOT NULL, -- tài khoản nguồn
+	SoTKNhan VARCHAR(20) NOT NULL, -- tai khoan thụ hưởng
+	PRIMARY KEY(MaGD,SoTK,SoTKNhan),
 	FOREIGN KEY (MaGD) REFERENCES dbo.GIAODICH(MaGD),
+	FOREIGN KEY (SoTK) REFERENCES  dbo.TAIKHOAN(SoTK),
 	FOREIGN KEY (SoTKNhan) REFERENCES dbo.TAIKHOAN(SoTK)
 
 
 )
 GO 
+
+
+--chen data khach hang
+INSERT INTO dbo.KHACHHANG
+(
+    MaKH,
+    TenKH,
+    NgaySinh,
+    GioiTinh,
+    DiaChi,
+    SoDienThoai
+)
+VALUES
+(   '1234567891',        -- MaKH - varchar(20)
+    N'Nguyễn Thanh Hòa',       -- TenKH - nvarchar(30)
+    '01/01/2001', -- NgaySinh - date
+    0,      -- GioiTinh - bit
+    N'dia chi 1',      -- DiaChi - nvarchar(50)
+    '0868104306'       -- SoDienThoai - varchar(10)
+    )
+INSERT INTO dbo.KHACHHANG
+(
+    MaKH,
+    TenKH,
+    NgaySinh,
+    GioiTinh,
+    DiaChi,
+    SoDienThoai
+)
+VALUES
+(   '9876543211',        -- MaKH - varchar(20)
+    N'Lê Ngọc Hà',       -- TenKH - nvarchar(30)
+    '11/05/2001', -- NgaySinh - date
+    1,      -- GioiTinh - bit
+    'Dia Chi 2',      -- DiaChi - nvarchar(50)
+    '0987667887'       -- SoDienThoai - varchar(10)
+)
+INSERT INTO dbo.TAIKHOAN
+(
+    SoTK,
+    MaKH,
+    TenTK,
+    Matkhau,
+    NgayDangKy,
+    SoDu
+)
+VALUES
+(   '970468686868',      -- SoTK - varchar(20)
+    '9876543211',      -- MaKH - varchar(20)
+    'test1',      -- TenTK - varchar(30)
+    'admin',      -- Matkhau - varchar(20)
+    DEFAULT, -- NgayDangKy - datetime
+    DEFAULT  -- SoDu - money
+    )
+INSERT INTO dbo.TAIKHOAN
+(
+    SoTK,
+    MaKH,
+    TenTK,
+    Matkhau,
+    NgayDangKy,
+    SoDu
+)
+VALUES
+(   '970436363636',      -- SoTK - varchar(20)
+    '1234567891',      -- MaKH - varchar(20)
+    'test1',      -- TenTK - varchar(30)
+    'admin',      -- Matkhau - varchar(20)
+    DEFAULT, -- NgayDangKy - datetime
+    DEFAULT  -- SoDu - money
+    )
 
