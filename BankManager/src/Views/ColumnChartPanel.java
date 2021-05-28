@@ -2,6 +2,7 @@ package Views;
 
 import java.awt.Font;
 
+import Model.UserData;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,9 +17,12 @@ import javax.swing.border.TitledBorder;
 
 public class ColumnChartPanel
         extends JFXPanel {
-    private double received = 3000;
-    private double spending = 3500;
-
+    private String startDay = LineGraphPanel.startDay;
+    private String endDay = LineGraphPanel.endDay;
+//    private double received = UserData.getUserReceivedPerMonth(LoginID,startDay,endDay);
+//    private double spending = UserData.getUsersSpendingPerDay(LoginID,startDay,endDay);
+private double received = 3000;
+private double spending = 3000;
 
     public BarChart createChart() {
 

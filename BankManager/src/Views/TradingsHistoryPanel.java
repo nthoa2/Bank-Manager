@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.regex.PatternSyntaxException;
 
 public class TradingsHistoryPanel extends JPanel {
@@ -21,6 +20,7 @@ public class TradingsHistoryPanel extends JPanel {
             return false;
         }
     };
+    TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
 
     private JPanel headerPanel() {
         JPanel rootPanel = new JPanel();
@@ -105,13 +105,27 @@ public class TradingsHistoryPanel extends JPanel {
         searchText.setHorizontalAlignment(SwingConstants.LEFT);
         searchText.setFont(new Font("Open Sans", Font.PLAIN, 13));
         searchText.setColumns(30);
+        searchText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String text = searchText.getText();
+                if (text.length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    try {
+                        sorter.setRowFilter(RowFilter.regexFilter(text));
+                    } catch (PatternSyntaxException patternException) {
+                        System.out.println("Bad regex pattern");
+                    }
+                }
+            }
+        });
         Button searchButton = new Button("Tìm Kiếm");
         searchButton.setBackground(new Color(205, 205, 205));
         searchButton.setFont(new Font("Open Sans", Font.BOLD, 14));
         searchButton.setPreferredSize(new Dimension(100, 25));
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setFocusable(false);
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,5 +1,7 @@
 package Views;
 
+import Controller.TradingsController;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -9,9 +11,10 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class OverviewPanel extends JPanel {
-    static JLabel accountBalanceLabelValue;
-    static JLabel totalSpendingValue;
-    static JLabel totalReceivedValue;
+    private JLabel accountBalanceLabelValue;
+    private JLabel totalSpendingValue;
+    private JLabel totalReceivedValue;
+    private JTable recentTransactionsTable;
     private ColumnChartPanel barChart;
     private LineGraphPanel lineChart;
 
@@ -145,12 +148,12 @@ public class OverviewPanel extends JPanel {
         recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Giao Dịch Gần Đây", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
         recentTransactionsPanel.setLayout(new BorderLayout(0, 0));
         recentTransactionsPanel.setPreferredSize(new Dimension(100, 265));
-        JTable recentTransactionsTable = new JTable();
+        recentTransactionsTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(recentTransactionsTable);
         recentTransactionsPanel.add(scrollPane);
         recentTransactionsTable.setFillsViewportHeight(true);
         recentTransactionsTable.setSelectionMode(0);
-        recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 12));
+        recentTransactionsTable.setFont(new Font("Open Sans", Font.BOLD, 12));
         recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Người Nhận/Chuyển", "Nội Dung", "Số Tiền"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -164,7 +167,7 @@ public class OverviewPanel extends JPanel {
         recentTransactionsTable.getColumn("Nội Dung").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public void setHorizontalAlignment(int alignment) {
-                super.setHorizontalAlignment(SwingConstants.CENTER);
+                super.setHorizontalAlignment(SwingConstants.LEFT);
             }
         });
         recentTransactionsTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer() {
@@ -173,8 +176,9 @@ public class OverviewPanel extends JPanel {
                 super.setHorizontalAlignment(SwingConstants.RIGHT);
             }
         });
+
         JTableHeader headerTable = recentTransactionsTable.getTableHeader();
-        headerTable.setFont(new Font("Open Sans", Font.BOLD, 13));
+        headerTable.setFont(new Font("Open Sans", Font.BOLD, 14));
         headerTable.setBackground(new Color(240, 240, 240));
         headerTable.setOpaque(true);
         headerTable.setAlignmentY(SwingConstants.CENTER);
@@ -206,6 +210,7 @@ public class OverviewPanel extends JPanel {
         this.barChart = new ColumnChartPanel();
         mainPanel.add((Component) this.southPanel(), "South");
         this.add((Component) scrollPane, "Center");
+        TradingsController.uploadTradingDataOverview(recentTransactionsTable);
     }
 
 }

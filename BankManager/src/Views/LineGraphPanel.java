@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+
+import Controller.TradingsController;
+import Model.UserData;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,28 +21,29 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class LineGraphPanel
         extends JFXPanel {
-    private LocalDate today = LocalDate.now();
-    private LocalDate lastDay = today.minusDays(30);
+    static LocalDate today = LocalDate.now();
+    static LocalDate lastDay = today.minusDays(30);
+    static String startDay = lastDay.getDayOfMonth() + "/" + lastDay.getMonthValue() + "/" + lastDay.getYear();
+    static String endDay = today.getDayOfMonth() + "/" + today.getMonthValue() + "/" + today.getYear();
 
     private javafx.scene.chart.LineChart createChart() {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
-        javafx.scene.chart.LineChart lineChart = new javafx.scene.chart.LineChart((Axis)xAxis, (Axis)yAxis);
+        javafx.scene.chart.LineChart lineChart = new javafx.scene.chart.LineChart((Axis) xAxis, (Axis) yAxis);
         XYChart.Series spendingSeries = new XYChart.Series();
         spendingSeries.setName("Chi Tiêu");
         XYChart.Series receivedSeries = new XYChart.Series();
         receivedSeries.setName("Nhận Vào");
-        SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yy");
-        String startDay = lastDay.getDayOfMonth() + "/" + lastDay.getMonthValue() + "/" + lastDay.getYear();
-        String endDay = today.getDayOfMonth() + "/" + today.getMonthValue() + "/" + today.getYear();
         Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yy");
         long totalDays = 0L;
         try {
             Date startDayFormat = simple.parse(startDay);
@@ -49,28 +53,28 @@ public class LineGraphPanel
             calendar.setTime(startDayFormat);
             long i = 0;
             while (i <= totalDays) {
-                int day = calendar.get(Calendar.DATE);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int year = calendar.get(Calendar.YEAR);
-                double Spending = 1000; // đổ dữ liệu
-                spendingSeries.getData().add((Object)new XYChart.Data((Object)simple.format(calendar.getTime()), (Object)Spending));
-                double receives = 3000;// đổ dữ liệu
-                receivedSeries.getData().add((Object)new XYChart.Data((Object)simple.format(calendar.getTime()), (Object)receives));
+                Date curentDate = new Date();
+                String currentDateFormat = simple.format(curentDate);
+//                double Spending = UserData.getUsersSpendingPerDay(LoginID,currentDateFormat);
+                double Spending = 3000;
+                spendingSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) Spending));
+//                double receives = UserData.getUserReceivedPerDay(LoginID, currentDateFormat);
+                double receives =3000;
+                receivedSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) receives));
                 calendar.add(Calendar.DATE, 1);
                 ++i;
             }
-        }
-        catch (ParseException parseException) {
+        } catch (ParseException parseException) {
             System.out.println(parseException.getMessage());
         }
-        lineChart.getData().addAll((Object[])new XYChart.Series[]{spendingSeries, receivedSeries});
+        lineChart.getData().addAll((Object[]) new XYChart.Series[]{spendingSeries, receivedSeries});
         return lineChart;
     }
 
     private Scene createScene() {
         BorderPane root = new BorderPane();
-        Scene scene = new Scene((Parent)root, (Paint)Color.ALICEBLUE);
-        root.setCenter((Node)this.createChart());
+        Scene scene = new Scene((Parent) root, (Paint) Color.ALICEBLUE);
+        root.setCenter((Node) this.createChart());
         return scene;
     }
 
