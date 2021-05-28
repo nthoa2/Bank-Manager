@@ -11,9 +11,9 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class OverviewPanel extends JPanel {
-    private JLabel accountBalanceLabelValue;
-    private JLabel totalSpendingValue;
-    private JLabel totalReceivedValue;
+    static JLabel accountBalanceLabelValue;
+    static JLabel totalSpendingValue;
+    static JLabel totalReceivedValue;
     private JTable recentTransactionsTable;
     private ColumnChartPanel barChart;
     private LineGraphPanel lineChart;
@@ -39,8 +39,10 @@ public class OverviewPanel extends JPanel {
         panelTitle.setFont(new Font("Open Sans", Font.BOLD, 29));
         panelTitle.setAlignmentX(1.0f);
         GridBagConstraints TitleConstraints = new GridBagConstraints();
-        TitleConstraints.anchor = 17;
-        TitleConstraints.fill = 3;
+        TitleConstraints.anchor = GridBagConstraints.CENTER;
+        TitleConstraints.weightx = 1;
+        TitleConstraints.weighty = 1;
+        TitleConstraints.fill = GridBagConstraints.HORIZONTAL;
         TitleConstraints.gridwidth = 2;
         TitleConstraints.ipadx = 50;
         TitleConstraints.insets = new Insets(0, 0, 5, 5);
@@ -55,56 +57,54 @@ public class OverviewPanel extends JPanel {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(0, 3, 5, 5));
 
-        JPanel accountBalancePanel = new JPanel();
-        accountBalancePanel.setBorder(new EtchedBorder(1, null, Color.DARK_GRAY));
+        JPanel accountBalancePanel = new RadiusAndShadow();
         accountBalancePanel.setBackground(Color.WHITE);
         accountBalancePanel.setLayout(new BorderLayout(0, 0));
         JLabel accountBalanceLabelTitle = new JLabel("Số Dư Hiện Tại");
-        accountBalanceLabelTitle.setVerticalTextPosition(0);
+        accountBalanceLabelTitle.setVerticalTextPosition(3);
         accountBalanceLabelTitle.setIconTextGap(15);
         accountBalanceLabelTitle.setIcon(new ImageIcon("src/Res/monney.png"));
         accountBalanceLabelTitle.setBackground(Color.WHITE);
         accountBalanceLabelTitle.setHorizontalAlignment(0);
         accountBalanceLabelTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
-        accountBalancePanel.add((Component) accountBalanceLabelTitle, "North");
+        accountBalancePanel.add((Component)accountBalanceLabelTitle, "North");
         accountBalanceLabelValue = new JLabel("0");
         accountBalanceLabelValue.setHorizontalAlignment(0);
         accountBalanceLabelValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        accountBalancePanel.add((Component) accountBalanceLabelValue, "Center");
+        accountBalancePanel.add((Component)accountBalanceLabelValue, "Center");
 
-        JPanel totalSpendingPanel = new JPanel();
-        totalSpendingPanel.setBorder(new EtchedBorder(1, null, Color.DARK_GRAY));
+        JPanel totalSpendingPanel = new RadiusAndShadow();
         totalSpendingPanel.setBackground(Color.WHITE);
         totalSpendingPanel.setLayout(new BorderLayout(0, 0));
         JLabel totalSpendingTitle = new JLabel("Tổng Chi Trong Tháng");
-        totalSpendingTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
-        totalSpendingTitle.setVerticalTextPosition(0);
+        totalSpendingTitle.setFont(new Font("Arial", 0, 18));
+        totalSpendingTitle.setVerticalTextPosition(3);
         totalSpendingTitle.setIcon(new ImageIcon("src/Res/monney.png"));
         totalSpendingTitle.setIconTextGap(15);
         totalSpendingTitle.setHorizontalTextPosition(4);
         totalSpendingTitle.setHorizontalAlignment(0);
-        totalSpendingPanel.add((Component) totalSpendingTitle, "North");
+        totalSpendingPanel.add((Component)totalSpendingTitle, "North");
         totalSpendingValue = new JLabel("0");
         totalSpendingValue.setHorizontalAlignment(0);
-        totalSpendingValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        totalSpendingPanel.add((Component) totalSpendingValue, "Center");
+        totalSpendingValue.setFont(new Font("Arial", Font.PLAIN, 20));
+        totalSpendingPanel.add((Component)totalSpendingValue, "Center");
 
-        JPanel totalReceivedPanel = new JPanel();
-        totalReceivedPanel.setBorder(new EtchedBorder(1, null, Color.DARK_GRAY));
+        JPanel totalReceivedPanel = new RadiusAndShadow();
         totalReceivedPanel.setBackground(Color.WHITE);
         totalReceivedPanel.setLayout(new BorderLayout(0, 5));
         JLabel totalReceivedTitle = new JLabel("Tổng Thu Trong Tháng");
         totalReceivedTitle.setIcon(new ImageIcon("src/Res/monney.png"));
-        totalReceivedTitle.setVerticalTextPosition(0);
+        totalReceivedTitle.setVerticalTextPosition(3);
         totalReceivedTitle.setVerticalAlignment(3);
         totalReceivedTitle.setIconTextGap(15);
         totalReceivedTitle.setHorizontalAlignment(0);
         totalReceivedTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
-        totalReceivedPanel.add((Component) totalReceivedTitle, "North");
+        totalReceivedPanel.add((Component)totalReceivedTitle, "North");
         totalReceivedValue = new JLabel("0");
         totalReceivedValue.setHorizontalAlignment(0);
         totalReceivedValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        totalReceivedPanel.add((Component) totalReceivedValue, "Center");
+        totalReceivedPanel.add((Component)totalReceivedValue, "Center");
+
 
         mainPanel.add(accountBalancePanel);
         mainPanel.add(totalSpendingPanel);
@@ -145,7 +145,7 @@ public class OverviewPanel extends JPanel {
 
 
         JPanel recentTransactionsPanel = new JPanel();
-        recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Giao Dịch Gần Đây", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
+        recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Giao Dịch Gần Đây", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
         recentTransactionsPanel.setLayout(new BorderLayout(0, 0));
         recentTransactionsPanel.setPreferredSize(new Dimension(100, 265));
         recentTransactionsTable = new JTable();
@@ -167,7 +167,7 @@ public class OverviewPanel extends JPanel {
         recentTransactionsTable.getColumn("Nội Dung").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public void setHorizontalAlignment(int alignment) {
-                super.setHorizontalAlignment(SwingConstants.LEFT);
+                super.setHorizontalAlignment(SwingConstants.CENTER);
             }
         });
         recentTransactionsTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer() {
@@ -176,7 +176,6 @@ public class OverviewPanel extends JPanel {
                 super.setHorizontalAlignment(SwingConstants.RIGHT);
             }
         });
-
         JTableHeader headerTable = recentTransactionsTable.getTableHeader();
         headerTable.setFont(new Font("Open Sans", Font.BOLD, 14));
         headerTable.setBackground(new Color(240, 240, 240));
@@ -212,5 +211,4 @@ public class OverviewPanel extends JPanel {
         this.add((Component) scrollPane, "Center");
         TradingsController.uploadTradingDataOverview(recentTransactionsTable);
     }
-
 }
