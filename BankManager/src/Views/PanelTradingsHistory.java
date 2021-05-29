@@ -24,9 +24,8 @@ public class PanelTradingsHistory extends JPanel {
     };
 
     private JPanel headerPanel() {
-        JPanel rootPanel = new JPanel();
-        rootPanel.setLayout(new BorderLayout(5, 0));
-        rootPanel.setPreferredSize(new Dimension(50, 90));
+        JPanel rootPanel = new LinearGradient(1);
+        rootPanel.setPreferredSize(new Dimension(50, 70));
         JPanel headerPanel = new JPanel(); // Title
         GridBagLayout headerPanelLayout = new GridBagLayout();
         int[] columnWidths = new int[5];
@@ -45,16 +44,17 @@ public class PanelTradingsHistory extends JPanel {
         headerTitle.setHorizontalAlignment(SwingConstants.CENTER);
         headerTitle.setAlignmentX(1.0f);
         GridBagConstraints TitleConstraints = new GridBagConstraints();
-        TitleConstraints.anchor = 17;
-        TitleConstraints.fill = 3;
+        TitleConstraints.anchor = GridBagConstraints.CENTER;
+        TitleConstraints.weightx = 1;
+        TitleConstraints.weighty = 1;
+        TitleConstraints.fill = GridBagConstraints.HORIZONTAL;
         TitleConstraints.gridwidth = 2;
         TitleConstraints.ipadx = 50;
         TitleConstraints.insets = new Insets(0, 0, 5, 5);
         TitleConstraints.gridx = 0;
-        TitleConstraints.gridy = 1;
-        headerPanel.add(headerTitle, TitleConstraints);
+        TitleConstraints.gridy = 0;
+        rootPanel.add(headerTitle, TitleConstraints);
 
-        rootPanel.add((Component) headerPanel, "North");
         return rootPanel;
     }
 
@@ -170,7 +170,6 @@ public class PanelTradingsHistory extends JPanel {
 
     public PanelTradingsHistory() {
         this.setLayout(new BorderLayout(0, 0));
-        this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add((Component) this.headerPanel(), "North");
         this.add((Component) this.dataPanel(), "Center");
         TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);

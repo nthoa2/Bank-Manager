@@ -5,16 +5,22 @@ import java.sql.ResultSet;
 public class TradingsData {
 
     public static ResultSet getAllTrading(String accountNumber) {
-        String queryString = "SELECT gd.LoaiGD, gd.NgayGD, ctgd.SoTKNhan, ctgd.GhiChu, ctgd.SoTien\n" +
-                "  FROM TAIKHOAN tk LEFT JOIN CHITIETGD ctgd ON tk.SoTK = ctgd.SoTK LEFT JOIN GIAODICH gd on ctgd.MaGD = gd.MaGD \n" +
-                "  WHERE ctgd.SoTK = '"+accountNumber+"' OR ctgd.SoTKNhan = '"+accountNumber+"'";
+            String queryString = "SELECT dbo.CHITIETGD.LoaiGD, dbo.GIAODICH.NgayGD,dbo.CHITIETGD.SoTK, dbo.CHITIETGD.SoTKNhan, dbo.GIAODICH.GhiChu,dbo.GIAODICH.SoTien\n" +
+                    "FROM dbo.GIAODICH FULL OUTER JOIN dbo.CHITIETGD ON CHITIETGD.MaGD = GIAODICH.MaGD\n" +
+                    "INNER JOIN dbo.TAIKHOAN ON TAIKHOAN.SoTK = CHITIETGD.SoTK\n" +
+                    "INNER JOIN dbo.KHACHHANG ON KHACHHANG.CMND = TAIKHOAN.CMND" +
+                    " WHERE CHITIETGD.SoTK = '" + accountNumber + "' OR CHITIETGD.SoTKNhan = '" + accountNumber +"'";
         return connection.getData(queryString);
     }
 
     public static ResultSet getTradedByType(String type) {
-        String queryString = "SELECT dbo.GIAODICH.LoaiGD, dbo.GIAODICH.NgayGD,dbo.CHITIETGD.SoTKNhan,dbo.CHITIETGD.GhiChu,dbo.CHITIETGD.SoTien FROM dbo.GIAODICH inner JOIN dbo.CHITIETGD \n" +
-                "ON CHITIETGD.MaGD = GIAODICH.MaGD\n" +
+        String queryString = "SELECT dbo.CHITIETGD.LoaiGD, dbo.GIAODICH.NgayGD,dbo.CHITIETGD.SoTK, dbo.CHITIETGD.SoTKNhan, dbo.GIAODICH.GhiChu,dbo.GIAODICH.SoTien\n" +
+                "FROM dbo.GIAODICH FULL OUTER JOIN dbo.CHITIETGD ON CHITIETGD.MaGD = GIAODICH.MaGD\n" +
+                "INNER JOIN dbo.TAIKHOAN ON TAIKHOAN.SoTK = CHITIETGD.SoTK\n" +
+                "INNER JOIN dbo.KHACHHANG ON KHACHHANG.CMND = TAIKHOAN.CMND" +
                 "WHERE LoaiGD = N'" + type + "'";
         return connection.getData(queryString);
     }
+
+
 }

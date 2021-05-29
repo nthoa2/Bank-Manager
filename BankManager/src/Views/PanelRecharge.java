@@ -1,10 +1,7 @@
 package Views;
 
-<<<<<<< HEAD
-=======
 import Controller.LoginController;
 import Controller.TradingsController;
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 import Model.Login;
 
 import javax.swing.*;
@@ -17,13 +14,9 @@ import java.text.NumberFormat;
 public class PanelRecharge extends JPanel
 {
     private GridBagConstraints gbc3;
-<<<<<<< HEAD
-
-=======
-    private JFormattedTextField txtAmount;
-    private JTextArea txtContent;
+    public static JFormattedTextField txtAmount;
+    public static JTextArea txtContent;
     private JLabel lblBalanceData = new JLabel(LoginController.balance);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 
     public PanelRecharge()
     {
@@ -50,11 +43,7 @@ public class PanelRecharge extends JPanel
         accountNumber.setLayout(new GridBagLayout());
         JTextField txtAccountNumber = new JTextField();
         txtAccountNumber.setEnabled(false);
-<<<<<<< HEAD
-        txtAccountNumber.setText(Login.accountNumber);
-=======
         txtAccountNumber.setText(LoginController.accountNumber);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         txtAccountNumber.setBackground(Color.WHITE);
         txtAccountNumber.setBorder(null);
         txtAccountNumber.setColumns(20);
@@ -90,36 +79,6 @@ public class PanelRecharge extends JPanel
         format.setMaximumFractionDigits(0);
         NumberFormatter numberFormat = new NumberFormatter(format);
         numberFormat.setAllowsInvalid(false);
-<<<<<<< HEAD
-        JFormattedTextField formattedTextField = new JFormattedTextField(numberFormat);
-        formattedTextField.setFont(new Font("Arial", Font.PLAIN, 15));
-        formattedTextField.setBorder(null);
-        formattedTextField.setText("0");
-        formattedTextField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                    txtAccountNumber.setEditable(true);
-                    PanelService.lblMessage.setText("");
-                } else {
-                    txtAccountNumber.setEditable(false);
-                    PanelService.lblMessage.setText("Enter only numeric digits(0-9)");
-                }
-                if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
-                    if(formattedTextField.getText().length() == 1){
-                        formattedTextField.setText("0");
-                    }
-                }
-            }
-            @Override
-            public void keyTyped(KeyEvent e)
-            {
-                if(formattedTextField.getText().length() == 27)
-                    e.consume();
-            }
-        });
-        panelAmount.add(formattedTextField);
-=======
         txtAmount = new JFormattedTextField(numberFormat);
         txtAmount.setFont(new Font("Arial", Font.PLAIN, 15));
         txtAmount.setBorder(null);
@@ -155,7 +114,6 @@ public class PanelRecharge extends JPanel
             }
         });
         panelAmount.add(txtAmount);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         panelAmount.add(Box.createHorizontalGlue());
         panelAmount.add(panelVND);
 
@@ -164,11 +122,7 @@ public class PanelRecharge extends JPanel
         JPanel content = new RadiusAndShadow();
         content.setBackground(Color.WHITE);
         content.setLayout(new GridBagLayout());
-<<<<<<< HEAD
-        JTextArea txtContent = new JTextArea();
-=======
         txtContent = new JTextArea();
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         txtContent.setBackground(Color.WHITE);
         txtContent.setLineWrap(true);
         txtContent.setBorder(null);
@@ -181,19 +135,12 @@ public class PanelRecharge extends JPanel
         JPanel panelGBLEast = new RadiusAndShadow();
         panelGBLEast.setPreferredSize(new Dimension(500, 200));
         panelGBLEast.setBackground(Color.WHITE);
-<<<<<<< HEAD
-        panelGBLEast.setLayout(new GridLayout(10,1,20,0));
-
-
-        JLabel lblName = new JLabel(Login.fullname);
-=======
         panelGBLEast.setLayout(new GridLayout(10, 1, 20, 0));
 
 
         JLabel lblName = new JLabel(LoginController.fullname);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         lblName.setForeground(Color.RED);
-        lblName.setFont(new Font("Arial", Font.BOLD, 20));
+        lblName.setFont(new Font("Aurella", Font.BOLD, 20));
         JPanel panelName = new JPanel();
         panelName.add(lblName);
         panelName.setBackground(Color.WHITE);
@@ -201,29 +148,26 @@ public class PanelRecharge extends JPanel
 
 
         JLabel lblAccountNumber = new JLabel("Account Number: ");
-        lblAccountNumber.setFont(new Font("Arial", Font.BOLD, 15));
+        lblAccountNumber.setFont(new Font("Aurella", Font.BOLD, 15));
+        JLabel lblaccountNumber = new JLabel(LoginController.accountNumber);
+        lblaccountNumber.setFont(new Font("Aurella", Font.BOLD, 15));
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
-<<<<<<< HEAD
-        panelAccountNumber.add(new JLabel(Login.accountNumber));
-=======
-        panelAccountNumber.add(new JLabel(LoginController.accountNumber));
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
+        panelAccountNumber.add(lblaccountNumber);
         panelGBLEast.add(panelAccountNumber);
 
 
         JLabel lblBalance = new JLabel("Balance: ");
-        lblBalance.setFont(new Font("Arial", Font.BOLD, 15));
+        lblBalance.setFont(new Font("Aurella", Font.BOLD, 15));
+        lblBalanceData.setFont(new Font("Aurella", Font.BOLD, 15));
+        JLabel lblvnd = new JLabel("VNĐ");
+        lblvnd.setFont(new Font("Aurella", Font.BOLD, 15));
         JPanel panelBalance = new JPanel();
         panelBalance.setBackground(Color.WHITE);
         panelBalance.add(lblBalance);
-<<<<<<< HEAD
-        panelBalance.add(new JLabel(Login.balance));
-=======
         panelBalance.add(lblBalanceData);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
-        panelBalance.add(new JLabel("VNĐ"));
+        panelBalance.add(lblvnd);
         panelGBLEast.add(panelBalance);
 
 
@@ -235,40 +179,36 @@ public class PanelRecharge extends JPanel
         panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
         this.add(panelCenter, "Center");
 
+        JLabel lblAccountReceived = new JLabel("Account number recharge");
+        lblAccountReceived.setFont(new Font("Aurella", Font.BOLD, 15));
+
         JPanel panel1 = new JPanel();
         panel1.setLayout(new BorderLayout());
-        panel1.add(new JLabel("Account number received"), "Center");
+        panel1.add(lblAccountReceived, "Center");
 
         panelCenter.add(panel1);
-<<<<<<< HEAD
-        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
-=======
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         panelCenter.add(accountNumber);
+
+        JLabel lblAmount = new JLabel("Amount");
+        lblAmount.setFont(new Font("Aurella", Font.BOLD, 15));
 
         JPanel panel2 = new JPanel();
         panel2.setLayout(new BorderLayout());
-        panel2.add(new JLabel("Amount"), "Center");
+        panel2.add(lblAmount, "Center");
 
         panelCenter.add(panel2);
-<<<<<<< HEAD
-        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
-=======
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
         panelCenter.add(amount);
+
+        JLabel lblContent = new JLabel("Content");
+        lblContent.setFont(new Font("Aurella", Font.BOLD, 15));
 
         JPanel panel3 = new JPanel();
         panel3.setLayout(new BorderLayout());
-        panel3.add(new JLabel("Content"), "Center");
+        panel3.add(lblContent, "Center");
 
         panelCenter.add(panel3);
-<<<<<<< HEAD
-        panelCenter.add(Box.createRigidArea(new Dimension(0,10)));
-        panelCenter.add(content);
-    }
-=======
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(content);
     }
@@ -283,9 +223,9 @@ public class PanelRecharge extends JPanel
             LoginController.getUserData(LoginFrame.username);
             this.lblBalanceData.setText(LoginController.balance);
             PanelProfile.lblBalance.setText(LoginController.balance);
+            PanelOverview.accountBalanceLabelValue.setText(LoginController.balance);
             TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
             return "Success";
         }
     }
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 }

@@ -1,9 +1,6 @@
 package Views;
 
-<<<<<<< HEAD
-=======
 import Controller.LoginController;
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
 import Model.Login;
 
 import javax.swing.*;
@@ -20,17 +17,14 @@ import java.util.regex.Pattern;
 public class EditProfile extends JDialog
 {
     private String birthDay;
-    public static void main(String[] args)
-    {
-        new EditProfile().setVisible(true);
-    }
+
     public EditProfile()
     {
         this.setModal(true);
         this.setBackground(Color.WHITE);
         this.setUndecorated(true);
         this.setBounds(825, 350, 500, 500);
-        JPanel mainPane = new JPanel();
+        JPanel mainPane = new LinearGradient(1);
         mainPane.setLayout(null);
         mainPane.setFocusable(true);
         mainPane.setBorder(null);
@@ -40,7 +34,7 @@ public class EditProfile extends JDialog
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitle.setForeground(Color.BLACK);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 25));
-        lblTitle.setBounds(0,50,500,50);
+        lblTitle.setBounds(0, 50, 500, 50);
         mainPane.add(lblTitle);
 
         JLabel lblLoginMessage = new JLabel("");
@@ -52,7 +46,7 @@ public class EditProfile extends JDialog
 
         JPanel panelFullname = new RadiusAndShadow();
         panelFullname.setBackground(Color.WHITE);
-        panelFullname.setBounds(20, 120, 260, 45);
+        panelFullname.setBounds(120, 120, 260, 45);
         panelFullname.setLayout(null);
         mainPane.add(panelFullname);
 
@@ -132,7 +126,7 @@ public class EditProfile extends JDialog
 
         JPanel panelGender = new RadiusAndShadow();
         panelGender.setBackground(Color.WHITE);
-        panelGender.setBounds(20, 170, 260, 45);
+        panelGender.setBounds(120, 170, 260, 45);
         panelGender.setLayout(null);
         mainPane.add(panelGender);
 
@@ -213,7 +207,7 @@ public class EditProfile extends JDialog
 
         JPanel panelPhoneNumber = new RadiusAndShadow();
         panelPhoneNumber.setBackground(Color.WHITE);
-        panelPhoneNumber.setBounds(20, 220, 260, 45);
+        panelPhoneNumber.setBounds(120, 220, 260, 45);
         panelPhoneNumber.setLayout(null);
         mainPane.add(panelPhoneNumber);
 
@@ -223,7 +217,7 @@ public class EditProfile extends JDialog
             @Override
             public void keyTyped(KeyEvent e)
             {
-                if (txtPhoneNumber.getText().length() >= 11)
+                if (txtPhoneNumber.getText().length() >= 10)
                     e.consume();
             }
         });
@@ -290,7 +284,7 @@ public class EditProfile extends JDialog
 
         JPanel panelBirthDay = new RadiusAndShadow();
         panelBirthDay.setBackground(Color.WHITE);
-        panelBirthDay.setBounds(20, 270, 260, 45);
+        panelBirthDay.setBounds(120, 270, 260, 45);
         panelBirthDay.setLayout(null);
 
         mainPane.add(panelBirthDay);
@@ -455,7 +449,7 @@ public class EditProfile extends JDialog
         txtYear.setForeground(Color.GRAY);
         txtYear.setText("Year");
         txtYear.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtYear.setBounds(100, 10, 50, 20);
+        txtYear.setBounds(120, 10, 50, 20);
         txtYear.setBorder(null);
         txtYear.addKeyListener(new KeyAdapter()
         {
@@ -523,7 +517,7 @@ public class EditProfile extends JDialog
 
         JPanel panelAddress = new RadiusAndShadow();
         panelAddress.setBackground(Color.WHITE);
-        panelAddress.setBounds(20, 320, 260, 45);
+        panelAddress.setBounds(120, 320, 260, 45);
         panelAddress.setLayout(null);
         mainPane.add(panelAddress);
 
@@ -593,7 +587,7 @@ public class EditProfile extends JDialog
         panelAddress.add(txtAddress);
 
         JLabel lblCancel = new JLabel("Cancel");
-        lblCancel.setBounds(45,10,50,20);
+        lblCancel.setBounds(45, 10, 50, 20);
         lblCancel.setFont(new Font("Arial", Font.BOLD, 15));
         lblCancel.setForeground(Color.BLACK);
 
@@ -606,8 +600,10 @@ public class EditProfile extends JDialog
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                EditProfile.this.dispose();
+                if (e.getButton() == 1)
+                    EditProfile.this.dispose();
             }
+
             @Override
             public void mouseEntered(MouseEvent e)
             {
@@ -633,11 +629,11 @@ public class EditProfile extends JDialog
             }
         });
         panelCancel.setLayout(null);
-        panelCancel.setBounds(90,400,150,50);
+        panelCancel.setBounds(90, 400, 150, 50);
         mainPane.add(panelCancel);
 
         JLabel lblSave = new JLabel("Save");
-        lblSave.setBounds(55,10,50,20);
+        lblSave.setBounds(55, 10, 50, 20);
         lblSave.setFont(new Font("Arial", Font.BOLD, 15));
         lblSave.setForeground(Color.BLACK);
 
@@ -650,54 +646,43 @@ public class EditProfile extends JDialog
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                birthDay = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
-                if ( txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtDay.getText().equals("") || txtMonth.getText().equals("") || txtYear.getText().equals("") || txtAddress.getText().equals("")
-                        || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") || txtDay.getText().equals("Day") || txtMonth.getText().equals("Month") || txtYear.getText().equals("Year") || txtAddress.getText().equals("Address"))
-                    lblLoginMessage.setText("Please input all requirements!");
-                else if (txtPhoneNumber.getText().length() < 10)
-                    lblLoginMessage.setText("Invalid phone number");
-                else if (Integer.parseInt(txtDay.getText()) > 31 || Integer.parseInt(txtDay.getText()) == 0)
-                    lblLoginMessage.setText("Invalid day");
-                else if (Integer.parseInt(txtMonth.getText()) > 12 || Integer.parseInt(txtMonth.getText()) == 0)
-                    lblLoginMessage.setText("Invalid month");
-                else if (txtYear.getText().length() < 4)
-                    lblLoginMessage.setText("Invalid year of birth");
-                else if (Integer.parseInt(txtYear.getText()) >= 2003 || Integer.parseInt(txtYear.getText()) <= 1920)
-                    lblLoginMessage.setText("Your year old must inside 18 - 100");
-                else
+                if (e.getButton() == 1)
                 {
-                    JOptionPane.showMessageDialog(null, "Save Successful");
-                    EditProfile.this.dispose();
-<<<<<<< HEAD
-                    Login login = new Login();
-                    login.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
+                    birthDay = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
+                    if (txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtDay.getText().equals("") || txtMonth.getText().equals("") || txtYear.getText().equals("") || txtAddress.getText().equals("")
+                            || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") || txtDay.getText().equals("Day") || txtMonth.getText().equals("Month") || txtYear.getText().equals("Year") || txtAddress.getText().equals("Address"))
+                        lblLoginMessage.setText("Please input all requirements!");
+                    else if (txtPhoneNumber.getText().length() < 10)
+                        lblLoginMessage.setText("Invalid phone number");
+                    else if (Integer.parseInt(txtDay.getText()) > 31 || Integer.parseInt(txtDay.getText()) == 0)
+                        lblLoginMessage.setText("Invalid day");
+                    else if (Integer.parseInt(txtMonth.getText()) > 12 || Integer.parseInt(txtMonth.getText()) == 0)
+                        lblLoginMessage.setText("Invalid month");
+                    else if (txtYear.getText().length() < 4)
+                        lblLoginMessage.setText("Invalid year of birth");
+                    else if (Integer.parseInt(txtYear.getText()) >= 2003 || Integer.parseInt(txtYear.getText()) <= 1920)
+                        lblLoginMessage.setText("Your year old must inside 18 - 100");
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Save Successful");
+                        EditProfile.this.dispose();
+                        LoginController.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
+                        LoginController.getUserData(LoginFrame.username);
+                        if (LoginController.CheckGender(LoginFrame.username))
+                            PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
+                        else PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
 
-                    if(login.CheckGender(LoginFrame.username))
-                        PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
-                    else PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
+                        MainFrame.btnProfile.setText(LoginController.fullname);
 
-                    PanelProfile.lblFullName.setText(Login.fullname = txtFullname.getText());
-                    PanelProfile.lblGender.setText(Login.gender = txtGender.getText());
-                    PanelProfile.lblPhone.setText(Login.phone = txtPhoneNumber.getText());
-                    PanelProfile.lblBirthday.setText(login.getBorn(LoginFrame.username));
-                    PanelProfile.lblAddress.setText(Login.address = txtAddress.getText());
-=======
-                    LoginController.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
-                    LoginController.getUserData(LoginFrame.username);
-                    if(LoginController.CheckGender(LoginFrame.username))
-                        PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
-                    else PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
-
-                    MainFrame.btnProfile.setText(LoginController.fullname);
-
-                    PanelProfile.lblFullName.setText(LoginController.fullname);
-                    PanelProfile.lblGender.setText(LoginController.gender);
-                    PanelProfile.lblPhone.setText(LoginController.phone);
-                    PanelProfile.lblBirthday.setText(LoginController.born);
-                    PanelProfile.lblAddress.setText(LoginController.address);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
+                        PanelProfile.lblFullName.setText(LoginController.fullname);
+                        PanelProfile.lblGender.setText(LoginController.gender);
+                        PanelProfile.lblPhone.setText(LoginController.phone);
+                        PanelProfile.lblBirthday.setText(LoginController.born);
+                        PanelProfile.lblAddress.setText(LoginController.address);
+                    }
                 }
             }
+
             @Override
             public void mouseEntered(MouseEvent e)
             {
@@ -723,7 +708,7 @@ public class EditProfile extends JDialog
             }
         });
         panelConfirm.setLayout(null);
-        panelConfirm.setBounds(270,400,150,50);
+        panelConfirm.setBounds(270, 400, 150, 50);
         mainPane.add(panelConfirm);
     }
 }

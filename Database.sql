@@ -5,77 +5,123 @@ GO
 
 CREATE TABLE KHACHHANG
 (
-    CMND VARCHAR(20),
-	TenKH NVARCHAR(30),
-	NgaySinh DATE,
-	GioiTinh BIT, 
+    CMND VARCHAR(20), -- neu de cmmd làm ID thì có đảm bảo bảo mật ko ??
+	TenKH NVARCHAR(30) NOT NULL,
+	NgaySinh DATE NOT NULL,
+	GioiTinh BIT NOT NULL, -- 0 = Nam, 1 = Nu
 	DiaChi NVARCHAR(50),
 	SoDienThoai VARCHAR(10), 
-
-	CONSTRAINT PK_KHACHHANG PRIMARY KEY(CMND)
+	PRIMARY KEY(CMND)
 )
 GO
 
 
 CREATE TABLE TAIKHOAN
 (
-    SoTK VARCHAR(20),
-	TenTK NVARCHAR(30) UNIQUE NOT NULL,
-	MatKhau VARCHAR(20),
-	NgayDangKy DATE DEFAULT GETDATE(),
-	SoThe VARCHAR(20),
-	SoDu BIGINT DEFAULT 0,
+    SoTK VARCHAR(20) PRIMARY KEY,
 	CMND VARCHAR(20) NOT NULL,
+	TenTK VARCHAR(30)NOT NULL,
+	Matkhau VARCHAR(20) NOT NULL,
+	NgayDangKy DATE DEFAULT GETDATE(), --mặc định ngày đăng kí là ngày thực hiện tạo TK
+	SoDu BIGINT DEFAULT 0,
 
-	CONSTRAINT PK_TAIKHOAN PRIMARY KEY(SoTK),
-	CONSTRAINT FK_TAIKHOAN FOREIGN KEY (CMND) REFERENCES dbo.KHACHHANG(CMND)
+	FOREIGN KEY(CMND) REFERENCES dbo.KHACHHANG(CMND),
 )
 GO
 
 
+
 CREATE TABLE GIAODICH
 (
-	MaGD VARCHAR(20),
-	LoaiGD NVARCHAR(20),
-	NgayGD DATE DEFAULT GETDATE() NOT NULL,
-
-
-	CONSTRAINT PK_GIAODICH PRIMARY KEY(MaGD),
-	
+	MaGD VARCHAR(20) PRIMARY KEY,
+	NgayGD DATETIME NOT NULL DEFAULT GETDATE(),
+	SoTien MONEY NOT NULL,
+	GhiChu NVARCHAR(70),
 )
 GO
 
 CREATE TABLE CHITIETGD
 (
-	STT INT IDENTITY,
-	MaGD VARCHAR(20),
-	SoTK VARCHAR(20),
-	SoTKNhan VARCHAR(20),
-	SoTien BIGINT,
-	GhiChu NVARCHAR(50)
 
-	CONSTRAINT PK_CHITIETGD PRIMARY KEY(MaGD, SoTK)
-	CONSTRAINT FK_GIAODICH_SoTKNhan FOREIGN KEY (SoTKNhan) REFERENCES TAIKHOAN(SoTK)
+    MaGD VARCHAR(20) NOT NULL,
+	LoaiGD NVARCHAR(20) NOT NULL,
+	SoTK VARCHAR(20) NOT NULL, -- tài khoản nguồn
+	SoTKNhan VARCHAR(20) NOT NULL, -- tai khoan thụ hưởng
+	PRIMARY KEY(MaGD,SoTK,SoTKNhan),
+	FOREIGN KEY (MaGD) REFERENCES dbo.GIAODICH(MaGD),
+	FOREIGN KEY (SoTK) REFERENCES  dbo.TAIKHOAN(SoTK),
+	FOREIGN KEY (SoTKNhan) REFERENCES dbo.TAIKHOAN(SoTK)
 )
 GO 
 
 
-
-ALTER TABLE CHITIETGD ADD FOREIGN KEY(MaGD) REFERENCES GIAODICH(MaGD)
-ALTER TABLE CHITIETGD ADD FOREIGN KEY(SoTK) REFERENCES TAIKHOAN(SoTK)
-
-
-
-INSERT  INTO KHACHHANG(CMND, TenKH, NgaySinh, GioiTinh, DiaChi, SoDienThoai)
-VALUES(2804, N'Hoàng Long', '2001-03-03', 1, N'Quận 9', 0909)
-
-
-INSERT INTO TAIKHOAN(SoTK, TenTK, MatKhau, NgayDangKy, SoThe, SoDu, CMND)
-VALUES(123, N'hoanglong', '03032001', '2020-05-22', 321, 0, 2804)
-
-INSERT INTO GIAODICH(MaGD, LoaiGD)
-VALUES(1, N'Nạp Tiền')
-
-INSERT INTO CHITIETGD(MaGD, SoTK, SoTien, GhiChu)
-VALUES(1, 123, 10000000, N'Nạp tý cho vui')
-
+--chen data khach hang
+INSERT INTO dbo.KHACHHANG
+(
+    CMND,
+    TenKH,
+    NgaySinh,
+    GioiTinh,
+    DiaChi,
+    SoDienThoai
+)
+VALUES
+(   '1234567891',        -- MaKH - varchar(20)
+    N'Nguyễn Thanh Hòa',       -- TenKH - nvarchar(30)
+    '01/01/2001', -- NgaySinh - date
+    0,      -- GioiTinh - bit
+    N'dia chi 1',      -- DiaChi - nvarchar(50)
+    '0868104306'       -- SoDienThoai - varchar(10)
+    )
+INSERT INTO dbo.KHACHHANG
+(
+    CMND,
+    TenKH,
+    NgaySinh,
+    GioiTinh,
+    DiaChi,
+    SoDienThoai
+)
+VALUES
+(   '9876543211',        -- MaKH - varchar(20)
+    N'Lê Ngọc Hà',       -- TenKH - nvarchar(30)
+    '11/05/2001', -- NgaySinh - date
+    1,      -- GioiTinh - bit
+    'Dia Chi 2',      -- DiaChi - nvarchar(50)
+    '0987667887'       -- SoDienThoai - varchar(10)
+)
+INSERT INTO dbo.TAIKHOAN
+(
+    SoTK,
+    CMND,
+    TenTK,
+    Matkhau,
+    NgayDangKy,
+    SoDu
+)
+VALUES
+(   '970468686868',      -- SoTK - varchar(20)
+    '9876543211',      -- MaKH - varchar(20)
+    'test1',      -- TenTK - varchar(30)
+    'admin',      -- Matkhau - varchar(20)
+    DEFAULT, -- NgayDangKy - datetime
+    DEFAULT  -- SoDu - money
+    )
+INSERT INTO dbo.TAIKHOAN
+(
+    SoTK,
+    CMND,
+    TenTK,
+    Matkhau,
+    NgayDangKy,
+    SoDu
+)
+VALUES
+(   '970436363636',      -- SoTK - varchar(20)
+    '1234567891',      -- MaKH - varchar(20)
+    'test1',      -- TenTK - varchar(30)
+    'admin',      -- Matkhau - varchar(20)
+    DEFAULT, -- NgayDangKy - datetime
+    DEFAULT  -- SoDu - money
+)
+ select * from KHACHHANG KH INNER JOIN TAIKHOAN TK ON KH.CMND = TK.CMND WHERE TenTK = 'hoanglong'

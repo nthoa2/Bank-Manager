@@ -4,12 +4,8 @@ import Controller.LoginController;
 import Model.Login;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 
 public class LoginFrame extends JFrame
@@ -19,14 +15,14 @@ public class LoginFrame extends JFrame
     public static String password;
 
     private JPanel mainPane;
+    private JPasswordField txtPassword;
+    private JTextField txtUsername;
+    private JLabel lblLoginMessage;
+    private JPanel pnlBtnLogin;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
-    private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/logoright.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_login.jpg")).getImage().getScaledInstance(698, 596, Image.SCALE_SMOOTH);
-    private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/businessman.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/bank.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_left_login.png")).getImage().getScaledInstance(700, 600, Image.SCALE_SMOOTH);
+    private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/login_username.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_hide_password = new ImageIcon(LoginFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_show_password = new ImageIcon(LoginFrame.class.getResource("/Res/show_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
@@ -41,7 +37,7 @@ public class LoginFrame extends JFrame
         setLocationRelativeTo(null);
         mainPane = new JPanel();
         mainPane.setBackground(new Color(49, 47, 47));
-        mainPane.setBorder(new EmptyBorder(0,0,0,0));
+        mainPane.setBorder(null);
         mainPane.setLayout(null);
         mainPane.setFocusable(true); // khi Frame hiện ra sẽ k lấy cái nào làm tiêu điểm
         setContentPane(mainPane);
@@ -49,23 +45,25 @@ public class LoginFrame extends JFrame
         //khung nội dung bên trái
 
         JPanel contentPaneLeft = new JPanel();
-        contentPaneLeft.setBounds(2, 2, 698, 596);
+        contentPaneLeft.setBorder(null);
+        contentPaneLeft.setBounds(2, 2, 700, 600);
         contentPaneLeft.setLayout(null);
         mainPane.add(contentPaneLeft);
 
         JLabel lblIconLogo = new JLabel("");
-        lblIconLogo.setBounds(0,0, 698, 596);
+        lblIconLogo.setBounds(0, 0, 700, 600);
         lblIconLogo.setIcon(new ImageIcon(img_logo));
-        contentPaneLeft.add(lblIconLogo);;
+        contentPaneLeft.add(lblIconLogo);
+        ;
 
 
         // Khung nội dung bên phải
-        JPanel contentPaneRight = new JPanel();
-        contentPaneRight.setBounds(700, 2, 298,596);
+        JPanel contentPaneRight = new LinearGradient(0);
+        contentPaneRight.setBounds(700, 2, 298, 596);
         contentPaneRight.setLayout(null);
         mainPane.add(contentPaneRight);
 
-        JLabel lblLoginMessage = new JLabel("");
+        lblLoginMessage = new JLabel("");
         lblLoginMessage.setForeground(Color.RED);
         lblLoginMessage.setHorizontalAlignment(SwingConstants.CENTER);
         lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
@@ -74,29 +72,29 @@ public class LoginFrame extends JFrame
 
         JLabel lblIconLogoBank = new JLabel("");
         lblIconLogoBank.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIconLogoBank.setBounds(30, 42, 250, 111);
+        lblIconLogoBank.setBounds(30, 30, 250, 150);
         lblIconLogoBank.setIcon(new ImageIcon(img_logo_right));
         contentPaneRight.add(lblIconLogoBank);
 
-        JLabel lblTitle = new JLabel();
-        lblTitle.setText("Login Form");
-        lblTitle.setForeground(Color.GRAY);
-        lblTitle.setBounds(99,170,200,30);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
-        contentPaneRight.add(lblTitle);
 
         JPanel panelUsername = new RadiusAndShadow();
         panelUsername.setBackground(Color.WHITE);
-        panelUsername.setBounds(20, 220, 260, 55);
+        panelUsername.setBounds(25, 220, 260, 55);
         panelUsername.setLayout(null);
         contentPaneRight.add(panelUsername);
 
-        JTextField txtUsername = new JTextField();
+        JSeparator sptUsername = new JSeparator();
+        sptUsername.setForeground(Color.GRAY);
+        sptUsername.setBounds(10, 35, 210, 1);
+        panelUsername.add(sptUsername);
+
+        txtUsername = new JTextField();
         txtUsername.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptUsername.setForeground(new Color(222, 97, 97));
                 if (txtUsername.getText().equals("Username"))
                 {
                     txtUsername.setText("");
@@ -109,6 +107,7 @@ public class LoginFrame extends JFrame
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
+                sptUsername.setForeground(Color.GRAY);
                 if (txtUsername.getText().equals(""))
                 {
                     txtUsername.setText("Username");
@@ -124,11 +123,6 @@ public class LoginFrame extends JFrame
         txtUsername.setColumns(10);
         panelUsername.add(txtUsername);
 
-        JSeparator sptUsername = new JSeparator();
-        sptUsername.setForeground(Color.GRAY);
-        sptUsername.setBounds(10,35,210,1);
-        panelUsername.add(sptUsername);
-
         JLabel lblIconUsername = new JLabel("");
         lblIconUsername.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconUsername.setBounds(210, 0, 40, 40);
@@ -137,17 +131,23 @@ public class LoginFrame extends JFrame
 
         JPanel panelPassword = new RadiusAndShadow();
         panelPassword.setBackground(Color.WHITE);
-        panelPassword.setBounds(20, 280, 260, 55);
+        panelPassword.setBounds(25, 280, 260, 55);
         panelPassword.setLayout(null);
         contentPaneRight.add(panelPassword);
 
-        JPasswordField txtPassword = new JPasswordField();
+        JSeparator sptPassword = new JSeparator();
+        sptPassword.setForeground(Color.GRAY);
+        sptPassword.setBounds(10, 35, 210, 1);
+        panelPassword.add(sptPassword);
+
+        txtPassword = new JPasswordField();
         txtPassword.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
-                if(LoginFrame.this.count % 2 == 0)
+                sptPassword.setForeground(new Color(222, 97, 97));
+                if (LoginFrame.this.count % 2 == 0)
                 {
                     if (txtPassword.getText().equals("Password"))
                     {
@@ -157,11 +157,11 @@ public class LoginFrame extends JFrame
                     {
                         txtPassword.selectAll();
                     }
-                }else
+                } else
                 {
                     if (txtPassword.getText().equals("Password"))
                     {
-                        txtPassword.setEchoChar((char)0);
+                        txtPassword.setEchoChar((char) 0);
                         txtPassword.setText("");
                     } else
                     {
@@ -173,6 +173,7 @@ public class LoginFrame extends JFrame
             @Override
             public void focusLost(FocusEvent fe)
             {
+                sptPassword.setForeground(Color.GRAY);
                 if (txtPassword.getText().equals(""))
                 {
                     txtPassword.setText("Password");
@@ -189,11 +190,6 @@ public class LoginFrame extends JFrame
         txtPassword.setBounds(10, 11, 170, 20);
         panelPassword.add(txtPassword);
 
-        JSeparator sptPassword = new JSeparator();
-        sptPassword.setForeground(Color.GRAY);
-        sptPassword.setBounds(10,35,210,1);
-        panelPassword.add(sptPassword);
-
 
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
@@ -204,17 +200,20 @@ public class LoginFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if(LoginFrame.this.count % 2 == 0)
+                if (e.getButton() == 1)
                 {
-                    LoginFrame.this.count++;
-                    lblIconPassword.setIcon(new ImageIcon(img_show_password));
-                    txtPassword.setEchoChar((char) 0);
-                }else
-                {
-                    LoginFrame.this.count++;
-                    lblIconPassword.setIcon(new ImageIcon(img_hide_password));
-                    if(!txtPassword.getText().equals("Password"))
-                        txtPassword.setEchoChar('*');
+                    if (LoginFrame.this.count % 2 == 0)
+                    {
+                        LoginFrame.this.count++;
+                        lblIconPassword.setIcon(new ImageIcon(img_show_password));
+                        txtPassword.setEchoChar((char) 0);
+                    } else
+                    {
+                        LoginFrame.this.count++;
+                        lblIconPassword.setIcon(new ImageIcon(img_hide_password));
+                        if (!txtPassword.getText().equals("Password"))
+                            txtPassword.setEchoChar('*');
+                    }
                 }
             }
         });
@@ -222,30 +221,14 @@ public class LoginFrame extends JFrame
 
 
         // Button Login
-        JPanel pnlBtnLogin = new RadiusAndShadow();
+        pnlBtnLogin = new RadiusAndShadow();
         pnlBtnLogin.addMouseListener(new MouseAdapter()
         {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-<<<<<<< HEAD
-
-                if (new Login().CheckLogin(txtUsername.getText(), txtPassword.getText()))
-                {
-                    LoginFrame.password = txtPassword.getText();
-                    LoginFrame.username = txtUsername.getText();
-=======
-                if (LoginController.CheckLogin(txtUsername.getText(), txtPassword.getText()))
-                {
-                    LoginFrame.password = txtPassword.getText();
-                    LoginFrame.username = txtUsername.getText();
-                    LoginController.getUserData(LoginFrame.username);
->>>>>>> d2e46d3e0d2c5a129571a49107696bf933f86a89
-                    new MainFrame().setVisible(true);
-                    LoginFrame.this.dispose();
-                } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))
-                    lblLoginMessage.setText("Please input all requirements!");
-                else lblLoginMessage.setText("Username or Password wrong!");
+                if (e.getButton() == 1)
+                    CheckLogin();
             }
 
             @Override
@@ -272,6 +255,33 @@ public class LoginFrame extends JFrame
                 pnlBtnLogin.setBackground(Color.WHITE);
             }
         });
+        mainPane.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    CheckLogin();
+            }
+        });
+        txtUsername.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    CheckLogin();
+            }
+        });
+        txtPassword.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    CheckLogin();
+            }
+        });
         pnlBtnLogin.setBackground(Color.WHITE);
         pnlBtnLogin.setBounds(55, 380, 200, 50);
         pnlBtnLogin.setLayout(null);
@@ -290,8 +300,11 @@ public class LoginFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                new SignUpFrame().setVisible(true);
-                LoginFrame.this.dispose(); // tắt Frame cũ
+                if (e.getButton() == 1)
+                {
+                    new SignUpFrame().setVisible(true);
+                    LoginFrame.this.dispose(); // tắt Frame cũ
+                }
             }
 
             @Override
@@ -326,7 +339,7 @@ public class LoginFrame extends JFrame
         JLabel lblSignup = new JLabel("Register");
         lblSignup.setForeground(Color.BLACK);
         lblSignup.setFont(new Font("Arial", Font.BOLD, 15));
-        lblSignup.setBounds(40,8,150,15);
+        lblSignup.setBounds(40, 8, 150, 15);
         pnlBtnSignup.add(lblSignup);
 
         JLabel lblX = new JLabel("X");
@@ -356,6 +369,21 @@ public class LoginFrame extends JFrame
         lblX.setHorizontalAlignment(SwingConstants.CENTER);
         lblX.setBounds(280, 0, 20, 20);
         contentPaneRight.add(lblX);
+    }
+
+    private void CheckLogin()
+    {
+        if (LoginController.CheckLogin(txtUsername.getText(), txtPassword.getText()))
+        {
+            pnlBtnLogin.setBackground(new Color(21, 140, 180));
+            LoginFrame.password = txtPassword.getText();
+            LoginFrame.username = txtUsername.getText();
+            LoginController.getUserData(LoginFrame.username);
+            new MainFrame().setVisible(true);
+            LoginFrame.this.dispose();
+        } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))
+            lblLoginMessage.setText("Please input all requirements!");
+        else lblLoginMessage.setText("Username or Password wrong!");
     }
 
 }

@@ -32,7 +32,7 @@ public class connection {
             Statement statement = connect.createStatement();
             return statement.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("ExecuteQuery fail");
+            System.err.println(ex.getMessage());
             return -1;
         }
     }
