@@ -60,6 +60,12 @@ public class MainFrame extends JFrame
 
     public MainFrame()
     {
+        try {
+            Image img = new ImageIcon(("src/Res/icon_frame.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            this.setIconImage(img);
+        }catch(Exception e){
+            System.out.println("Application icon not found");
+        }
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100, 100, 1383, 773);
