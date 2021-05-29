@@ -92,11 +92,16 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+<<<<<<< HEAD
                 if(e.getButton() == 1)
                 {
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("home");
                 }
+=======
+                toolPanel.setVisible(true);
+                MainFrame.this.showDetailsPanel("home");
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             }
         });
 
@@ -228,11 +233,16 @@ public class MainFrame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+<<<<<<< HEAD
                 if(e.getButton() == 1)
                 {
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("history");
                 }
+=======
+                toolPanel.setVisible(true);
+                MainFrame.this.showDetailsPanel("history");
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             }
 
             @Override

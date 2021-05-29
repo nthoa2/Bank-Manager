@@ -37,7 +37,11 @@ public class TradingsController {
                             dataObjects[1] = resultSet.getString("NgayGD");
                             dataObjects[2] = resultSet.getString("SoTKNhan");
                             dataObjects[3] = resultSet.getString("GhiChu");
+<<<<<<< HEAD
                             dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+=======
+                            dataObjects[4] = resultSet.getString("SoTien");
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
                         }
                         else if(LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
                         {
@@ -45,7 +49,11 @@ public class TradingsController {
                         dataObjects[1] = resultSet.getString("NgayGD");
                         dataObjects[2] = resultSet.getString("SoTK");
                         dataObjects[3] = resultSet.getString("GhiChu");
+<<<<<<< HEAD
                         dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+=======
+                        dataObjects[4] = resultSet.getString("SoTien");
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
                         }
                 }
                 else
@@ -54,7 +62,11 @@ public class TradingsController {
                     dataObjects[1] = resultSet.getString("NgayGD");
                     dataObjects[2] = resultSet.getString("SoTK");
                     dataObjects[3] = resultSet.getString("GhiChu");
+<<<<<<< HEAD
                     dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+=======
+                    dataObjects[4] = resultSet.getString("SoTien");
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
                 }
                 tableModel.addRow(dataObjects);
             }

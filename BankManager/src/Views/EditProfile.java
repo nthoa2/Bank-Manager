@@ -648,6 +648,7 @@ public class EditProfile extends JDialog
             {
                 if (e.getButton() == 1)
                 {
+<<<<<<< HEAD
                     birthDay = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
                     if (txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtDay.getText().equals("") || txtMonth.getText().equals("") || txtYear.getText().equals("") || txtAddress.getText().equals("")
                             || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") || txtDay.getText().equals("Day") || txtMonth.getText().equals("Month") || txtYear.getText().equals("Year") || txtAddress.getText().equals("Address"))
@@ -680,6 +681,23 @@ public class EditProfile extends JDialog
                         PanelProfile.lblBirthday.setText(LoginController.born);
                         PanelProfile.lblAddress.setText(LoginController.address);
                     }
+=======
+                    JOptionPane.showMessageDialog(null, "Save Successful");
+                    EditProfile.this.dispose();
+                    LoginController.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
+                    LoginController.getUserData(LoginFrame.username);
+                    if(LoginController.CheckGender(LoginFrame.username))
+                        PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
+                    else PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
+
+                    MainFrame.btnProfile.setText(LoginController.fullname);
+
+                    PanelProfile.lblFullName.setText(LoginController.fullname);
+                    PanelProfile.lblGender.setText(LoginController.gender);
+                    PanelProfile.lblPhone.setText(LoginController.phone);
+                    PanelProfile.lblBirthday.setText(LoginController.born);
+                    PanelProfile.lblAddress.setText(LoginController.address);
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
                 }
             }
 

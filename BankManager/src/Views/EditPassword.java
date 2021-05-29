@@ -226,6 +226,7 @@ public class EditPassword extends JDialog
             {
                 if (e.getButton() == 1)
                 {
+<<<<<<< HEAD
                     if (txtPasswordOld.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("") || txtPasswordOld.getText().equals("Password old") || txtPassword.getText().equals("Password new") || txtPasswordConfirm.getText().equals("Password confirm"))
                         lblLoginMessage.setText("Please input all requirements!");
                     else if (!LoginFrame.password.equals(txtPasswordOld.getText()))
@@ -243,6 +244,13 @@ public class EditPassword extends JDialog
                         LoginFrame.password = txtPassword.getText();
                         LoginController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
                     }
+=======
+                    JOptionPane.showMessageDialog(null, "Save Successful");
+                    EditPassword.this.dispose();
+                    LoginFrame.password = txtPassword.getText();
+                    LoginController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
+
+>>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
                 }
             }
 
