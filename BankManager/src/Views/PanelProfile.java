@@ -17,12 +17,7 @@ public class PanelProfile extends JPanel
 
     public PanelProfile()
     {
-<<<<<<< HEAD
         this.setLayout(new BorderLayout(0, 0));
-=======
-        LoginController.getUserData(LoginFrame.username);
-        this.setLayout(new BorderLayout(0,0));
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         JPanel panelWest = new LinearGradient(0);
         panelWest.setPreferredSize(new Dimension(300, 0));
         JPanel panelEast = new LinearGradient(0);
@@ -35,11 +30,7 @@ public class PanelProfile extends JPanel
         panelHeader.setBackground(Color.WHITE);
 
         lblAvatar = new JLabel("");
-<<<<<<< HEAD
         if (LoginController.CheckGender(LoginFrame.username))
-=======
-        if(LoginController.CheckGender(LoginFrame.username))
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             lblAvatar.setIcon(new ImageIcon(img_man));
         else lblAvatar.setIcon(new ImageIcon(img_woman));
 
@@ -141,11 +132,7 @@ public class PanelProfile extends JPanel
         panelInformation2.add(Box.createRigidArea(new Dimension(5, 10)));
         panelInformation2.add(lblGender);
 
-<<<<<<< HEAD
         lblBirthday = new JLabel(LoginController.born);
-=======
-         lblBirthday = new JLabel(LoginController.born);
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         lblBirthday.setForeground(Color.black);
         lblBirthday.setFont(new Font("Arial", Font.BOLD, 15));
         panelInformation2.add(Box.createVerticalGlue());
@@ -157,11 +144,7 @@ public class PanelProfile extends JPanel
         panelInformation2.add(Box.createVerticalGlue());
         panelInformation2.add(lblPhone);
 
-<<<<<<< HEAD
         lblAddress = new JLabel(LoginController.address);
-=======
-         lblAddress = new JLabel(LoginController.address);
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         lblAddress.setForeground(Color.black);
         lblAddress.setFont(new Font("Arial", Font.BOLD, 15));
         panelInformation2.add(Box.createVerticalGlue());

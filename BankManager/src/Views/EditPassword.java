@@ -5,13 +5,16 @@ import Model.Login;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class EditPassword extends JDialog
 {
+
+    private JPanel panelConfirm;
+    private JLabel lblLoginMessage;
+    private JPasswordField txtPasswordOld;
+    private JPasswordField txtPassword;
+    private JPasswordField txtPasswordConfirm;
 
     public EditPassword()
     {
@@ -32,7 +35,7 @@ public class EditPassword extends JDialog
         lblTitle.setBounds(0, 20, 400, 50);
         mainPane.add(lblTitle);
 
-        JLabel lblLoginMessage = new JLabel("");
+        lblLoginMessage = new JLabel("");
         lblLoginMessage.setHorizontalAlignment(SwingConstants.CENTER);
         lblLoginMessage.setForeground(Color.RED);
         lblLoginMessage.setFont(new Font("Arial", Font.BOLD, 12));
@@ -45,7 +48,7 @@ public class EditPassword extends JDialog
         panelPasswordOld.setLayout(null);
         mainPane.add(panelPasswordOld);
 
-        JPasswordField txtPasswordOld = new JPasswordField();
+        txtPasswordOld = new JPasswordField();
         txtPasswordOld.setBackground(Color.WHITE);
         txtPasswordOld.setForeground(Color.GRAY);
         txtPasswordOld.setBorder(null);
@@ -78,6 +81,14 @@ public class EditPassword extends JDialog
                 }
             }
         });
+        txtPasswordOld.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                lblLoginMessage.setText("");
+            }
+        });
         panelPasswordOld.add(txtPasswordOld);
 
         JPanel panelPassword = new RadiusAndShadow();
@@ -86,7 +97,7 @@ public class EditPassword extends JDialog
         panelPassword.setLayout(null);
         mainPane.add(panelPassword);
 
-        JPasswordField txtPassword = new JPasswordField();
+        txtPassword = new JPasswordField();
         txtPassword.setBackground(Color.WHITE);
         txtPassword.setForeground(Color.GRAY);
         txtPassword.setBorder(null);
@@ -119,6 +130,14 @@ public class EditPassword extends JDialog
                 }
             }
         });
+        txtPassword.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                lblLoginMessage.setText("");
+            }
+        });
         panelPassword.add(txtPassword);
 
 
@@ -128,7 +147,7 @@ public class EditPassword extends JDialog
         panelPasswordConfirm.setLayout(null);
         mainPane.add(panelPasswordConfirm);
 
-        JPasswordField txtPasswordConfirm = new JPasswordField();
+        txtPasswordConfirm = new JPasswordField();
         txtPasswordConfirm.setBackground(Color.WHITE);
         txtPasswordConfirm.setForeground(Color.GRAY);
         txtPasswordConfirm.setBorder(null);
@@ -159,6 +178,14 @@ public class EditPassword extends JDialog
                     txtPasswordConfirm.setText("Password confirm");
                     txtPasswordConfirm.setEchoChar((char) 0);
                 }
+            }
+        });
+        txtPasswordConfirm.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                lblLoginMessage.setText("");
             }
         });
         panelPasswordConfirm.add(txtPasswordConfirm);
@@ -215,7 +242,7 @@ public class EditPassword extends JDialog
         lblSave.setFont(new Font("Arial", Font.BOLD, 15));
         lblSave.setForeground(Color.BLACK);
 
-        JPanel panelConfirm = new RadiusAndShadow();
+        panelConfirm = new RadiusAndShadow();
         panelConfirm.setBackground(Color.WHITE);
         panelConfirm.add(lblSave);
         panelConfirm.setOpaque(false);
@@ -225,33 +252,7 @@ public class EditPassword extends JDialog
             public void mouseClicked(MouseEvent e)
             {
                 if (e.getButton() == 1)
-                {
-<<<<<<< HEAD
-                    if (txtPasswordOld.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("") || txtPasswordOld.getText().equals("Password old") || txtPassword.getText().equals("Password new") || txtPasswordConfirm.getText().equals("Password confirm"))
-                        lblLoginMessage.setText("Please input all requirements!");
-                    else if (!LoginFrame.password.equals(txtPasswordOld.getText()))
-                        lblLoginMessage.setText("Password old incorrect!");
-                    else if (txtPasswordOld.getText().equals(txtPassword.getText()))
-                        lblLoginMessage.setText("Password new not same password old!");
-                    else if (!txtPassword.getText().equals(txtPasswordConfirm.getText()))
-                        lblLoginMessage.setText("Password confirm is not correct!");
-                    else if (txtPassword.getText().length() < 8)
-                        lblLoginMessage.setText("Password must be 8 characters or more!");
-                    else
-                    {
-                        JOptionPane.showMessageDialog(null, "Save Successful");
-                        EditPassword.this.dispose();
-                        LoginFrame.password = txtPassword.getText();
-                        LoginController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
-                    }
-=======
-                    JOptionPane.showMessageDialog(null, "Save Successful");
-                    EditPassword.this.dispose();
-                    LoginFrame.password = txtPassword.getText();
-                    LoginController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
-
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
-                }
+                    CheckEditPassword();
             }
 
             @Override
@@ -281,5 +282,44 @@ public class EditPassword extends JDialog
         panelConfirm.setLayout(null);
         panelConfirm.setBounds(220, 300, 150, 50);
         mainPane.add(panelConfirm);
+        AddEventEnter(mainPane);
+        AddEventEnter(txtPasswordOld);
+        AddEventEnter(txtPassword);
+        AddEventEnter(txtPasswordConfirm);
+    }
+
+    private void CheckEditPassword()
+    {
+        if (txtPasswordOld.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("") || txtPasswordOld.getText().equals("Password old") || txtPassword.getText().equals("Password new") || txtPasswordConfirm.getText().equals("Password confirm"))
+            lblLoginMessage.setText("Please input all requirements!");
+        else if (!LoginFrame.password.equals(txtPasswordOld.getText()))
+            lblLoginMessage.setText("Password old incorrect!");
+        else if (txtPasswordOld.getText().equals(txtPassword.getText()))
+            lblLoginMessage.setText("Password new not same password old!");
+        else if (!txtPassword.getText().equals(txtPasswordConfirm.getText()))
+            lblLoginMessage.setText("Password confirm is not correct!");
+        else if (txtPassword.getText().length() < 8)
+            lblLoginMessage.setText("Password must be 8 characters or more!");
+        else
+        {
+            panelConfirm.setBackground(new Color(216, 53, 65));
+            JOptionPane.showMessageDialog(null, "Save Successful");
+            EditPassword.this.dispose();
+            LoginFrame.password = txtPassword.getText();
+            LoginController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
+        }
+    }
+
+    private void AddEventEnter(JComponent item)
+    {
+        item.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    CheckEditPassword();
+            }
+        });
     }
 }

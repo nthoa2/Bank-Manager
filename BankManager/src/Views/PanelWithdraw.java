@@ -14,13 +14,8 @@ import java.text.NumberFormat;
 public class PanelWithdraw extends JPanel
 {
     private GridBagConstraints gbc3;
-<<<<<<< HEAD
     public static JFormattedTextField txtAmount;
     public static JTextArea txtContent;
-=======
-    private JFormattedTextField txtAmount;
-    private JTextArea txtContent;
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
     private JLabel lblBalanceData = new JLabel(LoginController.balance);
 
     public PanelWithdraw()
@@ -158,11 +153,7 @@ public class PanelWithdraw extends JPanel
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
-<<<<<<< HEAD
         panelAccountNumber.add(lblaccountNumber);
-=======
-        panelAccountNumber.add(new JLabel(LoginController.accountNumber));
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         panelGBLEast.add(panelAccountNumber);
 
 
@@ -175,11 +166,7 @@ public class PanelWithdraw extends JPanel
         panelBalance.setBackground(Color.WHITE);
         panelBalance.add(lblBalance);
         panelBalance.add(lblBalanceData);
-<<<<<<< HEAD
         panelBalance.add(lblvnd);
-=======
-        panelBalance.add(new JLabel("VNĐ"));
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         panelGBLEast.add(panelBalance);
 
 
@@ -236,10 +223,7 @@ public class PanelWithdraw extends JPanel
             LoginController.getUserData(LoginFrame.username);
             this.lblBalanceData.setText(LoginController.balance);
             PanelProfile.lblBalance.setText(LoginController.balance);
-<<<<<<< HEAD
             PanelOverview.accountBalanceLabelValue.setText(LoginController.balance);
-=======
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
             return "Success";
         }

@@ -20,13 +20,10 @@ public class PanelService extends JPanel
     private PanelWithdraw withdraw;
     private PanelRecharge recharge;
 
-<<<<<<< HEAD
     private JPanel panelTransfer;
     private JPanel panelRecharge;
     private JPanel panelWithdraw;
 
-=======
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
     private int count = 0;
 
     public PanelService()
@@ -126,7 +123,6 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-<<<<<<< HEAD
                 if (e.getButton() == 1)
                 {
                     if (count == 1)
@@ -160,14 +156,6 @@ public class PanelService extends JPanel
                         }
                     }
                 }
-=======
-                if (count == 1)
-                    lblMessage.setText(transfer.check());
-                else if (count == 2)
-                    lblMessage.setText(recharge.check());
-                else
-                    lblMessage.setText(withdraw.check());
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             }
 
             @Override
@@ -210,7 +198,6 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-<<<<<<< HEAD
                 if (e.getButton() == 1)
                 {
                     count = 1;
@@ -222,15 +209,6 @@ public class PanelService extends JPanel
                     panelFooter.setVisible(true);
                 }
 
-=======
-                count = 1;
-                transfer = new PanelTransfer();
-                lblMessage.setText("");
-                panelForm.add(transfer, "1");
-                panelForm.setVisible(true);
-                cardLayout.show(panelForm, "1");
-                panelFooter.setVisible(true);
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             }
 
             @Override
@@ -274,7 +252,6 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-<<<<<<< HEAD
                 if (e.getButton() == 1)
                 {
                     count = 2;
@@ -285,15 +262,6 @@ public class PanelService extends JPanel
                     cardLayout.show(panelForm, "2");
                     panelFooter.setVisible(true);
                 }
-=======
-                count = 2;
-                recharge = new PanelRecharge();
-                lblMessage.setText("");
-                panelForm.add(recharge, "2");
-                panelForm.setVisible(true);
-                cardLayout.show(panelForm, "2");
-                panelFooter.setVisible(true);
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             }
 
             @Override
@@ -337,7 +305,6 @@ public class PanelService extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-<<<<<<< HEAD
                 if (e.getButton() == 1)
                 {
                     count = 3;
@@ -348,15 +315,6 @@ public class PanelService extends JPanel
                     cardLayout.show(panelForm, "3");
                     panelFooter.setVisible(true);
                 }
-=======
-                count = 3;
-                withdraw = new PanelWithdraw();
-                lblMessage.setText("");
-                panelForm.add(withdraw, "3");
-                panelForm.setVisible(true);
-                cardLayout.show(panelForm, "3");
-                panelFooter.setVisible(true);
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
             }
 
             @Override

@@ -1,10 +1,7 @@
 package Views;
 
-<<<<<<< HEAD
 import Controller.LoginController;
 
-=======
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -14,11 +11,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class PanelOverview extends JPanel {
-<<<<<<< HEAD
     public static JLabel accountBalanceLabelValue;
-=======
-    static JLabel accountBalanceLabelValue;
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
     static JLabel totalSpendingValue;
     static JLabel totalReceivedValue;
     private ColumnChartPanel barChart;
@@ -53,11 +46,7 @@ public class PanelOverview extends JPanel {
         TitleConstraints.ipadx = 50;
         TitleConstraints.insets = new Insets(0, 0, 5, 5);
         TitleConstraints.gridx = 0;
-<<<<<<< HEAD
         TitleConstraints.gridy = 0;
-=======
-        TitleConstraints.gridy = 1;
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         rootPanel.add((Component) panelTitle, TitleConstraints);
 
         return rootPanel;
@@ -78,11 +67,7 @@ public class PanelOverview extends JPanel {
         accountBalanceLabelTitle.setHorizontalAlignment(0);
         accountBalanceLabelTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
         accountBalancePanel.add((Component)accountBalanceLabelTitle, "South");
-<<<<<<< HEAD
         accountBalanceLabelValue = new JLabel(LoginController.balance);
-=======
-        accountBalanceLabelValue = new JLabel("0");
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         accountBalanceLabelValue.setHorizontalAlignment(0);
         accountBalanceLabelValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
         accountBalancePanel.add((Component)accountBalanceLabelValue, "Center");
@@ -208,10 +193,6 @@ public class PanelOverview extends JPanel {
     }
 
     public PanelOverview() {
-<<<<<<< HEAD
-        System.out.println("Lần nữa");
-=======
->>>>>>> 93e6a2968fc67fd6dafe48b8a0b2c427dcfc0a08
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
