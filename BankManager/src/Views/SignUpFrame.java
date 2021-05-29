@@ -2,8 +2,10 @@ package Views;
 
 import Controller.LoginController;
 import Model.Login;
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -11,6 +13,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,13 +27,13 @@ public class SignUpFrame extends JFrame
     private JTextField txtGender;
     private JTextField txtPhoneNumber;
     private String birthDay;
-    private JTextField txtDay, txtMonth, txtYear;
     private JTextField txtAddress;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JPasswordField txtPasswordConfirm;
     private JLabel lblLoginMessage;
     private JPanel pnlBtnSignUp;
+    private com.toedter.calendar.JDateChooser calendar;
 
     private Image img_CMND = new ImageIcon(SignUpFrame.class.getResource("/Res/CMND.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_Fullname = new ImageIcon(SignUpFrame.class.getResource("/Res/fullname.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -441,244 +446,34 @@ public class SignUpFrame extends JFrame
         panelBirthDay.setBackground(Color.WHITE);
         panelBirthDay.setBounds(20, 270, 260, 55);
         panelBirthDay.setLayout(null);
-
         contentPane.add(panelBirthDay);
 
-        txtDay = new JTextField();
-        txtDay.setColumns(2);
-        txtDay.setBackground(Color.WHITE);
-        txtDay.setForeground(Color.GRAY);
-        txtDay.setText("Day");
-        txtDay.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtDay.setBounds(10, 10, 30, 20);
-        txtDay.setBorder(null);
-        txtDay.addKeyListener(new KeyAdapter()
-        {
-            @Override
-            public void keyTyped(KeyEvent e)
-            {
-                if (txtDay.getText().length() >= 2) // limit to 3 characters
-                    e.consume();
-            }
-        });
-        txtDay.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-                if (txtDay.getText().equals("Day"))
-                {
-                    txtDay.setText("");
-                    ((AbstractDocument) txtDay.getDocument()).setDocumentFilter(new DocumentFilter()
-                    {
-                        Pattern regEx = Pattern.compile("\\d*");
+        /// Calendar
+        Date dateMin = new Date(01/01/1970);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.YEAR, -18);
+        cal.add(Calendar.DATE, -1);
+        Date dateMax = cal.getTime();
 
-                        @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                        {
-                            Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches())
-                            {
-                                lblLoginMessage.setText("Enter only numeric digits(1-31)");
-                                return;
-                            }
-                            lblLoginMessage.setText("");
-                            super.replace(fb, offset, length, text, attrs);
-                        }
-                    });
-                } else txtDay.selectAll();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e)
-            {
-                if (txtDay.getText().equals(""))
-                {
-                    ((AbstractDocument) txtDay.getDocument()).setDocumentFilter(new DocumentFilter()
-                    {
-                        Pattern regEx = Pattern.compile("\\D*");
-
-                        @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                        {
-                            Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches())
-                            {
-                                return;
-                            }
-                            super.replace(fb, offset, length, text, attrs);
-                        }
-                    });
-                    txtDay.setText("Day");
-                }
-            }
-        });
-        panelBirthDay.add(txtDay);
-
-        JSeparator sptMonth = new JSeparator();
-        sptMonth.setForeground(Color.GRAY);
-        sptMonth.setOrientation(SwingConstants.VERTICAL);
-        sptMonth.setBounds(40, 12, 10, 15);
-        panelBirthDay.add(sptMonth);
-
-        txtMonth = new JTextField();
-        txtMonth.setColumns(2);
-        txtMonth.setBackground(Color.WHITE);
-        txtMonth.setForeground(Color.GRAY);
-        txtMonth.setText("Month");
-        txtMonth.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtMonth.setBounds(50, 10, 40, 20);
-        txtMonth.setBorder(null);
-        txtMonth.addKeyListener(new KeyAdapter()
-        {
-            @Override
-            public void keyTyped(KeyEvent e)
-            {
-                if (txtMonth.getText().length() >= 2)
-                    e.consume();
-            }
-        });
-        txtMonth.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-                if (txtMonth.getText().equals("Month"))
-                {
-                    txtMonth.setText("");
-                    ((AbstractDocument) txtMonth.getDocument()).setDocumentFilter(new DocumentFilter()
-                    {
-                        Pattern regEx = Pattern.compile("\\d*");
-
-                        @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                        {
-                            Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches())
-                            {
-                                lblLoginMessage.setText("Enter only numeric digits(1-12)");
-                                return;
-                            }
-                            lblLoginMessage.setText("");
-                            super.replace(fb, offset, length, text, attrs);
-                        }
-                    });
-                } else txtMonth.selectAll();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e)
-            {
-                if (txtMonth.getText().equals(""))
-                {
-                    ((AbstractDocument) txtMonth.getDocument()).setDocumentFilter(new DocumentFilter()
-                    {
-                        Pattern regEx = Pattern.compile("\\D*");
-
-                        @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                        {
-                            Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches())
-                            {
-                                return;
-                            }
-                            super.replace(fb, offset, length, text, attrs);
-                        }
-                    });
-                    txtMonth.setText("Month");
-                }
-            }
-        });
-        panelBirthDay.add(txtMonth);
-
-        JSeparator sptYear = new JSeparator();
-        sptYear.setForeground(Color.GRAY);
-        sptYear.setOrientation(SwingConstants.VERTICAL);
-        sptYear.setBounds(90, 12, 10, 15);
-        panelBirthDay.add(sptYear);
-
-        txtYear = new JTextField();
-        txtYear.setColumns(4);
-        txtYear.setBackground(Color.WHITE);
-        txtYear.setForeground(Color.GRAY);
-        txtYear.setText("Year");
-        txtYear.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtYear.setBounds(100, 10, 50, 20);
-        txtYear.setBorder(null);
-        txtYear.addKeyListener(new KeyAdapter()
-        {
-            @Override
-            public void keyTyped(KeyEvent e)
-            {
-                if (txtYear.getText().length() >= 4)
-                    e.consume();
-            }
-        });
-        txtYear.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-                if (txtYear.getText().equals("Year"))
-                {
-                    txtYear.setText("");
-                    ((AbstractDocument) txtYear.getDocument()).setDocumentFilter(new DocumentFilter()
-                    {
-                        Pattern regEx = Pattern.compile("\\d*");
-
-                        @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                        {
-                            Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches())
-                            {
-                                lblLoginMessage.setText("Enter only numeric digits(1920-2003)");
-                                return;
-                            }
-                            lblLoginMessage.setText("");
-                            super.replace(fb, offset, length, text, attrs);
-                        }
-                    });
-                } else txtYear.selectAll();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e)
-            {
-                if (txtYear.getText().equals(""))
-                {
-                    ((AbstractDocument) txtYear.getDocument()).setDocumentFilter(new DocumentFilter()
-                    {
-                        Pattern regEx = Pattern.compile("\\D*");
-
-                        @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
-                        {
-                            Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches())
-                            {
-                                return;
-                            }
-                            super.replace(fb, offset, length, text, attrs);
-                        }
-                    });
-                    txtYear.setText("Year");
-                }
-            }
-        });
-        panelBirthDay.add(txtYear);
+        calendar = new com.toedter.calendar.JDateChooser(null,"dd-MM-yyyy");
+        calendar.setBounds(10,7,235,28);
+        calendar.setSelectableDateRange(dateMin, dateMax);
+        calendar.setFont(new Font("Arial", Font.PLAIN, 12));
+        calendar.setIcon(new ImageIcon(img_Birth_Day));
+        calendar.getDateEditor().setEnabled(false);
+        calendar.getDateEditor().getUiComponent().setBackground(Color.WHITE);
+        calendar.getDateEditor().getUiComponent().setBorder(null);
+        calendar.getCalendarButton().setBorder(null);
+        calendar.getCalendarButton().setBackground(Color.WHITE);
+        calendar.setDate(dateMin);
+        panelBirthDay.add(calendar);
+        ///
 
         JSeparator sptBirthDay = new JSeparator();
         sptBirthDay.setForeground(Color.GRAY);
         sptBirthDay.setBounds(10, 35, 210, 1);
         panelBirthDay.add(sptBirthDay);
-
-        JLabel lblIconBirthDay = new JLabel("");
-        lblIconBirthDay.setHorizontalAlignment(SwingConstants.CENTER);
-        lblIconBirthDay.setBounds(210, 0, 40, 40);
-        lblIconBirthDay.setIcon(new ImageIcon(img_Birth_Day));
-        panelBirthDay.add(lblIconBirthDay);
 
         JPanel panelAddress = new RadiusAndShadow();
         panelAddress.setBackground(Color.WHITE);
@@ -1101,9 +896,6 @@ public class SignUpFrame extends JFrame
         AddEventEnter(txtFullname);
         AddEventEnter(txtGender);
         AddEventEnter(txtPhoneNumber);
-        AddEventEnter(txtDay);
-        AddEventEnter(txtMonth);
-        AddEventEnter(txtYear);
         AddEventEnter(txtAddress);
         AddEventEnter(txtUsername);
         AddEventEnter(txtPassword);
@@ -1127,22 +919,13 @@ public class SignUpFrame extends JFrame
         // obj.replaceAll("\\s+","") xóa tất cả các khoảng trắng và các ký tự không nhìn thấy (ví dụ: tab, \n).
         // obj.replaceAll("[^a-zA-Z0-9]", "") xóa tất cả ký tự đặc biệt và thay bằng khoảng trắng
         // [^\p{L}\s] xóa các ký tự đặc biệt trừ dấu tiếng Việt
-
-        if (txtCMND.getText().equals("") || txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtDay.getText().equals("") || txtMonth.getText().equals("") || txtYear.getText().equals("") || txtAddress.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("")
-                || txtCMND.getText().equals("Citizen identification number") || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") || txtDay.getText().equals("Day") || txtMonth.getText().equals("Month") || txtAddress.getText().equals("Year") || txtAddress.getText().equals("Address") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password") || txtPasswordConfirm.getText().equals("Password confirm"))
+        if (txtCMND.getText().equals("") || txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") ||  txtAddress.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("")
+                || txtCMND.getText().equals("Citizen identification number") || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") ||  txtAddress.getText().equals("Year") || txtAddress.getText().equals("Address") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password") || txtPasswordConfirm.getText().equals("Password confirm"))
             lblLoginMessage.setText("Please input all requirements!");
         else if (txtCMND.getText().length() < 12)
             lblLoginMessage.setText("Invalid citizen identification number");
         else if (txtPhoneNumber.getText().length() < 10)
             lblLoginMessage.setText("Invalid phone number");
-        else if (Integer.parseInt(txtDay.getText()) > 31 || Integer.parseInt(txtDay.getText()) == 0)
-            lblLoginMessage.setText("Invalid day");
-        else if (Integer.parseInt(txtMonth.getText()) > 12 || Integer.parseInt(txtMonth.getText()) == 0)
-            lblLoginMessage.setText("Invalid month");
-        else if (txtYear.getText().length() < 4)
-            lblLoginMessage.setText("Invalid year of birth");
-        else if (Integer.parseInt(txtYear.getText()) >= 2003 || Integer.parseInt(txtYear.getText()) <= 1920)
-            lblLoginMessage.setText("Your year old must inside 18 - 100");
         else if (txtUsername.getText().length() < 6)
             lblLoginMessage.setText("Username must be 6 characters or more");
         else if (txtPassword.getText().length() < 8)
@@ -1164,7 +947,7 @@ public class SignUpFrame extends JFrame
         } else
         {
             pnlBtnSignUp.setBackground(new Color(21, 140, 180));
-            birthDay = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
+            birthDay = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getDate());
             LoginController.InsertDataKHACHHANG(txtCMND.getText(), txtFullname.getText(), txtPhoneNumber.getText(), txtGender.getText(), birthDay, txtAddress.getText());
             while (LoginController.CheckSignUpSoTK(accountNumber))
                 accountNumber = LoginController.Random(0, 9, 10);

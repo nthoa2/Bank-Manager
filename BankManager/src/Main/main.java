@@ -3,6 +3,7 @@ package Main;
 
 import Views.LoginFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,13 +12,20 @@ public class main
 {
     public static void main(String[] args)
     {
-        EventQueue.invokeLater(new Runnable()
+        try
         {
-            @Override
-            public void run()
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            EventQueue.invokeLater(new Runnable()
             {
-                new LoginFrame().setVisible(true);
-            }
-        });
+                @Override
+                public void run()
+                {
+                    new LoginFrame().setVisible(true);
+                }
+            });
+        }catch (Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 }

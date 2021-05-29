@@ -31,6 +31,12 @@ public class LoginFrame extends JFrame
     public LoginFrame()
     {
         new Login();
+        try {
+            Image img = new ImageIcon(("src/Res/icon_frame.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            this.setIconImage(img);
+        }catch(Exception e){
+            System.out.println("Application icon not found");
+        }
         // GUI login
         setUndecorated(true);
         setBounds(100, 100, 1000, 600);

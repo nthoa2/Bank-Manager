@@ -10,20 +10,26 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.regex.PatternSyntaxException;
 
-public class PanelTradingsHistory extends JPanel {
+public class PanelTradingsHistory extends JPanel
+{
     static JLabel accountDetailsName;
     static JLabel accountBalance;
     public static JTable contentTable;
-    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Gửi/Nhận", "Nội Dung", "Số Tiền"}, 0) {
+    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Gửi/Nhận", "Nội Dung", "Số Tiền"}, 0)
+    {
         @Override
-        public boolean isCellEditable(int row, int column) {
+        public boolean isCellEditable(int row, int column)
+        {
             return false;
         }
     };
 
-    private JPanel headerPanel() {
+    private JPanel headerPanel()
+    {
         JPanel rootPanel = new LinearGradient(1);
         rootPanel.setPreferredSize(new Dimension(50, 70));
         JPanel headerPanel = new JPanel(); // Title
@@ -58,7 +64,8 @@ public class PanelTradingsHistory extends JPanel {
         return rootPanel;
     }
 
-    private JPanel dataPanel() {
+    private JPanel dataPanel()
+    {
         JPanel rootPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout(0, 0));
 
@@ -83,12 +90,14 @@ public class PanelTradingsHistory extends JPanel {
         comboBoxFilter.setPreferredSize(new Dimension(170, 25));
         comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Chuyển Khoản", "Nhận Chuyển Khoản"}));
         comboBoxFilter.setMaximumRowCount(10);
-        comboBoxFilter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
-            }
-        });
+//        comboBoxFilter.addActionListener(new ActionListener()
+//        {
+//            @Override
+//            public void actionPerformed(ActionEvent e)
+//            {
+//                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
+//            }
+//        });
         filterPanel.add(filterLabel);
         filterPanel.add(comboBoxFilter);
         toolsPanel.add((Component) filterPanel, gbc_filter);
@@ -113,16 +122,22 @@ public class PanelTradingsHistory extends JPanel {
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setFocusable(false);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
-        searchButton.addActionListener(new ActionListener() {
+        searchText.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void keyReleased(KeyEvent e)
+            {
                 String text = searchText.getText();
-                if (text.length() == 0) {
+                if (text.length() == 0)
+                {
                     sorter.setRowFilter(null);
-                } else {
-                    try {
+                } else
+                {
+                    try
+                    {
                         sorter.setRowFilter(RowFilter.regexFilter(text));
-                    } catch (PatternSyntaxException patternException) {
+                    } catch (PatternSyntaxException patternException)
+                    {
                         System.out.println("Bad regex pattern");
                     }
                 }
@@ -147,10 +162,12 @@ public class PanelTradingsHistory extends JPanel {
         contentTable.setRowHeight(25);
         contentTable.getColumnModel().getColumn(0).setPreferredWidth(15);
         contentTable.getColumnModel().getColumn(1).setPreferredWidth(5);
-        contentTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer() {
+        contentTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer()
+        {
 
             @Override
-            public void setHorizontalAlignment(int alignment) {
+            public void setHorizontalAlignment(int alignment)
+            {
                 super.setHorizontalAlignment(4);
             }
         });
@@ -168,7 +185,8 @@ public class PanelTradingsHistory extends JPanel {
     }
 
 
-    public PanelTradingsHistory() {
+    public PanelTradingsHistory()
+    {
         this.setLayout(new BorderLayout(0, 0));
         this.add((Component) this.headerPanel(), "North");
         this.add((Component) this.dataPanel(), "Center");
