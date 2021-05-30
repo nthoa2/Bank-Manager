@@ -1,9 +1,9 @@
 package Views;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,9 +16,9 @@ public class PanelService extends JPanel
     public static JPanel panelFooter;
     public static JLabel lblMessage;
 
-    private PanelTransfer transfer;
-    private PanelWithdraw withdraw;
-    private PanelRecharge recharge;
+    private PanelTrading transfer;
+    private PanelTrading recharge;
+    private PanelTrading withdraw;
 
     private JPanel panelTransfer;
     private JPanel panelRecharge;
@@ -28,6 +28,9 @@ public class PanelService extends JPanel
 
     public PanelService()
     {
+        transfer = new PanelTrading("Transfer");
+        recharge = new PanelTrading("Recharge");
+        withdraw = new PanelTrading("Withdraw");
         this.setLayout(new BorderLayout(0, 0));
 
         flowLayout.setAlignment(FlowLayout.CENTER);
@@ -127,31 +130,28 @@ public class PanelService extends JPanel
                 {
                     if (count == 1)
                     {
-                        lblMessage.setText(transfer.check());
+                        lblMessage.setText(transfer.checkTransfer());
                         if(lblMessage.getText().equals("Success"))
                         {
-                            transfer = new PanelTransfer();
-                            panelForm.add(transfer, "1");
+                            panelForm.add(new PanelTrading("Transfer"), "1");
                             cardLayout.show(panelForm, "1");
                         }
                     }
                     else if (count == 2)
                     {
-                        lblMessage.setText(recharge.check());
+                        lblMessage.setText(recharge.checkRecharge());
                         if(lblMessage.getText().equals("Success"))
                         {
-                            recharge = new PanelRecharge();
-                            panelForm.add(recharge, "2");
+                            panelForm.add(new PanelTrading("Recharge"), "2");
                             cardLayout.show(panelForm, "2");
                         }
                     }
                     else
                     {
-                        lblMessage.setText(withdraw.check());
+                        lblMessage.setText(withdraw.checkWithdraw());
                         if(lblMessage.getText().equals("Success"))
                         {
-                            withdraw = new PanelWithdraw();
-                            panelForm.add(withdraw, "3");
+                            panelForm.add(new PanelTrading("Withdraw"), "3");
                             cardLayout.show(panelForm, "3");
                         }
                     }
@@ -201,8 +201,8 @@ public class PanelService extends JPanel
                 if (e.getButton() == 1)
                 {
                     count = 1;
-                    transfer = new PanelTransfer();
                     lblMessage.setText("");
+                    transfer = new PanelTrading("Transfer");
                     panelForm.add(transfer, "1");
                     panelForm.setVisible(true);
                     cardLayout.show(panelForm, "1");
@@ -255,8 +255,8 @@ public class PanelService extends JPanel
                 if (e.getButton() == 1)
                 {
                     count = 2;
-                    recharge = new PanelRecharge();
                     lblMessage.setText("");
+                    recharge = new PanelTrading("Recharge");
                     panelForm.add(recharge, "2");
                     panelForm.setVisible(true);
                     cardLayout.show(panelForm, "2");
@@ -308,8 +308,8 @@ public class PanelService extends JPanel
                 if (e.getButton() == 1)
                 {
                     count = 3;
-                    withdraw = new PanelWithdraw();
                     lblMessage.setText("");
+                    withdraw = new PanelTrading("Withdraw");
                     panelForm.add(withdraw, "3");
                     panelForm.setVisible(true);
                     cardLayout.show(panelForm, "3");

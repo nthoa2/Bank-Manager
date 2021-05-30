@@ -319,6 +319,7 @@ public class EditProfile extends JDialog
         calendar.getDateEditor().getUiComponent().setBorder(null);
         calendar.getCalendarButton().setBorder(null);
         calendar.getCalendarButton().setBackground(Color.WHITE);
+        calendar.getCalendarButton().setCursor(new Cursor(Cursor.HAND_CURSOR));
         calendar.setDate(dateMin);
         panelBirthDay.add(calendar);
         ///

@@ -28,15 +28,14 @@ public class PanelHome extends JPanel
 
         this.add(panelHeader, "North");
 
-        JPanel panelClock = new Clock(Color.WHITE);
-        panelClock.setBackground(Color.WHITE);
 
-        JPanel panelFooter = new JPanel();
-        panelFooter.setBackground(Color.WHITE);
-        panelFooter.setLayout(new FlowLayout(FlowLayout.RIGHT,0,10));
-        panelFooter.add(panelClock);
 
-        this.add(panelFooter, "South");
+//        JPanel panelFooter = new LinearGradient(1);
+//        panelFooter.setBackground(Color.WHITE);
+//        panelFooter.setLayout(new FlowLayout(FlowLayout.RIGHT,0,10));
+//
+//
+//        this.add(panelFooter, "South");
 
 
         JPanel panelCenterMain = new JPanel();

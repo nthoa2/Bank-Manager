@@ -93,6 +93,7 @@ public class MainFrame extends JFrame
         this.Logo.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.Logo.setHorizontalAlignment(SwingConstants.CENTER);
         this.Logo.setIcon(new ImageIcon(img_logo));
+        this.Logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.Logo.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -265,6 +266,12 @@ public class MainFrame extends JFrame
         menuPane.add((Component) this.btnHistory, btnHistoryConstraints);
 
 
+        GridBagConstraints Clock = new GridBagConstraints();
+        Clock.anchor = GridBagConstraints.LINE_START;
+        Clock.gridx = 0;
+        Clock.gridy = 12;
+        menuPane.add(new Clock(Color.WHITE), Clock);
+
         this.lblLogOut = new JLabel("");
         this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
         this.lblTextLogOut = new JLabel("Đăng Xuất");
@@ -355,6 +362,7 @@ public class MainFrame extends JFrame
             }
         });
         toolPanel.add((Component) btnProfile);
+
 
         this.cardPanelLayout = new CardLayout();
         this.cardPanel = new JPanel(this.cardPanelLayout);

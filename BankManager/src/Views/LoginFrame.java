@@ -216,6 +216,7 @@ public class LoginFrame extends JFrame
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPassword.setBounds(210, 0, 40, 40);
+        lblIconPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblIconPassword.setIcon(new ImageIcon(img_hide_password));
         lblIconPassword.addMouseListener(new MouseAdapter()
         {

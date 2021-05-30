@@ -2,6 +2,7 @@ package Views;
 
 import Controller.LoginController;
 import Model.Login;
+import RadiusAndShadow.image.Gradient;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -466,6 +467,7 @@ public class SignUpFrame extends JFrame
         calendar.getDateEditor().getUiComponent().setBorder(null);
         calendar.getCalendarButton().setBorder(null);
         calendar.getCalendarButton().setBackground(Color.WHITE);
+        calendar.getCalendarButton().setCursor(new Cursor(Cursor.HAND_CURSOR));
         calendar.setDate(dateMin);
         panelBirthDay.add(calendar);
         ///
@@ -685,6 +687,7 @@ public class SignUpFrame extends JFrame
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPassword.setBounds(210, 0, 40, 40);
+        lblIconPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblIconPassword.setIcon(new ImageIcon(img_hide_password));
         lblIconPassword.addMouseListener(new MouseAdapter()
         {
@@ -777,6 +780,7 @@ public class SignUpFrame extends JFrame
         JLabel lblIconPasswordConfirm = new JLabel("");
         lblIconPasswordConfirm.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPasswordConfirm.setBounds(210, 0, 40, 40);
+        lblIconPasswordConfirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
         lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
         lblIconPasswordConfirm.addMouseListener(new MouseAdapter()
