@@ -1,7 +1,6 @@
 package Views;
 
 
-
 import Controller.LoginController;
 import Controller.TradingsController;
 import Views.*;
@@ -22,6 +21,10 @@ public class PanelTrading extends JPanel
     public static JTextArea txtContent;
     private JLabel lblAccountReceived;
     private JLabel lblBalanceData = new JLabel(LoginController.balance);
+    private Image img_transfer= new ImageIcon(("src/Res/img_transfer.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+    private Image img_recharge= new ImageIcon(("src/Res/img_recharge.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+    private Image img_withdraw= new ImageIcon(("src/Res/img_withdraw.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+    private JLabel lblIcon = new JLabel("");
 
     public PanelTrading(String typeTrade)
     {
@@ -45,8 +48,9 @@ public class PanelTrading extends JPanel
         JPanel accountNumber = new RadiusAndShadow();
         accountNumber.setBackground(Color.white);
         accountNumber.setLayout(new GridBagLayout());
-        if(typeTrade.equals("Transfer"))
+        if (typeTrade.equals("Transfer"))
         {
+            lblIcon.setIcon(new ImageIcon(img_transfer));
             lblAccountReceived = new JLabel("Account number received");
             txtAccountNumber = new JTextField();
             txtAccountNumber.addKeyListener(new KeyAdapter()
@@ -76,12 +80,18 @@ public class PanelTrading extends JPanel
             txtAccountNumber.setBorder(null);
             txtAccountNumber.setColumns(20);
             txtAccountNumber.setFont(new Font("Arial", Font.PLAIN, 15));
-        }
-        else
+        } else
         {
-            if(typeTrade.equals("Recharge"))
+            if (typeTrade.equals("Recharge"))
+            {
                 lblAccountReceived = new JLabel("Account number recharge");
-            else lblAccountReceived = new JLabel("Account number withdraw");
+                lblIcon.setIcon(new ImageIcon(img_recharge));
+            }
+            else
+            {
+                lblAccountReceived = new JLabel("Account number withdraw");
+                lblIcon.setIcon(new ImageIcon(img_withdraw));
+            }
             txtAccountNumber = new JTextField();
             txtAccountNumber.setEnabled(false);
             txtAccountNumber.setText(LoginController.accountNumber);
@@ -177,7 +187,7 @@ public class PanelTrading extends JPanel
         JPanel panelGBLEast = new RadiusAndShadow();
         panelGBLEast.setPreferredSize(new Dimension(500, 200));
         panelGBLEast.setBackground(Color.WHITE);
-        panelGBLEast.setLayout(new GridLayout(10, 1, 20, 0));
+        panelGBLEast.setLayout(new GridLayout(4 , 1, 0, 0));
 
 
         JLabel lblName = new JLabel(LoginController.fullname);
@@ -213,6 +223,11 @@ public class PanelTrading extends JPanel
         panelGBLEast.add(panelBalance);
 
 
+        JPanel pnlIcon = new JPanel();
+        pnlIcon.setBackground(Color.WHITE);
+        pnlIcon.add(lblIcon);
+        panelGBLEast.add(pnlIcon);
+
         this.add(panelGBLEast, "East");
         this.add(new JPanel(), "West");
 
@@ -221,9 +236,7 @@ public class PanelTrading extends JPanel
         panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
         this.add(panelCenter, "Center");
 
-
         lblAccountReceived.setFont(new Font("Aurella", Font.BOLD, 15));
-
         JPanel panel1 = new JPanel();
         panel1.setLayout(new BorderLayout());
         panel1.add(lblAccountReceived, "Center");
@@ -296,7 +309,7 @@ public class PanelTrading extends JPanel
     {
         if (this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
             return "Please input full";
-        else if(!LoginController.updateWithDrawAndRecharge("Rút tiền", LoginController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
+        else if (!LoginController.updateWithDrawAndRecharge("Rút tiền", LoginController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
             return "Balance enough";
         else
         {
