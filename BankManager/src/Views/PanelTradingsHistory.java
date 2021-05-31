@@ -89,7 +89,7 @@ public class PanelTradingsHistory extends JPanel
         JComboBox<String> comboBoxFilter = new JComboBox<String>();
         comboBoxFilter.setFont(new Font("Open Sans", Font.BOLD, 13));
         comboBoxFilter.setPreferredSize(new Dimension(170, 25));
-        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Nạp tiền", "Rút tiền", "Chuyển tiền"}));
+        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Nạp tiền", "Rút tiền", "Chuyển khoản", "Nhận chuyển khoản"}));
         comboBoxFilter.setMaximumRowCount(10);
         comboBoxFilter.addActionListener(new ActionListener()
         {

@@ -66,7 +66,7 @@ public class MainFrame extends JFrame
         }catch(Exception e){
             System.out.println("Application icon not found");
         }
-
+        this.setTitle("Banking");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();

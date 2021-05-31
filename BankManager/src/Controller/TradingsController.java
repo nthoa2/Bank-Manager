@@ -12,7 +12,7 @@ public class TradingsController
 {
     public static double totalSpendingValue;
     public static double totalReceivedValue;
-
+    public static int flag = 0;
     public static void uploadAllTradingData(JTable table, String accountNumber)
     {
         ResultSet resultSet = TradingsData.getAllTrading(accountNumber);
@@ -21,12 +21,26 @@ public class TradingsController
 
     public static void uploadTradingByType(JTable table, String type, String accountNumber)
     {
+        ResultSet resultSet;
+        flag = 0;
         if (type.equals("Tất Cả"))
         {
             uploadAllTradingData(table, accountNumber);
             return;
+        }else if(type.equals("Chuyển khoản"))
+        {
+            resultSet = TradingsData.getTradedByType("Chuyển tiền", accountNumber);
+            flag = 1;
+            showHistoryTrading(table, resultSet);
+            return;
+        }else if(type.equals("Nhận chuyển khoản"))
+        {
+            resultSet = TradingsData.getTradedByType("Chuyển tiền", accountNumber);
+            flag = 2;
+            showHistoryTrading(table, resultSet);
+            return;
         }
-        ResultSet resultSet = TradingsData.getTradedByType(type, accountNumber);
+        resultSet = TradingsData.getTradedByType(type, accountNumber);
         showHistoryTrading(table, resultSet);
     }
 
@@ -44,22 +58,42 @@ public class TradingsController
             {
                 if (resultSet.getString("LoaiGD").equals("Chuyển tiền"))
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTK")))
+                    if(flag==0)
                     {
-                        totalSpendingValue += resultSet.getDouble("SoTien");
-                        dataObjects[0] = "Chuyển khoản";
-                        dataObjects[1] = resultSet.getString("NgayGD");
-                        dataObjects[2] = getUserName(resultSet.getString("SoTKNhan"));
-                        dataObjects[3] = resultSet.getString("GhiChu");
-                        dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
-                    } else if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
+                        if (LoginController.accountNumber.equals(resultSet.getString("SoTK")))
+                        {
+                            totalSpendingValue += resultSet.getDouble("SoTien");
+                            dataObjects[0] = "Chuyển khoản";
+                            dataObjects[1] = resultSet.getString("NgayGD");
+                            dataObjects[2] = getUserName(resultSet.getString("SoTKNhan"));
+                            dataObjects[3] = resultSet.getString("GhiChu");
+                            dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+                        } else if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
+                        {
+                            totalReceivedValue += resultSet.getDouble("SoTien");
+                            dataObjects[0] = "Nhận chuyển khoản";
+                            dataObjects[1] = resultSet.getString("NgayGD");
+                            dataObjects[2] = getUserName(resultSet.getString("SoTK"));
+                            dataObjects[3] = resultSet.getString("GhiChu");
+                            dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+                        }
+                    }else
                     {
-                        totalReceivedValue += resultSet.getDouble("SoTien");
-                        dataObjects[0] = "Nhận chuyển khoản";
-                        dataObjects[1] = resultSet.getString("NgayGD");
-                        dataObjects[2] = getUserName(resultSet.getString("SoTK"));
-                        dataObjects[3] = resultSet.getString("GhiChu");
-                        dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+                        if(flag==1)
+                        {
+                            dataObjects[0] = "Chuyển khoản";
+                            dataObjects[1] = resultSet.getString("NgayGD");
+                            dataObjects[2] = getUserName(resultSet.getString("SoTKNhan"));
+                            dataObjects[3] = resultSet.getString("GhiChu");
+                            dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+                        }else
+                        {
+                            dataObjects[0] = "Nhận chuyển khoản";
+                            dataObjects[1] = resultSet.getString("NgayGD");
+                            dataObjects[2] = getUserName(resultSet.getString("SoTK"));
+                            dataObjects[3] = resultSet.getString("GhiChu");
+                            dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
+                        }
                     }
                 } else
                 {
@@ -131,7 +165,6 @@ public class TradingsController
     {
         double result = 0;
         double spendingDay = 0;
-//        double receivedDay = 0;
         ResultSet resultSet = TradingsData.getUsersSpendingAndReceivedPerDay(accountNumber, date);
         try
         {
@@ -147,17 +180,12 @@ public class TradingsController
                         }
                         else spendingDay += 0;
                     }
-//                    else if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
-//                    {
-//                        receivedDay = 0;
-//                    }
                 }else
                 {
                     if(resultSet.getString("LoaiGD").equals("Rút tiền"))
                         if(date.equals(new SimpleDateFormat("dd/MM/yyyy").format(resultSet.getDate("NgayGD"))))
                             result += resultSet.getDouble("SoTien");
                         else result += 0;
-//                    else receivedDay = 0;
                 }
             }
         }catch (Exception e)

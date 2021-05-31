@@ -89,6 +89,10 @@ public class SignUpFrame extends JFrame
         panelCMND.setLayout(null);
         contentPane.add(panelCMND);
 
+        JSeparator sptCMND = new JSeparator();
+        sptCMND.setForeground(Color.GRAY);
+        sptCMND.setBounds(10, 35, 210, 1);
+        panelCMND.add(sptCMND);
 
         txtCMND = new JTextField();
         txtCMND.addKeyListener(new KeyAdapter()
@@ -105,6 +109,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptCMND.setForeground(new Color(222, 97, 97));
                 if (txtCMND.getText().equals("Citizen identification number"))
                 {
                     txtCMND.setText("");
@@ -131,6 +136,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent e)
             {
+                sptCMND.setForeground(Color.GRAY);
                 if (txtCMND.getText().equals(""))
                 {
                     ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
@@ -161,10 +167,6 @@ public class SignUpFrame extends JFrame
         txtCMND.setColumns(10);
         panelCMND.add(txtCMND);
 
-        JSeparator sptCMND = new JSeparator();
-        sptCMND.setForeground(Color.GRAY);
-        sptCMND.setBounds(10, 35, 210, 1);
-        panelCMND.add(sptCMND);
 
         JLabel lblIconCMND = new JLabel("");
         lblIconCMND.setHorizontalAlignment(SwingConstants.CENTER);
@@ -177,6 +179,11 @@ public class SignUpFrame extends JFrame
         panelFullname.setBounds(20, 120, 260, 55);
         panelFullname.setLayout(null);
         contentPane.add(panelFullname);
+
+        JSeparator sptFullname = new JSeparator();
+        sptFullname.setForeground(Color.GRAY);
+        sptFullname.setBounds(10, 35, 210, 1);
+        panelFullname.add(sptFullname);
 
         txtFullname = new JTextField();
         txtFullname.addKeyListener(new KeyAdapter()
@@ -193,6 +200,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptFullname.setForeground(new Color(222, 97, 97));
                 if (txtFullname.getText().equals("Full Name"))
                 {
                     txtFullname.setText("");
@@ -222,6 +230,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
+                sptFullname.setForeground(Color.gray);
                 if (txtFullname.getText().equals(""))
                 {
                     ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
@@ -252,10 +261,6 @@ public class SignUpFrame extends JFrame
         txtFullname.setColumns(10);
         panelFullname.add(txtFullname);
 
-        JSeparator sptFullname = new JSeparator();
-        sptFullname.setForeground(Color.GRAY);
-        sptFullname.setBounds(10, 35, 210, 1);
-        panelFullname.add(sptFullname);
 
         JLabel lblIconFullname = new JLabel("");
         lblIconFullname.setHorizontalAlignment(SwingConstants.CENTER);
@@ -268,6 +273,11 @@ public class SignUpFrame extends JFrame
         panelGender.setBounds(20, 170, 260, 55);
         panelGender.setLayout(null);
         contentPane.add(panelGender);
+
+        JSeparator sptGender = new JSeparator();
+        sptGender.setForeground(Color.GRAY);
+        sptGender.setBounds(10, 35, 210, 1);
+        panelGender.add(sptGender);
 
         txtGender = new JTextField();
         txtGender.addKeyListener(new KeyAdapter()
@@ -285,6 +295,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptGender.setForeground(new Color(222, 97, 97));
                 if (txtGender.getText().equals("Gender"))
                 {
                     txtGender.setText("");
@@ -314,6 +325,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
+                sptGender.setForeground(Color.GRAY);
                 if (txtGender.getText().equals(""))
                 {
                     ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
@@ -344,10 +356,6 @@ public class SignUpFrame extends JFrame
         txtGender.setColumns(10);
         panelGender.add(txtGender);
 
-        JSeparator sptGender = new JSeparator();
-        sptGender.setForeground(Color.GRAY);
-        sptGender.setBounds(10, 35, 210, 1);
-        panelGender.add(sptGender);
 
         JLabel lblIconGender = new JLabel("");
         lblIconGender.setHorizontalAlignment(SwingConstants.CENTER);
@@ -360,6 +368,11 @@ public class SignUpFrame extends JFrame
         panelPhoneNumber.setBounds(20, 220, 260, 55);
         panelPhoneNumber.setLayout(null);
         contentPane.add(panelPhoneNumber);
+
+        JSeparator sptPhoneNumber = new JSeparator();
+        sptPhoneNumber.setForeground(Color.GRAY);
+        sptPhoneNumber.setBounds(10, 35, 210, 1);
+        panelPhoneNumber.add(sptPhoneNumber);
 
         txtPhoneNumber = new JTextField();
         txtPhoneNumber.addKeyListener(new KeyAdapter()
@@ -376,6 +389,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptPhoneNumber.setForeground(new Color(222, 97, 97));
                 if (txtPhoneNumber.getText().equals("Phone number"))
                 {
                     txtPhoneNumber.setText("");
@@ -402,6 +416,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent e)
             {
+                sptPhoneNumber.setForeground(Color.GRAY);
                 if (txtPhoneNumber.getText().equals(""))
                 {
                     ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
@@ -432,10 +447,6 @@ public class SignUpFrame extends JFrame
         txtPhoneNumber.setColumns(10);
         panelPhoneNumber.add(txtPhoneNumber);
 
-        JSeparator sptPhoneNumber = new JSeparator();
-        sptPhoneNumber.setForeground(Color.GRAY);
-        sptPhoneNumber.setBounds(10, 35, 210, 1);
-        panelPhoneNumber.add(sptPhoneNumber);
 
         JLabel lblIconPhoneNumber = new JLabel("");
         lblIconPhoneNumber.setHorizontalAlignment(SwingConstants.CENTER);
@@ -457,6 +468,11 @@ public class SignUpFrame extends JFrame
         cal.add(Calendar.DATE, -1);
         Date dateMax = cal.getTime();
 
+        JSeparator sptBirthDay = new JSeparator();
+        sptBirthDay.setForeground(Color.GRAY);
+        sptBirthDay.setBounds(10, 35, 210, 1);
+        panelBirthDay.add(sptBirthDay);
+
         calendar = new com.toedter.calendar.JDateChooser(null,"dd-MM-yyyy");
         calendar.setBounds(10,7,235,28);
         calendar.setSelectableDateRange(dateMin, dateMax);
@@ -469,13 +485,22 @@ public class SignUpFrame extends JFrame
         calendar.getCalendarButton().setBackground(Color.WHITE);
         calendar.getCalendarButton().setCursor(new Cursor(Cursor.HAND_CURSOR));
         calendar.setDate(dateMin);
+        calendar.getCalendarButton().addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                sptBirthDay.setForeground(new Color(222, 97, 97));
+            }
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                sptBirthDay.setForeground(Color.gray);
+                super.mouseExited(e);
+            }
+        });
         panelBirthDay.add(calendar);
         ///
-
-        JSeparator sptBirthDay = new JSeparator();
-        sptBirthDay.setForeground(Color.GRAY);
-        sptBirthDay.setBounds(10, 35, 210, 1);
-        panelBirthDay.add(sptBirthDay);
 
         JPanel panelAddress = new RadiusAndShadow();
         panelAddress.setBackground(Color.WHITE);
@@ -483,12 +508,18 @@ public class SignUpFrame extends JFrame
         panelAddress.setLayout(null);
         contentPane.add(panelAddress);
 
+        JSeparator sptAddress = new JSeparator();
+        sptAddress.setForeground(Color.GRAY);
+        sptAddress.setBounds(10, 35, 210, 1);
+        panelAddress.add(sptAddress);
+
         txtAddress = new JTextField();
         txtAddress.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptAddress.setForeground(new Color(222, 97, 97));
                 if (txtAddress.getText().equals("Address"))
                 {
                     txtAddress.setText("");
@@ -518,6 +549,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
+                sptAddress.setForeground(Color.GRAY);
                 if (txtAddress.getText().equals(""))
                 {
                     ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
@@ -548,10 +580,7 @@ public class SignUpFrame extends JFrame
         txtAddress.setColumns(10);
         panelAddress.add(txtAddress);
 
-        JSeparator sptAddress = new JSeparator();
-        sptAddress.setForeground(Color.GRAY);
-        sptAddress.setBounds(10, 35, 210, 1);
-        panelAddress.add(sptAddress);
+
 
         JLabel lblIconAddress = new JLabel("");
         lblIconAddress.setHorizontalAlignment(SwingConstants.CENTER);
@@ -565,12 +594,18 @@ public class SignUpFrame extends JFrame
         panelUsername.setLayout(null);
         contentPane.add(panelUsername);
 
+        JSeparator sptUsername = new JSeparator();
+        sptUsername.setForeground(Color.GRAY);
+        sptUsername.setBounds(10, 35, 210, 1);
+        panelUsername.add(sptUsername);
+
         txtUsername = new JTextField();
         txtUsername.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptUsername.setForeground(new Color(222, 97, 97));
                 if (txtUsername.getText().equals("Username"))
                 {
                     txtUsername.setText("");
@@ -583,6 +618,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
+                sptUsername.setForeground(Color.GRAY);
                 if (txtUsername.getText().equals(""))
                 {
                     txtUsername.setText("Username");
@@ -606,10 +642,6 @@ public class SignUpFrame extends JFrame
         txtUsername.setColumns(10);
         panelUsername.add(txtUsername);
 
-        JSeparator sptUsername = new JSeparator();
-        sptUsername.setForeground(Color.GRAY);
-        sptUsername.setBounds(10, 35, 210, 1);
-        panelUsername.add(sptUsername);
 
         JLabel lblIconUsername = new JLabel("");
         lblIconUsername.setHorizontalAlignment(SwingConstants.CENTER);
@@ -623,12 +655,18 @@ public class SignUpFrame extends JFrame
         panelPassword.setLayout(null);
         contentPane.add(panelPassword);
 
+        JSeparator sptPassword = new JSeparator();
+        sptPassword.setForeground(Color.GRAY);
+        sptPassword.setBounds(10, 35, 210, 1);
+        panelPassword.add(sptPassword);
+
         txtPassword = new JPasswordField();
         txtPassword.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptPassword.setForeground(new Color(222, 97, 97));
                 if (SignUpFrame.this.count1 % 2 == 0)
                 {
                     if (txtPassword.getText().equals("Password"))
@@ -655,6 +693,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent fe)
             {
+                sptPassword.setForeground(Color.GRAY);
                 if (txtPassword.getText().equals(""))
                 {
                     txtPassword.setText("Password");
@@ -679,10 +718,6 @@ public class SignUpFrame extends JFrame
         txtPassword.setBounds(10, 11, 170, 20);
         panelPassword.add(txtPassword);
 
-        JSeparator sptPassword = new JSeparator();
-        sptPassword.setForeground(Color.GRAY);
-        sptPassword.setBounds(10, 35, 210, 1);
-        panelPassword.add(sptPassword);
 
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
@@ -716,12 +751,18 @@ public class SignUpFrame extends JFrame
         panelPasswordConfirm.setLayout(null);
         contentPane.add(panelPasswordConfirm);
 
+        JSeparator sptPasswordConfirm = new JSeparator();
+        sptPasswordConfirm.setForeground(Color.GRAY);
+        sptPasswordConfirm.setBounds(10, 35, 210, 1);
+        panelPasswordConfirm.add(sptPasswordConfirm);
+
         txtPasswordConfirm = new JPasswordField();
         txtPasswordConfirm.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
+                sptPasswordConfirm.setForeground(new Color(222, 97, 97));
                 if (SignUpFrame.this.count2 % 2 == 0)
                 {
                     if (txtPasswordConfirm.getText().equals("Password confirm"))
@@ -748,6 +789,7 @@ public class SignUpFrame extends JFrame
             @Override
             public void focusLost(FocusEvent fe)
             {
+                sptPasswordConfirm.setForeground(Color.GRAY);
                 if (txtPasswordConfirm.getText().equals(""))
                 {
                     txtPasswordConfirm.setText("Password confirm");
@@ -772,10 +814,6 @@ public class SignUpFrame extends JFrame
         txtPasswordConfirm.setBounds(10, 11, 170, 20);
         panelPasswordConfirm.add(txtPasswordConfirm);
 
-        JSeparator sptPasswordConfirm = new JSeparator();
-        sptPasswordConfirm.setForeground(Color.GRAY);
-        sptPasswordConfirm.setBounds(10, 35, 210, 1);
-        panelPasswordConfirm.add(sptPasswordConfirm);
 
         JLabel lblIconPasswordConfirm = new JLabel("");
         lblIconPasswordConfirm.setHorizontalAlignment(SwingConstants.CENTER);
