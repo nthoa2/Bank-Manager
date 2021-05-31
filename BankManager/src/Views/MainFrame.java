@@ -135,6 +135,7 @@ public class MainFrame extends JFrame
             {
                 if (e.getButton() == 1)
                 {
+                    MainFrame.this.cardPanel.add(new PanelOverview(), "overview");
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("overview");
                 }
@@ -237,6 +238,7 @@ public class MainFrame extends JFrame
             {
                 if(e.getButton() == 1)
                 {
+                    MainFrame.this.cardPanel.add(new PanelTradingsHistory(), "history");
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("history");
                 }
@@ -369,9 +371,9 @@ public class MainFrame extends JFrame
         this.cardPanel.setBackground(Color.WHITE);
         this.cardPanel.add(new PanelHome(), "home");
         this.cardPanelLayout.show(this.cardPanel, "home");
+        this.cardPanel.add(new PanelTradingsHistory(), "history");
         this.cardPanel.add(new PanelOverview(), "overview");
         this.cardPanel.add(new PanelService(), "service");
-        this.cardPanel.add(new PanelTradingsHistory(), "history");
         this.cardPanel.add(new PanelProfile(), "profile");
 
         detailsPanel.add((Component) this.cardPanel, "Center");

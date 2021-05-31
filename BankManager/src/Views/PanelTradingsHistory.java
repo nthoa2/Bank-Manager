@@ -19,7 +19,7 @@ public class PanelTradingsHistory extends JPanel
     static JLabel accountDetailsName;
     static JLabel accountBalance;
     public static JTable contentTable;
-    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Gửi/Nhận", "Nội Dung", "Số Tiền"}, 0)
+    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Nhận/Gửi", "Nội Dung", "Số Tiền"}, 0)
     {
         @Override
         public boolean isCellEditable(int row, int column)
@@ -30,6 +30,7 @@ public class PanelTradingsHistory extends JPanel
 
     private JPanel headerPanel()
     {
+
         JPanel rootPanel = new LinearGradient(1);
         rootPanel.setPreferredSize(new Dimension(50, 70));
         JPanel headerPanel = new JPanel(); // Title
@@ -88,16 +89,16 @@ public class PanelTradingsHistory extends JPanel
         JComboBox<String> comboBoxFilter = new JComboBox<String>();
         comboBoxFilter.setFont(new Font("Open Sans", Font.BOLD, 13));
         comboBoxFilter.setPreferredSize(new Dimension(170, 25));
-        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Chuyển Khoản", "Nhận Chuyển Khoản"}));
+        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Nạp tiền", "Rút tiền", "Chuyển tiền"}));
         comboBoxFilter.setMaximumRowCount(10);
-//        comboBoxFilter.addActionListener(new ActionListener()
-//        {
-//            @Override
-//            public void actionPerformed(ActionEvent e)
-//            {
-//                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
-//            }
-//        });
+        comboBoxFilter.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
+            }
+        });
         filterPanel.add(filterLabel);
         filterPanel.add(comboBoxFilter);
         toolsPanel.add((Component) filterPanel, gbc_filter);
@@ -178,7 +179,6 @@ public class PanelTradingsHistory extends JPanel
         headerTable.setAlignmentY(SwingConstants.CENTER);
         headerTable.setPreferredSize(new Dimension(50, 30));
         headerTable.setReorderingAllowed(false);
-
 
         rootPanel.add(scrollPane, "Center");
         return rootPanel;

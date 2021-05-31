@@ -16,11 +16,10 @@ import java.awt.*;
 public class ColumnChartPanel
         extends JFXPanel
 {
-    private double received = 3000;
-    private double spending = 3500;
 
 
-    public BarChart createChart()
+
+    public BarChart createChart(double spending, double receives)
     {
 
         CategoryAxis xAxis = new CategoryAxis();
@@ -28,27 +27,27 @@ public class ColumnChartPanel
         yAxis.setLabel("vnd");
         XYChart.Series dataSpendingSeries = new XYChart.Series();
         dataSpendingSeries.setName("Chi Ra");
-        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (this.spending)));
+        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (spending)));
         XYChart.Series dataReceivedSeries = new XYChart.Series();
         dataReceivedSeries.setName("Nhận Vào");
-        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) this.received));
+        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) receives));
         BarChart chart = new BarChart((Axis) xAxis, (Axis) yAxis);
         chart.getData().addAll(new Object[]{dataSpendingSeries});
         chart.getData().addAll(new Object[]{dataReceivedSeries});
         return chart;
     }
 
-    private Scene createScene()
+    private Scene createScene(double spending, double receives)
     {
         BorderPane root = new BorderPane();
         Scene scene = new Scene((Parent) root, (Paint) Color.ALICEBLUE);
-        root.setCenter((Node) this.createChart());
+        root.setCenter((Node) this.createChart(spending, receives));
         return scene;
     }
 
-    public ColumnChartPanel()
+    public ColumnChartPanel(double spending, double receives)
     {
-        this.setScene(this.createScene());
+        this.setScene(this.createScene(spending, receives));
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
         this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Tổng Thu Chi Trong Tháng ", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
     }

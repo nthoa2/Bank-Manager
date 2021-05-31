@@ -94,7 +94,7 @@ public class LoginController
         return true;
     }
 
-    public static boolean CheckCMND(String cmnd)
+    public static boolean CheckCMND (String cmnd)
     {
         ResultSet resultSet = Login.CheckCMND(cmnd);
         try
