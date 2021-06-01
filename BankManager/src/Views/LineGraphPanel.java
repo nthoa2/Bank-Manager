@@ -34,12 +34,12 @@ public class LineGraphPanel
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("");
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("vnd");
+        yAxis.setLabel("VNĐ");
         javafx.scene.chart.LineChart lineChart = new javafx.scene.chart.LineChart((Axis) xAxis, (Axis) yAxis);
         XYChart.Series spendingSeries = new XYChart.Series();
-        spendingSeries.setName("Chi Tiêu");
+        spendingSeries.setName("Spending");
         XYChart.Series receivedSeries = new XYChart.Series();
-        receivedSeries.setName("Nhận Vào");
+        receivedSeries.setName("Received");
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yy");
         long totalDays = 0L;
@@ -76,6 +76,6 @@ public class LineGraphPanel
     public LineGraphPanel() {
         this.setScene(this.createScene());
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
-        this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Biến Động Thu Chi Trong Tháng", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
+        this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Movement receive and spend in month", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
     }
 }

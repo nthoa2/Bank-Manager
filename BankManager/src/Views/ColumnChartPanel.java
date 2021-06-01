@@ -26,11 +26,11 @@ public class ColumnChartPanel
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
         XYChart.Series dataSpendingSeries = new XYChart.Series();
-        dataSpendingSeries.setName("Chi Ra");
-        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (spending)));
+        dataSpendingSeries.setName("Spending");
+        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Spending", (Object) (spending)));
         XYChart.Series dataReceivedSeries = new XYChart.Series();
-        dataReceivedSeries.setName("Nhận Vào");
-        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) receives));
+        dataReceivedSeries.setName("Received");
+        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Received", (Object) receives));
         BarChart chart = new BarChart((Axis) xAxis, (Axis) yAxis);
         chart.getData().addAll(new Object[]{dataSpendingSeries});
         chart.getData().addAll(new Object[]{dataReceivedSeries});
@@ -49,6 +49,6 @@ public class ColumnChartPanel
     {
         this.setScene(this.createScene(spending, receives));
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
-        this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Tổng Thu Chi Trong Tháng ", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
+        this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Total receive and spend in month", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
     }
 }

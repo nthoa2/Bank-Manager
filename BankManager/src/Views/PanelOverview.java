@@ -23,6 +23,7 @@ public class PanelOverview extends JPanel
     private LineGraphPanel lineChart;
     private JTable recentTransactionsTable;
 
+    private Image img_monney = new ImageIcon(PanelOverview.class.getResource("/Res/monney.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     private JPanel northPanel()
     {
@@ -39,7 +40,7 @@ public class PanelOverview extends JPanel
         overViewPanelLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         overViewPanelLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         rootPanel.setLayout(overViewPanelLayout);
-        JLabel panelTitle = new JLabel("Tổng Quan");
+        JLabel panelTitle = new JLabel("Overview");
         panelTitle.setIconTextGap(0);
         panelTitle.setHorizontalAlignment(0);
         panelTitle.setFont(new Font("Open Sans", Font.BOLD, 29));
@@ -67,10 +68,10 @@ public class PanelOverview extends JPanel
         JPanel accountBalancePanel = new RadiusAndShadow();
         accountBalancePanel.setBackground(Color.WHITE);
         accountBalancePanel.setLayout(new BorderLayout(0, 0));
-        JLabel accountBalanceLabelTitle = new JLabel("Số Dư Hiện Tại");
+        JLabel accountBalanceLabelTitle = new JLabel("Balance");
         accountBalanceLabelTitle.setVerticalTextPosition(3);
         accountBalanceLabelTitle.setIconTextGap(15);
-        accountBalanceLabelTitle.setIcon(new ImageIcon("src/Res/monney.png"));
+        accountBalanceLabelTitle.setIcon(new ImageIcon(img_monney));
         accountBalanceLabelTitle.setBackground(Color.WHITE);
         accountBalanceLabelTitle.setHorizontalAlignment(0);
         accountBalanceLabelTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
@@ -83,10 +84,10 @@ public class PanelOverview extends JPanel
         JPanel totalSpendingPanel = new RadiusAndShadow();
         totalSpendingPanel.setBackground(Color.WHITE);
         totalSpendingPanel.setLayout(new BorderLayout(0, 0));
-        JLabel totalSpendingTitle = new JLabel("Tổng Chi Trong Tháng");
+        JLabel totalSpendingTitle = new JLabel("Total spend in month");
         totalSpendingTitle.setFont(new Font("Arial", 0, 18));
         totalSpendingTitle.setVerticalTextPosition(3);
-        totalSpendingTitle.setIcon(new ImageIcon("src/Res/monney.png"));
+        totalSpendingTitle.setIcon(new ImageIcon(img_monney));
         totalSpendingTitle.setIconTextGap(15);
         totalSpendingTitle.setHorizontalTextPosition(4);
         totalSpendingTitle.setHorizontalAlignment(0);
@@ -101,8 +102,8 @@ public class PanelOverview extends JPanel
         JPanel totalReceivedPanel = new RadiusAndShadow();
         totalReceivedPanel.setBackground(Color.WHITE);
         totalReceivedPanel.setLayout(new BorderLayout(0, 5));
-        JLabel totalReceivedTitle = new JLabel("Tổng Thu Trong Tháng");
-        totalReceivedTitle.setIcon(new ImageIcon("src/Res/monney.png"));
+        JLabel totalReceivedTitle = new JLabel("Total received in month");
+        totalReceivedTitle.setIcon(new ImageIcon(img_monney));
         totalReceivedTitle.setVerticalTextPosition(3);
         totalReceivedTitle.setVerticalAlignment(3);
         totalReceivedTitle.setIconTextGap(15);
@@ -154,7 +155,7 @@ public class PanelOverview extends JPanel
 
 
         JPanel recentTransactionsPanel = new JPanel();
-        recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Giao Dịch Gần Đây", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
+        recentTransactionsPanel.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Recent Transactions", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), null));
         recentTransactionsPanel.setLayout(new BorderLayout(0, 0));
         recentTransactionsPanel.setPreferredSize(new Dimension(100, 265));
         recentTransactionsTable = new JTable();
@@ -163,7 +164,7 @@ public class PanelOverview extends JPanel
         recentTransactionsTable.setFillsViewportHeight(true);
         recentTransactionsTable.setSelectionMode(0);
         recentTransactionsTable.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Người Nhận/Gửi", "Nội Dung", "Số Tiền"})
+        recentTransactionsTable.setModel(new DefaultTableModel(new Object[0][], new String[]{"Receiver/Sender", "Content", "Amount"})
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -175,7 +176,7 @@ public class PanelOverview extends JPanel
         recentTransactionsTable.getColumnModel().getColumn(1).setPreferredWidth(120);
         recentTransactionsTable.getColumnModel().getColumn(2).setPreferredWidth(70);
         recentTransactionsTable.setRowHeight(30);
-        recentTransactionsTable.getColumn("Nội Dung").setCellRenderer(new DefaultTableCellRenderer()
+        recentTransactionsTable.getColumn("Content").setCellRenderer(new DefaultTableCellRenderer()
         {
             @Override
             public void setHorizontalAlignment(int alignment)
@@ -183,7 +184,7 @@ public class PanelOverview extends JPanel
                 super.setHorizontalAlignment(SwingConstants.LEFT);
             }
         });
-        recentTransactionsTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer()
+        recentTransactionsTable.getColumn("Amount").setCellRenderer(new DefaultTableCellRenderer()
         {
             @Override
             public void setHorizontalAlignment(int alignment)

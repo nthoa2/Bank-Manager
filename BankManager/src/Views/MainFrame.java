@@ -116,7 +116,7 @@ public class MainFrame extends JFrame
 
         this.lblHome = new JLabel("");
         this.lblHome.setIcon(new ImageIcon(img_home));
-        this.lblTextHome = new JLabel("Tổng Quan");
+        this.lblTextHome = new JLabel("Overview");
         this.lblTextHome.setForeground(Color.WHITE);
         this.lblTextHome.setFont(new Font("Open Sans", 1, 15));
         this.btnHome = new JToggleButton();
@@ -167,7 +167,7 @@ public class MainFrame extends JFrame
 
         this.lblService = new JLabel("");
         this.lblService.setIcon(new ImageIcon(img_service));
-        this.lblTextService = new JLabel("Dịch Vụ");
+        this.lblTextService = new JLabel("Service");
         this.lblTextService.setForeground(Color.WHITE);
         this.lblTextService.setFont(new Font("Open Sans", 1, 15));
         this.btnService = new JToggleButton();
@@ -219,7 +219,7 @@ public class MainFrame extends JFrame
 
         this.lblHistory = new JLabel("");
         this.lblHistory.setIcon(new ImageIcon(img_history));
-        this.lblTextHistory = new JLabel("Lịch Sử");
+        this.lblTextHistory = new JLabel("History");
         this.lblTextHistory.setForeground(Color.WHITE);
         this.lblTextHistory.setFont(new Font("Open Sans", 1, 15));
         this.btnHistory = new JToggleButton();
@@ -276,7 +276,7 @@ public class MainFrame extends JFrame
 
         this.lblLogOut = new JLabel("");
         this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
-        this.lblTextLogOut = new JLabel("Đăng Xuất");
+        this.lblTextLogOut = new JLabel("Log out");
         this.lblTextLogOut.setForeground(Color.WHITE);
         this.lblTextLogOut.setFont(new Font("Open Sans", 1, 15));
         this.btnLogOut = new JToggleButton();
@@ -346,11 +346,12 @@ public class MainFrame extends JFrame
         detailsPanel.add((Component) toolPanel, "North");
 
         btnProfile = new JLabel(LoginController.fullname);
+        btnProfile.setFont(new Font("Open San", Font.BOLD, 12));
         btnProfile.setIcon(new ImageIcon(img_profile));
         btnProfile.setFocusable(false);
         btnProfile.setHorizontalTextPosition(SwingConstants.LEADING);
         btnProfile.setBorder(null);
-        btnProfile.setToolTipText("Thông tin cá nhân");
+        btnProfile.setToolTipText("Profile");
         btnProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnProfile.setBackground(Color.WHITE);
         btnProfile.addMouseListener(new MouseAdapter() {

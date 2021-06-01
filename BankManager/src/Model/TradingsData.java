@@ -49,7 +49,7 @@ public class TradingsData
         return connection.getData(queryString);
     }
 
-    public static ResultSet getUsersSpendingAndReceivedPerDay(String userID, String date)
+    public static ResultSet getUsersSpendingAndReceivedPerDay(String userID)
     {
         String query = "SET DATEFORMAT dmy " +
                 "SELECT dbo.CHITIETGD.LoaiGD, dbo.GIAODICH.NgayGD,dbo.CHITIETGD.SoTK, dbo.CHITIETGD.SoTKNhan, dbo.GIAODICH.GhiChu,dbo.GIAODICH.SoTien\n" +
