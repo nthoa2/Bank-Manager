@@ -1,6 +1,8 @@
 package Views;
 
-import Controller.TradingsController;
+import Controller.LoginController;
+import Controller.TransactionsController;
+import Controller.UserController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,9 +12,9 @@ import java.awt.event.*;
 import java.util.regex.PatternSyntaxException;
 
 public class TradingsHistoryPanel extends JPanel {
-    static JLabel accountDetailsName;
-    static JLabel accountBalance;
-    private JTable contentTable;
+    public JLabel accountDetailsName;
+    public JLabel accountBalance;
+    public static JTable contentTable;
 
     DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Gửi/Nhận", "Nội Dung", "Số Tiền"}, 0) {
         @Override
@@ -80,12 +82,12 @@ public class TradingsHistoryPanel extends JPanel {
         JComboBox<String> comboBoxFilter = new JComboBox<String>();
         comboBoxFilter.setFont(new Font("Open Sans", Font.BOLD, 13));
         comboBoxFilter.setPreferredSize(new Dimension(170, 25));
-        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Chuyển Khoản", "Nhận Chuyển Khoản"}));
+        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Nạp Tiền", "Rút Tiền", "Chuyển Tiền", "Nhận Tiền"}));
         comboBoxFilter.setMaximumRowCount(10);
         comboBoxFilter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TradingsController.uploadTradingByType(TradingsHistoryPanel.this.contentTable, (String) comboBoxFilter.getSelectedItem());
+                TransactionsController.uploadTradingByType(contentTable,LoginController.AccountNumber,comboBoxFilter.getSelectedIndex());
             }
         });
         filterPanel.add(filterLabel);
@@ -186,7 +188,7 @@ public class TradingsHistoryPanel extends JPanel {
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add((Component) this.headerPanel(), "North");
         this.add((Component) this.dataPanel(), "Center");
-        TradingsController.uploadAllTradingData(this.contentTable);
+        TransactionsController.uploadAllTradingData(contentTable, LoginController.AccountNumber);
     }
 
 

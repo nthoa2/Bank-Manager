@@ -1,6 +1,10 @@
 package Views;
 
-import Controller.TradingsController;
+import Controller.LoginController;
+import Controller.TransactionsController;
+import Controller.UserController;
+import Model.Accounts;
+import Model.User;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -11,9 +15,9 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class OverviewPanel extends JPanel {
-    static JLabel accountBalanceLabelValue;
-    static JLabel totalSpendingValue;
-    static JLabel totalReceivedValue;
+    private JLabel accountBalanceValue;
+    private JLabel totalSpendingValue;
+    private JLabel totalReceivedValue;
     private JTable recentTransactionsTable;
     private ColumnChartPanel barChart;
     private LineGraphPanel lineChart;
@@ -68,23 +72,23 @@ public class OverviewPanel extends JPanel {
         accountBalanceLabelTitle.setHorizontalAlignment(0);
         accountBalanceLabelTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
         accountBalancePanel.add((Component)accountBalanceLabelTitle, "North");
-        accountBalanceLabelValue = new JLabel("0");
-        accountBalanceLabelValue.setHorizontalAlignment(0);
-        accountBalanceLabelValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        accountBalancePanel.add((Component)accountBalanceLabelValue, "Center");
+        accountBalanceValue = new JLabel(String.valueOf(UserController.AccountBalance));
+        accountBalanceValue.setHorizontalAlignment(0);
+        accountBalanceValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
+        accountBalancePanel.add((Component)accountBalanceValue, "Center");
 
         JPanel totalSpendingPanel = new RadiusAndShadow();
         totalSpendingPanel.setBackground(Color.WHITE);
         totalSpendingPanel.setLayout(new BorderLayout(0, 0));
         JLabel totalSpendingTitle = new JLabel("Tổng Chi Trong Tháng");
         totalSpendingTitle.setFont(new Font("Arial", 0, 18));
-        totalSpendingTitle.setVerticalTextPosition(3);
+        totalSpendingTitle.setVerticalTextPosition(SwingConstants.CENTER);
         totalSpendingTitle.setIcon(new ImageIcon("src/Res/monney.png"));
         totalSpendingTitle.setIconTextGap(15);
         totalSpendingTitle.setHorizontalTextPosition(4);
         totalSpendingTitle.setHorizontalAlignment(0);
         totalSpendingPanel.add((Component)totalSpendingTitle, "North");
-        totalSpendingValue = new JLabel("0");
+        totalSpendingValue = new JLabel();
         totalSpendingValue.setHorizontalAlignment(0);
         totalSpendingValue.setFont(new Font("Arial", Font.PLAIN, 20));
         totalSpendingPanel.add((Component)totalSpendingValue, "Center");
@@ -167,7 +171,7 @@ public class OverviewPanel extends JPanel {
         recentTransactionsTable.getColumn("Nội Dung").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public void setHorizontalAlignment(int alignment) {
-                super.setHorizontalAlignment(SwingConstants.CENTER);
+                super.setHorizontalAlignment(SwingConstants.LEFT);
             }
         });
         recentTransactionsTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer() {
@@ -209,6 +213,6 @@ public class OverviewPanel extends JPanel {
         this.barChart = new ColumnChartPanel();
         mainPanel.add((Component) this.southPanel(), "South");
         this.add((Component) scrollPane, "Center");
-        TradingsController.uploadTradingDataOverview(recentTransactionsTable);
+        TransactionsController.uploadTradingDataOverview(recentTransactionsTable, LoginController.AccountNumber);
     }
 }

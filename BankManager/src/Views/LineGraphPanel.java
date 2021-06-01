@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
-import Controller.TradingsController;
-import Model.UserData;
+import Controller.LoginController;
+import Model.Accounts;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -27,17 +27,28 @@ import javax.swing.border.TitledBorder;
 
 public class LineGraphPanel
         extends JFXPanel {
-    static LocalDate today = LocalDate.now();
-    static LocalDate lastDay = today.minusDays(30);
+
+    private double spendingOnDay;
+    private double receivedOnDay;
+    private static LocalDate today = LocalDate.now();
+    private static LocalDate lastDay = today.minusDays(30);
     static String startDay = lastDay.getDayOfMonth() + "/" + lastDay.getMonthValue() + "/" + lastDay.getYear();
     static String endDay = today.getDayOfMonth() + "/" + today.getMonthValue() + "/" + today.getYear();
 
-    private javafx.scene.chart.LineChart createChart() {
+    public void setSpendingOnDay(double spendingOnDay) {
+        this.spendingOnDay = spendingOnDay;
+    }
+
+    public void setReceivedOnDay(double receivedOnDay) {
+        this.receivedOnDay = receivedOnDay;
+    }
+
+    private LineChart createChart() {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
-        javafx.scene.chart.LineChart lineChart = new javafx.scene.chart.LineChart((Axis) xAxis, (Axis) yAxis);
+        LineChart lineChart = new LineChart((Axis) xAxis, (Axis) yAxis);
         XYChart.Series spendingSeries = new XYChart.Series();
         spendingSeries.setName("Chi Tiêu");
         XYChart.Series receivedSeries = new XYChart.Series();
@@ -55,12 +66,8 @@ public class LineGraphPanel
             while (i <= totalDays) {
                 Date curentDate = new Date();
                 String currentDateFormat = simple.format(curentDate);
-//                double Spending = UserData.getUsersSpendingPerDay(LoginID,currentDateFormat);
-                double Spending = 3000;
-                spendingSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) Spending));
-//                double receives = UserData.getUserReceivedPerDay(LoginID, currentDateFormat);
-                double receives =3000;
-                receivedSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) receives));
+                spendingSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) this.spendingOnDay));
+                receivedSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) this.receivedOnDay));
                 calendar.add(Calendar.DATE, 1);
                 ++i;
             }

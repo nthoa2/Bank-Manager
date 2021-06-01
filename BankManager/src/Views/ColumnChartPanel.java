@@ -2,7 +2,8 @@ package Views;
 
 import java.awt.Font;
 
-import Model.UserData;
+import Controller.LoginController;
+import Model.Accounts;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,12 +18,16 @@ import javax.swing.border.TitledBorder;
 
 public class ColumnChartPanel
         extends JFXPanel {
-    private String startDay = LineGraphPanel.startDay;
-    private String endDay = LineGraphPanel.endDay;
-//    private double received = UserData.getUserReceivedPerMonth(LoginID,startDay,endDay);
-//    private double spending = UserData.getUsersSpendingPerDay(LoginID,startDay,endDay);
-private double received = 3000;
-private double spending = 3000;
+    private double receivedOnMonth;
+    private double spendingOnMonth;
+
+    public void setReceivedOnMonth(double receivedOnMonth) {
+        this.receivedOnMonth = receivedOnMonth;
+    }
+
+    public void setSpendingOnMonth(double spendingOnMonth) {
+        this.spendingOnMonth = spendingOnMonth;
+    }
 
     public BarChart createChart() {
 
@@ -31,10 +36,10 @@ private double spending = 3000;
         yAxis.setLabel("vnd");
         XYChart.Series dataSpendingSeries = new XYChart.Series();
         dataSpendingSeries.setName("Chi Ra");
-        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (this.spending)));
+        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (this.spendingOnMonth)));
         XYChart.Series dataReceivedSeries = new XYChart.Series();
         dataReceivedSeries.setName("Nhận Vào");
-        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) this.received));
+        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) this.receivedOnMonth));
         BarChart chart = new BarChart((Axis) xAxis, (Axis) yAxis);
         chart.getData().addAll(new Object[]{dataSpendingSeries});
         chart.getData().addAll(new Object[]{dataReceivedSeries});

@@ -10,6 +10,7 @@ public class connection {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectString = "jdbc:sqlserver://localhost:1433;databaseName=BankManager;user=sa;password=admin";
             connect = DriverManager.getConnection(connectString);
+            System.out.println("Ket Noi Thanh Cong");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
