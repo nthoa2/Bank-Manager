@@ -1,9 +1,7 @@
 package Views;
 
+import Controller.InsertController;
 import Controller.LoginController;
-import Controller.SignUpController;
-import Controller.TransactionsController;
-import Controller.UserController;
 import Model.Login;
 import RadiusAndShadow.image.Gradient;
 import com.toedter.calendar.JDateChooser;
@@ -23,7 +21,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUpFrame extends JFrame {
+public class SignUpFrame extends JFrame
+{
     private JPanel contentPane;
     private JTextField txtCMND;
     private JTextField txtFullname;
@@ -38,25 +37,26 @@ public class SignUpFrame extends JFrame {
     private JPanel pnlBtnSignUp;
     private com.toedter.calendar.JDateChooser calendar;
 
-    private Image img_CMND = new ImageIcon("src/Res/CMND.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Fullname = new ImageIcon("src/Res/fullname.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Gender = new ImageIcon("src/Res/gender.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Phone_Number = new ImageIcon("src/Res/phonenumber.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Birth_Day = new ImageIcon("src/Res/birthday.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Address = new ImageIcon("src/Res/address.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_Username = new ImageIcon("src/Res/login_username.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_hide_password = new ImageIcon("src/Res/hide_password.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_show_password = new ImageIcon("src/Res/show_password.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_logo_bank = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+    private Image img_CMND = new ImageIcon(SignUpFrame.class.getResource("/Res/CMND.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Fullname = new ImageIcon(SignUpFrame.class.getResource("/Res/fullname.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Gender = new ImageIcon(SignUpFrame.class.getResource("/Res/gender.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Phone_Number = new ImageIcon(SignUpFrame.class.getResource("/Res/phonenumber.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Birth_Day = new ImageIcon(SignUpFrame.class.getResource("/Res/birthday.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Address = new ImageIcon(SignUpFrame.class.getResource("/Res/address.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Username = new ImageIcon(SignUpFrame.class.getResource("/Res/login_username.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_hide_password = new ImageIcon(SignUpFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_show_password = new ImageIcon(SignUpFrame.class.getResource("/Res/show_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_logo_bank = new ImageIcon(SignUpFrame.class.getResource("/Res/bank.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 
     private int count1 = 0;
     private int count2 = 0;
 
-    public SignUpFrame() {
+    public SignUpFrame()
+    {
         try {
             Image img = new ImageIcon(("src/Res/icon_frame.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             this.setIconImage(img);
-        } catch (Exception e) {
+        }catch(Exception e){
             System.out.println("Application icon not found");
         }
 
@@ -97,26 +97,34 @@ public class SignUpFrame extends JFrame {
         panelCMND.add(sptCMND);
 
         txtCMND = new JTextField();
-        txtCMND.addKeyListener(new KeyAdapter() {
+        txtCMND.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
                 if (txtCMND.getText().length() >= 12)
                     e.consume();
             }
         });
-        txtCMND.addFocusListener(new FocusAdapter() {
+        txtCMND.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptCMND.setForeground(new Color(222, 97, 97));
-                if (txtCMND.getText().equals("Số Căn Cước Công Dân")) {
+                if (txtCMND.getText().equals("Citizen identification number"))
+                {
                     txtCMND.setText("");
-                    ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter() {
+                    ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\d*");
 
                         @Override
-                        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 lblLoginMessage.setText("Enter only numeric digits(0-9)");
                                 return;
                             }
@@ -128,22 +136,27 @@ public class SignUpFrame extends JFrame {
             }
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent e)
+            {
                 sptCMND.setForeground(Color.GRAY);
-                if (txtCMND.getText().equals("")) {
-                    ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter() {
+                if (txtCMND.getText().equals(""))
+                {
+                    ((AbstractDocument) txtCMND.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\D*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 return;
                             }
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtCMND.setText("Số Căn Cước Công Dân");
+                    txtCMND.setText("Citizen identification number");
                 }
             }
         });
@@ -151,7 +164,7 @@ public class SignUpFrame extends JFrame {
         txtCMND.setForeground(Color.GRAY);
         txtCMND.setBorder(null);
         txtCMND.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtCMND.setText("Số Căn Cước Công Dân");
+        txtCMND.setText("Citizen identification number");
         txtCMND.setBounds(10, 10, 170, 20);
         txtCMND.setColumns(10);
         panelCMND.add(txtCMND);
@@ -175,26 +188,34 @@ public class SignUpFrame extends JFrame {
         panelFullname.add(sptFullname);
 
         txtFullname = new JTextField();
-        txtFullname.addKeyListener(new KeyAdapter() {
+        txtFullname.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
                 if (txtFullname.getText().length() >= 30)
                     e.consume();
             }
         });
-        txtFullname.addFocusListener(new FocusAdapter() {
+        txtFullname.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptFullname.setForeground(new Color(222, 97, 97));
-                if (txtFullname.getText().equals("Họ và Tên")) {
+                if (txtFullname.getText().equals("Full Name"))
+                {
                     txtFullname.setText("");
-                    ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter() {
+                    ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("[\\p{L}\\s]");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 lblLoginMessage.setText("Enter only text");
                                 return;
                             }
@@ -202,28 +223,34 @@ public class SignUpFrame extends JFrame {
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else {
+                } else
+                {
                     txtFullname.selectAll();
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent focusEvent) {
+            public void focusLost(FocusEvent focusEvent)
+            {
                 sptFullname.setForeground(Color.gray);
-                if (txtFullname.getText().equals("")) {
-                    ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter() {
+                if (txtFullname.getText().equals(""))
+                {
+                    ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\D*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 return;
                             }
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtFullname.setText("Họ và Tên");
+                    txtFullname.setText("Full Name");
                 }
             }
         });
@@ -231,7 +258,7 @@ public class SignUpFrame extends JFrame {
         txtFullname.setForeground(Color.GRAY);
         txtFullname.setBorder(null);
         txtFullname.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtFullname.setText("Họ và Tên");
+        txtFullname.setText("Full Name");
         txtFullname.setBounds(10, 10, 170, 20);
         txtFullname.setColumns(10);
         panelFullname.add(txtFullname);
@@ -255,56 +282,70 @@ public class SignUpFrame extends JFrame {
         panelGender.add(sptGender);
 
         txtGender = new JTextField();
-        txtGender.addKeyListener(new KeyAdapter() {
+        txtGender.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
                 if (txtGender.getText().length() >= 3)
                     e.consume();
             }
 
         });
-        txtGender.addFocusListener(new FocusAdapter() {
+        txtGender.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptGender.setForeground(new Color(222, 97, 97));
-                if (txtGender.getText().equals("Giới Tính")) {
+                if (txtGender.getText().equals("Gender"))
+                {
                     txtGender.setText("");
-                    ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter() {
+                    ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("[\\p{L}\\s]");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
-                                lblLoginMessage.setText("Chỉ Nhập 'Nam' Hay 'Nữ'");
+                            if (!matcher.matches())
+                            {
+                                lblLoginMessage.setText("Enter only 'nam' or 'nữ'");
                                 return;
                             }
                             lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else {
+                } else
+                {
                     txtGender.selectAll();
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent focusEvent) {
+            public void focusLost(FocusEvent focusEvent)
+            {
                 sptGender.setForeground(Color.GRAY);
-                if (txtGender.getText().equals("")) {
-                    ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter() {
+                if (txtGender.getText().equals(""))
+                {
+                    ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\D*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 return;
                             }
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtGender.setText("Giới Tính");
+                    txtGender.setText("Gender");
                 }
             }
         });
@@ -312,7 +353,7 @@ public class SignUpFrame extends JFrame {
         txtGender.setForeground(Color.GRAY);
         txtGender.setBorder(null);
         txtGender.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtGender.setText("Giới Tính");
+        txtGender.setText("Gender");
         txtGender.setBounds(10, 10, 170, 20);
         txtGender.setColumns(10);
         panelGender.add(txtGender);
@@ -336,27 +377,35 @@ public class SignUpFrame extends JFrame {
         panelPhoneNumber.add(sptPhoneNumber);
 
         txtPhoneNumber = new JTextField();
-        txtPhoneNumber.addKeyListener(new KeyAdapter() {
+        txtPhoneNumber.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
                 if (txtPhoneNumber.getText().length() >= 10)
                     e.consume();
             }
         });
-        txtPhoneNumber.addFocusListener(new FocusAdapter() {
+        txtPhoneNumber.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptPhoneNumber.setForeground(new Color(222, 97, 97));
-                if (txtPhoneNumber.getText().equals("Số Điện Thoại")) {
+                if (txtPhoneNumber.getText().equals("Phone number"))
+                {
                     txtPhoneNumber.setText("");
-                    ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter() {
+                    ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\d*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
-                                lblLoginMessage.setText("Vui Lòng Chỉ Nhập Chữ Số [0-9]");
+                            if (!matcher.matches())
+                            {
+                                lblLoginMessage.setText("Enter only numeric digits(0-9)");
                                 return;
                             }
                             lblLoginMessage.setText("");
@@ -367,22 +416,27 @@ public class SignUpFrame extends JFrame {
             }
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent e)
+            {
                 sptPhoneNumber.setForeground(Color.GRAY);
-                if (txtPhoneNumber.getText().equals("")) {
-                    ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter() {
+                if (txtPhoneNumber.getText().equals(""))
+                {
+                    ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\D*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 return;
                             }
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtPhoneNumber.setText("Số Điện Thoại");
+                    txtPhoneNumber.setText("Phone number");
                 }
             }
         });
@@ -390,7 +444,7 @@ public class SignUpFrame extends JFrame {
         txtPhoneNumber.setForeground(Color.GRAY);
         txtPhoneNumber.setBorder(null);
         txtPhoneNumber.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtPhoneNumber.setText("Số Điện Thoại");
+        txtPhoneNumber.setText("Phone number");
         txtPhoneNumber.setBounds(10, 10, 170, 20);
         txtPhoneNumber.setColumns(10);
         panelPhoneNumber.add(txtPhoneNumber);
@@ -409,7 +463,7 @@ public class SignUpFrame extends JFrame {
         contentPane.add(panelBirthDay);
 
         /// Calendar
-        Date dateMin = new Date(01 / 01 / 1970);
+        Date dateMin = new Date(01/01/1970);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.YEAR, -18);
@@ -421,8 +475,8 @@ public class SignUpFrame extends JFrame {
         sptBirthDay.setBounds(10, 35, 210, 1);
         panelBirthDay.add(sptBirthDay);
 
-        calendar = new com.toedter.calendar.JDateChooser(null, "dd-MM-yyyy");
-        calendar.setBounds(10, 7, 235, 28);
+        calendar = new com.toedter.calendar.JDateChooser(null,"dd-MM-yyyy");
+        calendar.setBounds(10,7,235,28);
         calendar.setSelectableDateRange(dateMin, dateMax);
         calendar.setFont(new Font("Arial", Font.PLAIN, 12));
         calendar.setIcon(new ImageIcon(img_Birth_Day));
@@ -433,14 +487,16 @@ public class SignUpFrame extends JFrame {
         calendar.getCalendarButton().setBackground(Color.WHITE);
         calendar.getCalendarButton().setCursor(new Cursor(Cursor.HAND_CURSOR));
         calendar.setDate(dateMin);
-        calendar.getCalendarButton().addMouseListener(new MouseAdapter() {
+        calendar.getCalendarButton().addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e)
+            {
                 sptBirthDay.setForeground(new Color(222, 97, 97));
             }
-
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e)
+            {
                 sptBirthDay.setForeground(Color.gray);
                 super.mouseExited(e);
             }
@@ -460,48 +516,60 @@ public class SignUpFrame extends JFrame {
         panelAddress.add(sptAddress);
 
         txtAddress = new JTextField();
-        txtAddress.addFocusListener(new FocusAdapter() {
+        txtAddress.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptAddress.setForeground(new Color(222, 97, 97));
-                if (txtAddress.getText().equals("Địa Chỉ")) {
+                if (txtAddress.getText().equals("Address"))
+                {
                     txtAddress.setText("");
-                    ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter() {
+                    ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("[Z0-9-\\p{L}\\s]");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
-                                lblLoginMessage.setText("Địa Chỉ Không Hợp Lệ");
+                            if (!matcher.matches())
+                            {
+                                lblLoginMessage.setText("Not enter char special");
                                 return;
                             }
                             lblLoginMessage.setText("");
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else {
+                } else
+                {
                     txtAddress.selectAll();
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent focusEvent) {
+            public void focusLost(FocusEvent focusEvent)
+            {
                 sptAddress.setForeground(Color.GRAY);
-                if (txtAddress.getText().equals("")) {
-                    ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter() {
+                if (txtAddress.getText().equals(""))
+                {
+                    ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
+                    {
                         Pattern regEx = Pattern.compile("\\D*");
 
                         @Override
-                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+                        {
                             Matcher matcher = regEx.matcher(text);
-                            if (!matcher.matches()) {
+                            if (!matcher.matches())
+                            {
                                 return;
                             }
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtAddress.setText("Địa Chỉ");
+                    txtAddress.setText("Address");
                 }
             }
         });
@@ -509,10 +577,11 @@ public class SignUpFrame extends JFrame {
         txtAddress.setForeground(Color.GRAY);
         txtAddress.setBorder(null);
         txtAddress.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtAddress.setText("Địa Chỉ");
+        txtAddress.setText("Address");
         txtAddress.setBounds(10, 10, 170, 20);
         txtAddress.setColumns(10);
         panelAddress.add(txtAddress);
+
 
 
         JLabel lblIconAddress = new JLabel("");
@@ -533,28 +602,36 @@ public class SignUpFrame extends JFrame {
         panelUsername.add(sptUsername);
 
         txtUsername = new JTextField();
-        txtUsername.addFocusListener(new FocusAdapter() {
+        txtUsername.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptUsername.setForeground(new Color(222, 97, 97));
-                if (txtUsername.getText().equals("Tên Đăng Nhập")) {
+                if (txtUsername.getText().equals("Username"))
+                {
                     txtUsername.setText("");
-                } else {
+                } else
+                {
                     txtUsername.selectAll();
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent focusEvent) {
+            public void focusLost(FocusEvent focusEvent)
+            {
                 sptUsername.setForeground(Color.GRAY);
-                if (txtUsername.getText().equals("")) {
-                    txtUsername.setText("Tên Đăng Nhập");
+                if (txtUsername.getText().equals(""))
+                {
+                    txtUsername.setText("Username");
                 }
             }
         });
-        txtUsername.addKeyListener(new KeyAdapter() {
+        txtUsername.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
                 lblLoginMessage.setText("");
             }
         });
@@ -562,7 +639,7 @@ public class SignUpFrame extends JFrame {
         txtUsername.setForeground(Color.GRAY);
         txtUsername.setBorder(null);
         txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtUsername.setText("Tên Đăng Nhập");
+        txtUsername.setText("Username");
         txtUsername.setBounds(10, 10, 170, 20);
         txtUsername.setColumns(10);
         panelUsername.add(txtUsername);
@@ -586,39 +663,51 @@ public class SignUpFrame extends JFrame {
         panelPassword.add(sptPassword);
 
         txtPassword = new JPasswordField();
-        txtPassword.addFocusListener(new FocusAdapter() {
+        txtPassword.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptPassword.setForeground(new Color(222, 97, 97));
-                if (SignUpFrame.this.count1 % 2 == 0) {
-                    if (txtPassword.getText().equals("Mật Khẩu")) {
+                if (SignUpFrame.this.count1 % 2 == 0)
+                {
+                    if (txtPassword.getText().equals("Password"))
+                    {
                         txtPassword.setEchoChar('*');
                         txtPassword.setText("");
-                    } else {
+                    } else
+                    {
                         txtPassword.selectAll();
                     }
-                } else {
-                    if (txtPassword.getText().equals("Mật Khẩu")) {
+                } else
+                {
+                    if (txtPassword.getText().equals("Password"))
+                    {
                         txtPassword.setEchoChar((char) 0);
                         txtPassword.setText("");
-                    } else {
+                    } else
+                    {
                         txtPassword.selectAll();
                     }
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent fe) {
+            public void focusLost(FocusEvent fe)
+            {
                 sptPassword.setForeground(Color.GRAY);
-                if (txtPassword.getText().equals("")) {
-                    txtPassword.setText("Mật Khẩu");
+                if (txtPassword.getText().equals(""))
+                {
+                    txtPassword.setText("Password");
                     txtPassword.setEchoChar((char) 0);
                 }
             }
         });
-        txtPassword.addKeyListener(new KeyAdapter() {
+        txtPassword.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
                 lblLoginMessage.setText("");
             }
         });
@@ -627,7 +716,7 @@ public class SignUpFrame extends JFrame {
         txtPassword.setBorder(null);
         txtPassword.setEchoChar((char) 0);
         txtPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtPassword.setText("Mật Khẩu");
+        txtPassword.setText("Password");
         txtPassword.setBounds(10, 11, 170, 20);
         panelPassword.add(txtPassword);
 
@@ -637,17 +726,21 @@ public class SignUpFrame extends JFrame {
         lblIconPassword.setBounds(210, 0, 40, 40);
         lblIconPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblIconPassword.setIcon(new ImageIcon(img_hide_password));
-        lblIconPassword.addMouseListener(new MouseAdapter() {
+        lblIconPassword.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (SignUpFrame.this.count1 % 2 == 0) {
+            public void mouseClicked(MouseEvent e)
+            {
+                if (SignUpFrame.this.count1 % 2 == 0)
+                {
                     SignUpFrame.this.count1++;
                     lblIconPassword.setIcon(new ImageIcon(img_show_password));
                     txtPassword.setEchoChar((char) 0);
-                } else {
+                } else
+                {
                     SignUpFrame.this.count1++;
                     lblIconPassword.setIcon(new ImageIcon(img_hide_password));
-                    if (!txtPassword.getText().equals("Mật Khẩu"))
+                    if (!txtPassword.getText().equals("Password"))
                         txtPassword.setEchoChar('*');
                 }
             }
@@ -666,39 +759,51 @@ public class SignUpFrame extends JFrame {
         panelPasswordConfirm.add(sptPasswordConfirm);
 
         txtPasswordConfirm = new JPasswordField();
-        txtPasswordConfirm.addFocusListener(new FocusAdapter() {
+        txtPasswordConfirm.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e)
+            {
                 sptPasswordConfirm.setForeground(new Color(222, 97, 97));
-                if (SignUpFrame.this.count2 % 2 == 0) {
-                    if (txtPasswordConfirm.getText().equals("Xác Nhận Mật Khẩu")) {
+                if (SignUpFrame.this.count2 % 2 == 0)
+                {
+                    if (txtPasswordConfirm.getText().equals("Password confirm"))
+                    {
                         txtPasswordConfirm.setEchoChar('*');
                         txtPasswordConfirm.setText("");
-                    } else {
+                    } else
+                    {
                         txtPasswordConfirm.selectAll();
                     }
-                } else {
-                    if (txtPasswordConfirm.getText().equals("Xác Nhận Mât Khẩu")) {
+                } else
+                {
+                    if (txtPasswordConfirm.getText().equals("Password confirm"))
+                    {
                         txtPasswordConfirm.setEchoChar((char) 0);
                         txtPasswordConfirm.setText("");
-                    } else {
+                    } else
+                    {
                         txtPasswordConfirm.selectAll();
                     }
                 }
             }
 
             @Override
-            public void focusLost(FocusEvent fe) {
+            public void focusLost(FocusEvent fe)
+            {
                 sptPasswordConfirm.setForeground(Color.GRAY);
-                if (txtPasswordConfirm.getText().equals("")) {
-                    txtPasswordConfirm.setText("Xác Nhận Mật Khẩu");
+                if (txtPasswordConfirm.getText().equals(""))
+                {
+                    txtPasswordConfirm.setText("Password confirm");
                     txtPasswordConfirm.setEchoChar((char) 0);
                 }
             }
         });
-        txtPasswordConfirm.addKeyListener(new KeyAdapter() {
+        txtPasswordConfirm.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
                 lblLoginMessage.setText("");
             }
         });
@@ -707,7 +812,7 @@ public class SignUpFrame extends JFrame {
         txtPasswordConfirm.setBorder(null);
         txtPasswordConfirm.setEchoChar((char) 0);
         txtPasswordConfirm.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtPasswordConfirm.setText("Xác Nhận Mật Khẩu");
+        txtPasswordConfirm.setText("Password confirm");
         txtPasswordConfirm.setBounds(10, 11, 170, 20);
         panelPasswordConfirm.add(txtPasswordConfirm);
 
@@ -718,17 +823,21 @@ public class SignUpFrame extends JFrame {
         lblIconPasswordConfirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
         lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
-        lblIconPasswordConfirm.addMouseListener(new MouseAdapter() {
+        lblIconPasswordConfirm.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (SignUpFrame.this.count2 % 2 == 0) {
+            public void mouseClicked(MouseEvent e)
+            {
+                if (SignUpFrame.this.count2 % 2 == 0)
+                {
                     SignUpFrame.this.count2++;
                     lblIconPasswordConfirm.setIcon(new ImageIcon(img_show_password));
                     txtPasswordConfirm.setEchoChar((char) 0);
-                } else {
+                } else
+                {
                     SignUpFrame.this.count2++;
                     lblIconPasswordConfirm.setIcon(new ImageIcon(img_hide_password));
-                    if (!txtPasswordConfirm.getText().equals("Xác Nhận Mật Khẩu"))
+                    if (!txtPasswordConfirm.getText().equals("Password confirm"))
                         txtPasswordConfirm.setEchoChar('*');
                 }
             }
@@ -737,20 +846,24 @@ public class SignUpFrame extends JFrame {
 
         // Back
         JLabel lblBack = new JLabel("<");
-        lblBack.addMouseListener(new MouseAdapter() {
+        lblBack.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e)
+            {
                 new LoginFrame().setVisible(true);
                 SignUpFrame.this.dispose();
             }
 
             @Override
-            public void mouseEntered(MouseEvent event) {
+            public void mouseEntered(MouseEvent event)
+            {
                 lblBack.setForeground(Color.RED);
             }
 
             @Override
-            public void mouseExited(MouseEvent event) {
+            public void mouseExited(MouseEvent event)
+            {
                 lblBack.setForeground(Color.BLACK);
             }
         });
@@ -761,20 +874,24 @@ public class SignUpFrame extends JFrame {
         contentPane.add(lblBack);
 
         JLabel lblX = new JLabel("X");
-        lblX.addMouseListener(new MouseAdapter() {
+        lblX.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (JOptionPane.showConfirmDialog(null, "Bạn Chắc Muốn Thoát Chương Trình?", "Thông báo", JOptionPane.YES_NO_OPTION) == 0)
+            public void mouseClicked(MouseEvent e)
+            {
+                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to close this application?", "Confirmation", JOptionPane.YES_NO_OPTION) == 0)
                     SignUpFrame.this.dispose();
             }
 
             @Override
-            public void mouseEntered(MouseEvent event) {
+            public void mouseEntered(MouseEvent event)
+            {
                 lblX.setForeground(Color.RED);
             }
 
             @Override
-            public void mouseExited(MouseEvent event) {
+            public void mouseExited(MouseEvent event)
+            {
                 lblX.setForeground(Color.BLACK);
             }
         });
@@ -785,30 +902,36 @@ public class SignUpFrame extends JFrame {
         contentPane.add(lblX);
 
         pnlBtnSignUp = new RadiusAndShadow();
-        pnlBtnSignUp.addMouseListener(new MouseAdapter() {
+        pnlBtnSignUp.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e)
+            {
                 if (e.getButton() == 1)
-                    validateSignUp();
+                    CheckSignUp();
             }
 
             @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
+            public void mouseEntered(MouseEvent mouseEvent)
+            {
                 pnlBtnSignUp.setBackground(new Color(21, 140, 180));
             }
 
             @Override
-            public void mouseExited(MouseEvent mouseEvent) {
+            public void mouseExited(MouseEvent mouseEvent)
+            {
                 pnlBtnSignUp.setBackground(Color.WHITE);
             }
 
             @Override
-            public void mousePressed(MouseEvent mouseEvent) {
+            public void mousePressed(MouseEvent mouseEvent)
+            {
                 pnlBtnSignUp.setBackground(Color.GRAY);
             }
 
             @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
+            public void mouseReleased(MouseEvent mouseEvent)
+            {
                 pnlBtnSignUp.setBackground(Color.WHITE);
             }
         });
@@ -826,7 +949,7 @@ public class SignUpFrame extends JFrame {
         pnlBtnSignUp.setLayout(null);
         contentPane.add(pnlBtnSignUp);
 
-        JLabel lblSignUp = new JLabel("Đăng Ký");
+        JLabel lblSignUp = new JLabel("Register");
         lblSignUp.setForeground(Color.BLACK);
         lblSignUp.setFont(new Font("Arial", Font.BOLD, 15));
         lblSignUp.setBounds(100, 6, 64, 28);
@@ -834,55 +957,61 @@ public class SignUpFrame extends JFrame {
 
     }
 
-
-    private void validateSignUp() {
-        birthDay = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getDate());
-
-        if (txtCMND.getText().equals("") || txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtAddress.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("")
-                || txtCMND.getText().equals("Số Căn Cước Công Dân") || txtFullname.getText().equals("Họ và Tên") || txtGender.getText().equals("Giới Tính") || txtPhoneNumber.getText().equals("Số Điện Thoại") || txtAddress.getText().equals("Địa Chỉ") || txtUsername.getText().equals("Tên Đăng Nhập") || txtPassword.getText().equals("Mật Khẩu") || txtPasswordConfirm.getText().equals("Xác Nhận Mật Khẩu")) {
-            lblLoginMessage.setText("Vui Lòng Điền Đầy Đủ Thông Tin");
-        } else {
-            if (txtCMND.getText().length() == 12) {
-                if (txtPhoneNumber.getText().length() == 10) {
-                    if (!LoginController.searchingLoginAccount(txtUsername.getText())) {
-                        if (txtPassword.getText().length() >= 5) {
-                            if (!UserController.searchingUser(txtCMND.getText())) {
-                                if (!LoginController.searchingLoginAccount(txtUsername.getText())) {
-                                    if (txtGender.getText().toLowerCase().equals("nam")) {
-                                        SignUpController.initialSignUp(txtCMND.getText(), txtFullname.getText().trim(), 0, birthDay, txtAddress.getText(), txtPhoneNumber.getText(), txtUsername.getText(), txtPassword.getText());
-                                        JOptionPane.showConfirmDialog(null, "Đăng Ký Thành Công!", "Thông Báo", JOptionPane.OK_OPTION);
-                                    }else {
-                                        SignUpController.initialSignUp(txtCMND.getText(), txtFullname.getText().trim(), 1, birthDay, txtAddress.getText(), txtPhoneNumber.getText(), txtUsername.getText(), txtPassword.getText());
-                                        JOptionPane.showConfirmDialog(null, "Đăng Ký Khẩu Thành Công!", "Thông Báo", JOptionPane.OK_OPTION);
-                                    }
-                                } else {
-                                    lblLoginMessage.setText("Tên Đăng Nhập Đã Tồn Tại!");
-                                }
-                            } else {
-                                lblLoginMessage.setText("Căn Cước Đã Tồn Tại!");
-                            }
-                        } else {
-                            lblLoginMessage.setText("Mật Khẩu Yếu!");
-                        }
-                    } else {
-                        lblLoginMessage.setText("Tên Đăng Nhập Đã Tồn Tại!");
-                    }
-                } else {
-                    lblLoginMessage.setText("Số Điện Thoại Không Hợp Lệ!");
-                }
-            } else {
-                lblLoginMessage.setText("Số Căn Cước Không Hợp Lệ!");
-            }
+    private void CheckSignUp()
+    {
+        String accountNumber = LoginController.Random(0, 9, 10);
+        // obj.replaceAll("\\s+","") xóa tất cả các khoảng trắng và các ký tự không nhìn thấy (ví dụ: tab, \n).
+        // obj.replaceAll("[^a-zA-Z0-9]", "") xóa tất cả ký tự đặc biệt và thay bằng khoảng trắng
+        // [^\p{L}\s] xóa các ký tự đặc biệt trừ dấu tiếng Việt
+        if (txtCMND.getText().equals("") || txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") ||  txtAddress.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("")
+                || txtCMND.getText().equals("Citizen identification number") || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number") ||  txtAddress.getText().equals("Year") || txtAddress.getText().equals("Address") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password") || txtPasswordConfirm.getText().equals("Password confirm"))
+            lblLoginMessage.setText("Please input all requirements!");
+        else if (txtCMND.getText().length() < 12)
+            lblLoginMessage.setText("Invalid citizen identification number");
+        else if (txtPhoneNumber.getText().length() < 10)
+            lblLoginMessage.setText("Invalid phone number");
+        else if (txtUsername.getText().length() < 6)
+            lblLoginMessage.setText("Username must be 6 characters or more");
+        else if (txtPassword.getText().length() < 8)
+            lblLoginMessage.setText("Password must be 8 characters or more");
+        else if (LoginController.CheckSignUpTenTK(txtUsername.getText()))
+            lblLoginMessage.setText("Username already exists, please enter another name!");
+        else if (!txtPassword.getText().equals(txtPasswordConfirm.getText()))
+            lblLoginMessage.setText("Password confirm is not correct!");
+        else if (LoginController.CheckCMND(txtCMND.getText()))
+        {
+            pnlBtnSignUp.setBackground(new Color(21, 140, 180));
+            while (LoginController.CheckSignUpSoTK(accountNumber))
+                accountNumber = LoginController.Random(0, 9, 10);
+            InsertController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
+            lblLoginMessage.setText("");
+            JOptionPane.showMessageDialog(null, "SignUp Successful");
+            new LoginFrame().setVisible(true);
+            SignUpFrame.this.dispose();
+        } else
+        {
+            pnlBtnSignUp.setBackground(new Color(21, 140, 180));
+            birthDay = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getDate());
+            InsertController.InsertDataKHACHHANG(txtCMND.getText(), txtFullname.getText(), txtPhoneNumber.getText(), txtGender.getText(), birthDay, txtAddress.getText());
+            while (LoginController.CheckSignUpSoTK(accountNumber))
+                accountNumber = LoginController.Random(0, 9, 10);
+            InsertController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
+            lblLoginMessage.setText("");
+            JOptionPane.showMessageDialog(null, "SignUp Successful");
+            new LoginFrame().setVisible(true);
+            SignUpFrame.this.dispose();
         }
     }
 
-
-    private void AddEventEnter(JComponent item) {
-        item.addKeyListener(new KeyAdapter() {
+    private void AddEventEnter(JComponent item)
+    {
+        item.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                    validateSignUp();
+                    CheckSignUp();
             }
         });
     }

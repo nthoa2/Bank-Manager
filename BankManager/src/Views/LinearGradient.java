@@ -1,11 +1,12 @@
 package Views;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class LinearGradient extends  JPanel{
 
-    private final int temp;
+    private int temp;
 
     public LinearGradient(int temp)
     {

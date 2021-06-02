@@ -1,59 +1,82 @@
 package Controller;
 
-import Model.Login;
-import Views.EditPassword;
-import Views.LoginFrame;
+import Model.*;
 
+import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Random;
 
-public class LoginController {
-    public static String UserName;
-    public static String Password;
-    public static String AccountNumber;
+public class LoginController
+{
 
-    public static boolean authentication(String userName, String password) {
-
-        if (!userName.trim().equals("") && !password.trim().equals("")) {
-            ResultSet rs = Login.getLoginAccountByUserName(userName);
-            try {
-                if (rs.next()) {
-                    if (rs.getString("loginName").matches(userName)) {
-                        if (rs.getString("loginPassword").matches(password)) {
-                            System.out.println("Đăng nhập thành công");
-                            UserName = rs.getString("loginName");
-                            Password = rs.getString("loginPassword");
-                            AccountNumber = rs.getString("SoTK");
-                            return true;
-                        }
-                        LoginFrame.lblLoginMessage.setText("Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
-                        return false;
-                    }
-                    LoginFrame.lblLoginMessage.setText("Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
-                    return false;
-                }
-            } catch (SQLException e) {
-                System.out.println("Lỗi Đăng Nhập:" + e.getMessage());
-            }
+    public static boolean CheckLogin(String userName, String password)
+    {
+        ResultSet resultSet = Login.CheckLogin(userName, password);
+        try
+        {
+            if (!resultSet.next())
+                return false;
+        } catch (Exception exception)
+        {
+            System.err.println("LoginController.java.CheckLogin: " + exception.getMessage());
         }
-        LoginFrame.lblLoginMessage.setText("Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
-        return false;
+        UserController.getUserData(userName);
+        return true;
     }
 
-    public static boolean searchingLoginAccount(String accountName){
-        ResultSet accountSet = Login.getLoginAccounts();
-        try{
-            while (accountSet.next()){
-                if(accountName.equals(accountSet.getString("loginName"))){
-                    System.out.println("Tên Đăng Nhập Đã Tồn Tại!");
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static String Random(int start, int end, int limit)
+    {
+        String accountNumber = "";
+        Random r = new Random();
+        long[] longs = r.longs(start, end).limit(limit).toArray();
+        for (long x : longs)
+        {
+            accountNumber += String.valueOf(x);
         }
-        return false;
+        return accountNumber;
+    }
 
+    public static boolean CheckSignUpSoTK(String accountNumber)
+    {
+        ResultSet resultSet = Login.CheckSignUpSoTK(accountNumber);
+        try
+        {
+            if (!resultSet.next())
+                return false;
+        } catch (Exception exception)
+        {
+            System.err.println("LoginController.java.CheckSignUpSoTK: " + exception.getMessage());
+        }
+        return true;
+    }
+
+    public static boolean CheckSignUpTenTK(String username)
+    {
+        ResultSet resultSet = Login.CheckSignUpTenTK(username);
+        try
+        {
+            if (!resultSet.next())
+                return false;
+        } catch (Exception exception)
+        {
+            System.err.println("LoginController.java.CheckSignUpTenTK: " + exception.getMessage());
+        }
+        return true;
+    }
+
+    public static boolean CheckCMND (String cmnd)
+    {
+        ResultSet resultSet = Login.CheckCMND(cmnd);
+        try
+        {
+            if (!resultSet.next())
+                return false;
+        } catch (Exception exception)
+        {
+            System.err.println("LoginController.java.CheckCMND: " + exception.getMessage());
+        }
+        return true;
     }
 
 }

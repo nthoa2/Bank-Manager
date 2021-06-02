@@ -1,31 +1,43 @@
 package Views;
 
 import Controller.LoginController;
-import Controller.UserController;
-import Model.connection;
+import Model.Login;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
-public class LoginFrame extends JFrame {
+
+public class LoginFrame extends JFrame
+{
+
     public static String username;
     public static String password;
-    public static JLabel lblLoginMessage;
+
     private JPanel mainPane;
-    private Image img_logo_right = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-    private Image img_logo = new ImageIcon("src/Res/img_left_login.png").getImage().getScaledInstance(700, 600, Image.SCALE_SMOOTH);
-    private Image img_username = new ImageIcon("src/Res/login_username.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_hide_password = new ImageIcon("src/Res/hide_password.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-    private Image img_show_password = new ImageIcon("src/Res/show_password.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private JPasswordField txtPassword;
+    private JTextField txtUsername;
+    private JLabel lblLoginMessage;
+    private JPanel pnlBtnLogin;
+
+    private Image img_logo_right = new ImageIcon(LoginFrame.class.getResource("/Res/bank.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+    private Image img_logo = new ImageIcon(LoginFrame.class.getResource("/Res/img_left_login.png")).getImage().getScaledInstance(700, 600, Image.SCALE_SMOOTH);
+    private Image img_username = new ImageIcon(LoginFrame.class.getResource("/Res/login_username.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_hide_password = new ImageIcon(LoginFrame.class.getResource("/Res/hide_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_show_password = new ImageIcon(LoginFrame.class.getResource("/Res/show_password.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     private int count = 0;
 
     public LoginFrame()
     {
+        new Login();
+        try {
+            Image img = new ImageIcon(("src/Res/icon_frame.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            this.setIconImage(img);
+        }catch(Exception e){
+            System.out.println("Application icon not found");
+        }
+        // GUI login
         setUndecorated(true);
         setBounds(100, 100, 1000, 600);
         setLocationRelativeTo(null);
@@ -33,6 +45,7 @@ public class LoginFrame extends JFrame {
         mainPane.setBackground(new Color(49, 47, 47));
         mainPane.setBorder(null);
         mainPane.setLayout(null);
+        mainPane.setFocusable(true); // khi Frame hiện ra sẽ k lấy cái nào làm tiêu điểm
         setContentPane(mainPane);
 
         //khung nội dung bên trái
@@ -44,14 +57,15 @@ public class LoginFrame extends JFrame {
         mainPane.add(contentPaneLeft);
 
         JLabel lblIconLogo = new JLabel("");
-        lblIconLogo.setBounds(0,0, 700, 600);
+        lblIconLogo.setBounds(0, 0, 700, 600);
         lblIconLogo.setIcon(new ImageIcon(img_logo));
-        contentPaneLeft.add(lblIconLogo);;
+        contentPaneLeft.add(lblIconLogo);
+        ;
 
 
         // Khung nội dung bên phải
         JPanel contentPaneRight = new LinearGradient(0);
-        contentPaneRight.setBounds(700, 2, 298,596);
+        contentPaneRight.setBounds(700, 2, 298, 596);
         contentPaneRight.setLayout(null);
         mainPane.add(contentPaneRight);
 
@@ -77,17 +91,17 @@ public class LoginFrame extends JFrame {
 
         JSeparator sptUsername = new JSeparator();
         sptUsername.setForeground(Color.GRAY);
-        sptUsername.setBounds(10,35,210,1);
+        sptUsername.setBounds(10, 35, 210, 1);
         panelUsername.add(sptUsername);
 
-        JTextField txtUsername = new JTextField();
+        txtUsername = new JTextField();
         txtUsername.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
                 sptUsername.setForeground(new Color(222, 97, 97));
-                if (txtUsername.getText().equals("Tên Đăng Nhập"))
+                if (txtUsername.getText().equals("Username"))
                 {
                     txtUsername.setText("");
                 } else
@@ -102,15 +116,23 @@ public class LoginFrame extends JFrame {
                 sptUsername.setForeground(Color.GRAY);
                 if (txtUsername.getText().equals(""))
                 {
-                    txtUsername.setText("Tên Đăng Nhập");
+                    txtUsername.setText("Username");
                 }
+            }
+        });
+        txtUsername.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                lblLoginMessage.setText("");
             }
         });
         txtUsername.setBackground(Color.WHITE);
         txtUsername.setForeground(Color.GRAY);
         txtUsername.setBorder(null);
         txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtUsername.setText("Tên Đăng Nhập");
+        txtUsername.setText("Username");
         txtUsername.setBounds(10, 10, 170, 20);
         txtUsername.setColumns(10);
         panelUsername.add(txtUsername);
@@ -129,19 +151,19 @@ public class LoginFrame extends JFrame {
 
         JSeparator sptPassword = new JSeparator();
         sptPassword.setForeground(Color.GRAY);
-        sptPassword.setBounds(10,35,210,1);
+        sptPassword.setBounds(10, 35, 210, 1);
         panelPassword.add(sptPassword);
 
-        JPasswordField txtPassword = new JPasswordField();
+        txtPassword = new JPasswordField();
         txtPassword.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusGained(FocusEvent e)
             {
                 sptPassword.setForeground(new Color(222, 97, 97));
-                if(LoginFrame.this.count % 2 == 0)
+                if (LoginFrame.this.count % 2 == 0)
                 {
-                    if (txtPassword.getText().equals("Mật Khẩu"))
+                    if (txtPassword.getText().equals("Password"))
                     {
                         txtPassword.setEchoChar('*');
                         txtPassword.setText("");
@@ -149,11 +171,11 @@ public class LoginFrame extends JFrame {
                     {
                         txtPassword.selectAll();
                     }
-                }else
+                } else
                 {
-                    if (txtPassword.getText().equals("Mật Khẩu"))
+                    if (txtPassword.getText().equals("Password"))
                     {
-                        txtPassword.setEchoChar((char)0);
+                        txtPassword.setEchoChar((char) 0);
                         txtPassword.setText("");
                     } else
                     {
@@ -168,9 +190,17 @@ public class LoginFrame extends JFrame {
                 sptPassword.setForeground(Color.GRAY);
                 if (txtPassword.getText().equals(""))
                 {
-                    txtPassword.setText("Mật Khẩu");
+                    txtPassword.setText("Password");
                     txtPassword.setEchoChar((char) 0);
                 }
+            }
+        });
+        txtPassword.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                    lblLoginMessage.setText("");
             }
         });
         txtPassword.setBackground(Color.WHITE);
@@ -178,7 +208,7 @@ public class LoginFrame extends JFrame {
         txtPassword.setBorder(null);
         txtPassword.setEchoChar((char) 0);
         txtPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtPassword.setText("Mật Khẩu");
+        txtPassword.setText("Password");
         txtPassword.setBounds(10, 11, 170, 20);
         panelPassword.add(txtPassword);
 
@@ -186,23 +216,27 @@ public class LoginFrame extends JFrame {
         JLabel lblIconPassword = new JLabel("");
         lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblIconPassword.setBounds(210, 0, 40, 40);
+        lblIconPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblIconPassword.setIcon(new ImageIcon(img_hide_password));
         lblIconPassword.addMouseListener(new MouseAdapter()
         {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if(LoginFrame.this.count % 2 == 0)
+                if (e.getButton() == 1)
                 {
-                    LoginFrame.this.count++;
-                    lblIconPassword.setIcon(new ImageIcon(img_show_password));
-                    txtPassword.setEchoChar((char) 0);
-                }else
-                {
-                    LoginFrame.this.count++;
-                    lblIconPassword.setIcon(new ImageIcon(img_hide_password));
-                    if(!txtPassword.getText().equals("Mật Khẩu"))
-                        txtPassword.setEchoChar('*');
+                    if (LoginFrame.this.count % 2 == 0)
+                    {
+                        LoginFrame.this.count++;
+                        lblIconPassword.setIcon(new ImageIcon(img_show_password));
+                        txtPassword.setEchoChar((char) 0);
+                    } else
+                    {
+                        LoginFrame.this.count++;
+                        lblIconPassword.setIcon(new ImageIcon(img_hide_password));
+                        if (!txtPassword.getText().equals("Password"))
+                            txtPassword.setEchoChar('*');
+                    }
                 }
             }
         });
@@ -210,20 +244,14 @@ public class LoginFrame extends JFrame {
 
 
         // Button Login
-        JPanel pnlBtnLogin = new RadiusAndShadow();
+        pnlBtnLogin = new RadiusAndShadow();
         pnlBtnLogin.addMouseListener(new MouseAdapter()
         {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if (LoginController.authentication(txtUsername.getText(), txtPassword.getText()))
-                {
-                    UserController.setUserData(LoginController.AccountNumber);
-                    Main main = new Main();
-                    UserController.setGenderIcon(UserController.userGender);
-                    LoginFrame.this.dispose();
-                    main.run();
-                }
+                if (e.getButton() == 1)
+                    CheckLogin();
             }
 
             @Override
@@ -250,15 +278,18 @@ public class LoginFrame extends JFrame {
                 pnlBtnLogin.setBackground(Color.WHITE);
             }
         });
+        AddEventEnter(txtUsername);
+        AddEventEnter(txtPassword);
+        AddEventEnter(mainPane);
         pnlBtnLogin.setBackground(Color.WHITE);
         pnlBtnLogin.setBounds(55, 380, 200, 50);
         pnlBtnLogin.setLayout(null);
         contentPaneRight.add(pnlBtnLogin);
 
-        JLabel lblLogIn = new JLabel("Đăng Nhập");
+        JLabel lblLogIn = new JLabel("Login");
         lblLogIn.setForeground(Color.BLACK);
         lblLogIn.setFont(new Font("Arial", Font.BOLD, 15));
-        lblLogIn.setBounds(55, 5, 100, 30);
+        lblLogIn.setBounds(76, 7, 64, 28);
         pnlBtnLogin.add(lblLogIn);
 
         // Button create account
@@ -268,8 +299,11 @@ public class LoginFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                new SignUpFrame().setVisible(true);
-                LoginFrame.this.dispose(); // tắt Frame cũ
+                if (e.getButton() == 1)
+                {
+                    new SignUpFrame().setVisible(true);
+                    LoginFrame.this.dispose(); // tắt Frame cũ
+                }
             }
 
             @Override
@@ -301,10 +335,10 @@ public class LoginFrame extends JFrame {
         pnlBtnSignup.setLayout(null);
         contentPaneRight.add(pnlBtnSignup);
 
-        JLabel lblSignup = new JLabel("Đăng Ký");
+        JLabel lblSignup = new JLabel("Register");
         lblSignup.setForeground(Color.BLACK);
         lblSignup.setFont(new Font("Arial", Font.BOLD, 15));
-        lblSignup.setBounds(40,8,150,15);
+        lblSignup.setBounds(40, 8, 150, 15);
         pnlBtnSignup.add(lblSignup);
 
         JLabel lblX = new JLabel("X");
@@ -313,7 +347,7 @@ public class LoginFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if (JOptionPane.showConfirmDialog(null, "Bạn Có Chắc Muốn Thoát Chương Trình?", "Thông Báo", JOptionPane.YES_NO_OPTION) == 0)
+                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to close this application?", "Confirmation", JOptionPane.YES_NO_OPTION) == 0)
                     LoginFrame.this.dispose();
             }
 
@@ -330,9 +364,36 @@ public class LoginFrame extends JFrame {
             }
         });
         lblX.setForeground(Color.BLACK);
-        lblX.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        lblX.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         lblX.setHorizontalAlignment(SwingConstants.CENTER);
         lblX.setBounds(280, 0, 20, 20);
         contentPaneRight.add(lblX);
+    }
+
+    private void CheckLogin()
+    {
+        if (LoginController.CheckLogin(txtUsername.getText(), txtPassword.getText()))
+        {
+            pnlBtnLogin.setBackground(new Color(21, 140, 180));
+            LoginFrame.password = txtPassword.getText();
+            LoginFrame.username = txtUsername.getText();
+            new MainFrame().setVisible(true);
+            LoginFrame.this.dispose();
+        } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))
+            lblLoginMessage.setText("Please input all requirements!");
+        else lblLoginMessage.setText("Username or Password wrong!");
+    }
+
+    private void AddEventEnter(JComponent item)
+    {
+        item.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    CheckLogin();
+            }
+        });
     }
 }
