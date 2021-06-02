@@ -26,17 +26,22 @@ public class Transactions {
 
     public static void createdTransaction(String accountNumber, String TradingID, String TradingType, String accountNumberRev, double amount, String TradingContent) {
         int result = 0;
-        result += createTransactionData(TradingID, TradingContent, amount) + createTransactionObjects(accountNumber, TradingType, TradingID);
-        if (result > 0) {
-            System.out.println("Tạo Data Trans thành công");
+        if (createTransactionData(TradingID, TradingContent, amount) == 1) {
+            System.out.println("Tạo Data Giao Dịch Thanh Công");
+            result++;
+        }
+        if (createTransactionObjects(accountNumber, TradingType, TradingID) == 1) {
+            System.out.println("Tạo Data Người Giao Dịch Thanh Công");
+            result++;
         }
         if (TradingType.equals("Chuyển Khoản")) {
+            System.out.println("Tạo Thông Tin Người Nhận Chuyển Khoản");
             result += createTransactionObjects(accountNumberRev, "Nhận Chuyển Khoản", TradingID);
         }
-        if ((result >= 2 && TradingType.equals("Chuyển Khoản")) || result >= 3) {
-            System.out.println("Tạo Giao Dịch Thành Công");
-        } else {
-            System.out.println("Tạo Giao Dịch Bị Gián Đoạn");
+        if(result >= 2){
+            System.out.println("Thực Hiện Giao Dịch Thành Công");
+        }else {
+            System.err.println("Thực Hiện Giao Dịch Thất Bại");
         }
     }
 

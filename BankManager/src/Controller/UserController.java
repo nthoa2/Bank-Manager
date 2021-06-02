@@ -49,12 +49,12 @@ public class UserController {
         }
     }
 
-    public static boolean searchAccountNumber(String accountNumber){
-        ResultSet results = User.getAllUserData();
+    public static boolean searchingUser(String UserID){
+        ResultSet usersSet = User.getAllUserData();
         try{
-            while (results.next()){
-                if(accountNumber.equals(results.getString("SoTK"))){
-                    System.out.println("Tim Thay SoTK");
+            while (usersSet.next()){
+                if(UserID.equals(usersSet.getString("MaKH"))){
+                    System.out.println("CMND đã tồn tại");
                     return true;
                 }
             }

@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class RadiusAndShadow extends JPanel
 {
-    private int shadowSize = 5;
+    private int shadowSize = 2;
 
     public RadiusAndShadow()
     {
@@ -21,7 +21,7 @@ public class RadiusAndShadow extends JPanel
     @Override
     public Insets getInsets()
     {
-        return new Insets(0, 0, 10, 10);
+        return new Insets(0, 0, 12, 12);
     }
     @Override
     protected void paintComponent(Graphics g)
@@ -37,7 +37,7 @@ public class RadiusAndShadow extends JPanel
         bounds.width = width - (insets.left + insets.right);
         bounds.height = height - (insets.top + insets.bottom);
         // thay đổi độ cong của shape
-        RoundRectangle2D shape = new RoundRectangle2D.Float(bounds.x, bounds.y, bounds.width, bounds.height, 20, 20);
+        RoundRectangle2D shape = new RoundRectangle2D.Float(bounds.x, bounds.y, bounds.width, bounds.height, 15, 15);
         /**
          * * THIS SHOULD BE CAHCED AND ONLY UPDATED WHEN THE SIZE OF THE
          * COMPONENT CHANGES **

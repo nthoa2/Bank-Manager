@@ -17,4 +17,11 @@ public class User {
                 "FROM dbo.[KHACHHANG] FULL OUTER JOIN dbo.[TAIKHOAN] ON [TAIKHOAN].[MaKH] = [KHACHHANG].[MaKH]";
         return connection.getData(query);
     }
+
+    public static void insertNewUser(String userID, String username, String birthday, int genderValue, String address, String phoneNumber) {
+        String query = "INSERT INTO dbo.[KHACHHANG]([MaKH],[TenKH],[NgaySinh],[GioiTinh],[DiaChi],[SoDienThoai])" +
+                "VALUES( '" + userID + "', N'" + username + "','" + birthday + "'," + genderValue + ",N'" + address + "','" + phoneNumber + "')";
+        connection.executeQuery(query);
+    }
+
 }

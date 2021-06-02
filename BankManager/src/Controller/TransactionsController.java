@@ -3,10 +3,7 @@ package Controller;
 import Model.Accounts;
 import Model.Transactions;
 import Model.User;
-import Views.LoginFrame;
-import Views.PanelProfile;
-import Views.PanelTrading;
-import Views.TradingsHistoryPanel;
+import Views.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -111,18 +108,24 @@ public class TransactionsController {
         }
     }
 
-    public static boolean initTransaction(String transactionType, double amount, String accountNumber, String accountNumberReceived, String Content) {
+    public static void initTransaction(String transactionType, double amount, String accountNumber, String accountNumberReceived, String Content) {
         if(transactionType.equals("Chuyển Khoản") || transactionType.equals("Rút Tiền")){
-            return UserController.AccountBalance > amount;
+            System.out.println("Kiểm tra Số dư");
+             if(UserController.AccountBalance > amount){
+                 PanelService.lblMessage.setText("Số Dư Hiện Tại Không Đủ");
+             }
         }
+        System.out.println("Tao maGD");
         String transactionID = randomID(0, 9, 5);
         while (searchTransactionID(transactionID)) {
             transactionID = randomID(0, 9, 5);
         }
+        System.out.println("Tao GD");
         Transactions.createdTransaction(accountNumber, transactionID, transactionType, accountNumberReceived, amount, Content);
+        System.out.println("cập nhật số dư");
         Accounts.updateAccountBalance(accountNumber, transactionType, amount);
         Accounts.updateAccountBalance(accountNumberReceived, transactionType, amount);
-        return true;
+        PanelService.lblMessage.setText("Giao Dịch Thành Công");
     }
 
 

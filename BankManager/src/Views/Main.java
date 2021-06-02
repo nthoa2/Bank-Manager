@@ -46,7 +46,7 @@ public class Main extends JFrame {
     private JLabel lblTextLogOut;
 
     private CardLayout cardPanelLayout;
-    private JPanel cardPanel;
+    public static JPanel cardPanel;
     MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI() {
         @Override
         protected Color getSelectColor() {

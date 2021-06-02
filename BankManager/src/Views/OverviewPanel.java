@@ -1,5 +1,6 @@
 package Views;
 
+import Controller.AccountController;
 import Controller.LoginController;
 import Controller.TransactionsController;
 import Controller.UserController;
@@ -15,9 +16,9 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class OverviewPanel extends JPanel {
+    public static double totalSpending = 0.0;
+    public static double totalReceived = 0.0;
     private JLabel accountBalanceValue;
-    private JLabel totalSpendingValue;
-    private JLabel totalReceivedValue;
     private JTable recentTransactionsTable;
     private ColumnChartPanel barChart;
     private LineGraphPanel lineChart;
@@ -65,17 +66,17 @@ public class OverviewPanel extends JPanel {
         accountBalancePanel.setBackground(Color.WHITE);
         accountBalancePanel.setLayout(new BorderLayout(0, 0));
         JLabel accountBalanceLabelTitle = new JLabel("Số Dư Hiện Tại");
-        accountBalanceLabelTitle.setVerticalTextPosition(3);
+        accountBalanceLabelTitle.setVerticalTextPosition(SwingConstants.CENTER);
         accountBalanceLabelTitle.setIconTextGap(15);
         accountBalanceLabelTitle.setIcon(new ImageIcon("src/Res/monney.png"));
         accountBalanceLabelTitle.setBackground(Color.WHITE);
         accountBalanceLabelTitle.setHorizontalAlignment(0);
         accountBalanceLabelTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
-        accountBalancePanel.add((Component)accountBalanceLabelTitle, "North");
-        accountBalanceValue = new JLabel(String.valueOf(UserController.AccountBalance));
+        accountBalancePanel.add((Component) accountBalanceLabelTitle, "North");
+        accountBalanceValue = new JLabel(UserController.BalanceFormat.format(UserController.AccountBalance) + "  VNĐ");
         accountBalanceValue.setHorizontalAlignment(0);
         accountBalanceValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        accountBalancePanel.add((Component)accountBalanceValue, "Center");
+        accountBalancePanel.add((Component) accountBalanceValue, "Center");
 
         JPanel totalSpendingPanel = new RadiusAndShadow();
         totalSpendingPanel.setBackground(Color.WHITE);
@@ -85,29 +86,29 @@ public class OverviewPanel extends JPanel {
         totalSpendingTitle.setVerticalTextPosition(SwingConstants.CENTER);
         totalSpendingTitle.setIcon(new ImageIcon("src/Res/monney.png"));
         totalSpendingTitle.setIconTextGap(15);
-        totalSpendingTitle.setHorizontalTextPosition(4);
+        totalSpendingTitle.setHorizontalTextPosition(SwingConstants.RIGHT);
         totalSpendingTitle.setHorizontalAlignment(0);
-        totalSpendingPanel.add((Component)totalSpendingTitle, "North");
-        totalSpendingValue = new JLabel();
+        totalSpendingPanel.add((Component) totalSpendingTitle, "North");
+        JLabel totalSpendingValue = new JLabel(UserController.BalanceFormat.format(totalSpending) + "  VNĐ");
         totalSpendingValue.setHorizontalAlignment(0);
         totalSpendingValue.setFont(new Font("Arial", Font.PLAIN, 20));
-        totalSpendingPanel.add((Component)totalSpendingValue, "Center");
+        totalSpendingPanel.add((Component) totalSpendingValue, "Center");
 
         JPanel totalReceivedPanel = new RadiusAndShadow();
         totalReceivedPanel.setBackground(Color.WHITE);
         totalReceivedPanel.setLayout(new BorderLayout(0, 5));
         JLabel totalReceivedTitle = new JLabel("Tổng Thu Trong Tháng");
         totalReceivedTitle.setIcon(new ImageIcon("src/Res/monney.png"));
-        totalReceivedTitle.setVerticalTextPosition(3);
+        totalReceivedTitle.setVerticalTextPosition(SwingConstants.CENTER);
         totalReceivedTitle.setVerticalAlignment(3);
         totalReceivedTitle.setIconTextGap(15);
         totalReceivedTitle.setHorizontalAlignment(0);
         totalReceivedTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
-        totalReceivedPanel.add((Component)totalReceivedTitle, "North");
-        totalReceivedValue = new JLabel("0");
+        totalReceivedPanel.add((Component) totalReceivedTitle, "North");
+        JLabel totalReceivedValue = new JLabel(UserController.BalanceFormat.format(totalReceived) + "  VNĐ");
         totalReceivedValue.setHorizontalAlignment(0);
         totalReceivedValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
-        totalReceivedPanel.add((Component)totalReceivedValue, "Center");
+        totalReceivedPanel.add((Component) totalReceivedValue, "Center");
 
 
         mainPanel.add(accountBalancePanel);
@@ -209,6 +210,7 @@ public class OverviewPanel extends JPanel {
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         mainPanel.add((Component) this.northPanel(), "North");
+        AccountController.uploadDataToOverView(LoginController.AccountNumber,LineGraphPanel.startDay,LineGraphPanel.endDay);
         mainPanel.add((Component) this.centerPanel(), "Center");
         this.barChart = new ColumnChartPanel();
         mainPanel.add((Component) this.southPanel(), "South");

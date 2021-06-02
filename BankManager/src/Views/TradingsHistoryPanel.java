@@ -15,6 +15,7 @@ public class TradingsHistoryPanel extends JPanel {
     public JLabel accountDetailsName;
     public JLabel accountBalance;
     public static JTable contentTable;
+    private Image img_search = new ImageIcon("src/Res/search_icon.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 
     DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Gửi/Nhận", "Nội Dung", "Số Tiền"}, 0) {
         @Override
@@ -101,52 +102,66 @@ public class TradingsHistoryPanel extends JPanel {
         gbc_filter.gridx = 0;
         gbc_search.gridy = 1;
         searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
-        JLabel searchTitle = new JLabel("Tìm Kiếm:  ");
+        JLabel searchTitle = new JLabel("Tìm Kiếm: ");
         searchTitle.setFont(new Font("Open Sans", Font.BOLD, 14));
+        searchPanel.add(searchTitle);
+        JPanel panelText = new RadiusAndShadow();
+        panelText.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        panelText.setBackground(Color.WHITE);
         JTextField searchText = new JTextField();
+        searchText.setText("Nột Dung Tìm Kiếm ...");
         searchText.setHorizontalAlignment(SwingConstants.LEFT);
         searchText.setFont(new Font("Open Sans", Font.PLAIN, 13));
         searchText.setColumns(30);
-        searchText.addKeyListener(new KeyAdapter() {
+        searchText.setBorder(null);
+        searchText.addFocusListener(new FocusAdapter()
+        {
             @Override
-            public void keyReleased(KeyEvent e) {
-                String text = searchText.getText();
-                if (text.length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    try {
-                        sorter.setRowFilter(RowFilter.regexFilter(text));
-                    } catch (PatternSyntaxException patternException) {
-                        System.out.println("Bad regex pattern");
-                    }
-                }
+            public void focusGained(FocusEvent e)
+            {
+                if(searchText.getText().equals("Nột Dung Tìm Kiếm ..."))
+                    searchText.setText("");
+                else
+                    searchText.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if(searchText.getText().equals(""))
+                    searchText.setText("Nột Dung Tìm Kiếm ...");
             }
         });
-        Button searchButton = new Button("Tìm Kiếm");
-        searchButton.setBackground(new Color(205, 205, 205));
-        searchButton.setFont(new Font("Open Sans", Font.BOLD, 14));
-        searchButton.setPreferredSize(new Dimension(100, 25));
-        searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        searchButton.setFocusable(false);
-        searchButton.addActionListener(new ActionListener() {
+        panelText.add(searchText);
+        JLabel lblIcon = new JLabel("");
+        lblIcon.setIcon(new ImageIcon(img_search));
+        panelText.add(lblIcon);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
+        searchText.addKeyListener(new KeyAdapter()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void keyReleased(KeyEvent e)
+            {
                 String text = searchText.getText();
-                if (text.length() == 0) {
+                if(text.equals("Nột Dung Tìm Kiếm ..."))
+                    return;
+                if (text.length() == 0)
+                {
                     sorter.setRowFilter(null);
-                } else {
-                    try {
+                } else
+                {
+                    try
+                    {
                         sorter.setRowFilter(RowFilter.regexFilter(text));
-                    } catch (PatternSyntaxException patternException) {
+                    } catch (PatternSyntaxException patternException)
+                    {
                         System.out.println("Bad regex pattern");
                     }
                 }
             }
         });
 
-        searchPanel.add(searchTitle);
-        searchPanel.add(searchText);
-        searchPanel.add(searchButton);
+        searchPanel.add(panelText);
         toolsPanel.add(searchPanel, gbc_search);
 
         rootPanel.add((Component) toolsPanel, "North");

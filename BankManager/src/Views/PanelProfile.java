@@ -154,47 +154,6 @@ public class PanelProfile extends JPanel {
         gridBagConstraints.weightx = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
 
-//        JLabel lblEditprofile = new JLabel("Chỉnh sửa thông tin");
-//        lblEditprofile.setForeground(Color.black);
-//        lblEditprofile.setFont(new Font("Arial", Font.BOLD, 15));
-//
-//        JPanel panelEditInf = new RadiusAndShadow();
-//        panelEditInf.setBackground(Color.WHITE);
-//        panelEditInf.setLayout(new FlowLayout(FlowLayout.CENTER,0,15));
-//        panelEditInf.add(lblEditprofile);
-//        panelEditInf.addMouseListener(new MouseAdapter()
-//        {
-//            @Override
-//            public void mouseClicked(MouseEvent e)
-//            {
-////                new EditProfile().setVisible(true);
-//            }
-//            @Override
-//            public void mouseEntered(MouseEvent e)
-//            {
-//                panelEditInf.setBackground(new Color(162, 85, 113));
-//            }
-//
-//            @Override
-//            public void mouseExited(MouseEvent e)
-//            {
-//                panelEditInf.setBackground(Color.WHITE);
-//            }
-//
-//            @Override
-//            public void mousePressed(MouseEvent e)
-//            {
-//                panelEditInf.setBackground(new Color(216, 53, 65));
-//            }
-//
-//            @Override
-//            public void mouseReleased(MouseEvent e)
-//            {
-//                panelEditInf.setBackground(Color.WHITE);
-//            }
-//        });
-//        panelFooter.add(panelEditInf, gridBagConstraints);
-
         JPanel panelEditPassword = new RadiusAndShadow();
         JDialog editPassword = new JDialog();
         editPassword.setModal(true);
@@ -212,7 +171,7 @@ public class PanelProfile extends JPanel {
         panelEditPassword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                new EditPassword().setVisible(true);
+                new EditPassword().setVisible(true);
             }
 
             @Override

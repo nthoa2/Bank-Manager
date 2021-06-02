@@ -87,7 +87,7 @@ public class LoginFrame extends JFrame {
             public void focusGained(FocusEvent e)
             {
                 sptUsername.setForeground(new Color(222, 97, 97));
-                if (txtUsername.getText().equals("Username"))
+                if (txtUsername.getText().equals("Tên Đăng Nhập"))
                 {
                     txtUsername.setText("");
                 } else
@@ -102,7 +102,7 @@ public class LoginFrame extends JFrame {
                 sptUsername.setForeground(Color.GRAY);
                 if (txtUsername.getText().equals(""))
                 {
-                    txtUsername.setText("Username");
+                    txtUsername.setText("Tên Đăng Nhập");
                 }
             }
         });
@@ -110,7 +110,7 @@ public class LoginFrame extends JFrame {
         txtUsername.setForeground(Color.GRAY);
         txtUsername.setBorder(null);
         txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtUsername.setText("Username");
+        txtUsername.setText("Tên Đăng Nhập");
         txtUsername.setBounds(10, 10, 170, 20);
         txtUsername.setColumns(10);
         panelUsername.add(txtUsername);
@@ -141,7 +141,7 @@ public class LoginFrame extends JFrame {
                 sptPassword.setForeground(new Color(222, 97, 97));
                 if(LoginFrame.this.count % 2 == 0)
                 {
-                    if (txtPassword.getText().equals("Password"))
+                    if (txtPassword.getText().equals("Mật Khẩu"))
                     {
                         txtPassword.setEchoChar('*');
                         txtPassword.setText("");
@@ -151,7 +151,7 @@ public class LoginFrame extends JFrame {
                     }
                 }else
                 {
-                    if (txtPassword.getText().equals("Password"))
+                    if (txtPassword.getText().equals("Mật Khẩu"))
                     {
                         txtPassword.setEchoChar((char)0);
                         txtPassword.setText("");
@@ -168,7 +168,7 @@ public class LoginFrame extends JFrame {
                 sptPassword.setForeground(Color.GRAY);
                 if (txtPassword.getText().equals(""))
                 {
-                    txtPassword.setText("Password");
+                    txtPassword.setText("Mật Khẩu");
                     txtPassword.setEchoChar((char) 0);
                 }
             }
@@ -178,7 +178,7 @@ public class LoginFrame extends JFrame {
         txtPassword.setBorder(null);
         txtPassword.setEchoChar((char) 0);
         txtPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtPassword.setText("Password");
+        txtPassword.setText("Mật Khẩu");
         txtPassword.setBounds(10, 11, 170, 20);
         panelPassword.add(txtPassword);
 
@@ -201,7 +201,7 @@ public class LoginFrame extends JFrame {
                 {
                     LoginFrame.this.count++;
                     lblIconPassword.setIcon(new ImageIcon(img_hide_password));
-                    if(!txtPassword.getText().equals("Password"))
+                    if(!txtPassword.getText().equals("Mật Khẩu"))
                         txtPassword.setEchoChar('*');
                 }
             }
@@ -255,10 +255,10 @@ public class LoginFrame extends JFrame {
         pnlBtnLogin.setLayout(null);
         contentPaneRight.add(pnlBtnLogin);
 
-        JLabel lblLogIn = new JLabel("Login");
+        JLabel lblLogIn = new JLabel("Đăng Nhập");
         lblLogIn.setForeground(Color.BLACK);
         lblLogIn.setFont(new Font("Arial", Font.BOLD, 15));
-        lblLogIn.setBounds(76, 7, 64, 28);
+        lblLogIn.setBounds(55, 5, 100, 30);
         pnlBtnLogin.add(lblLogIn);
 
         // Button create account
@@ -301,7 +301,7 @@ public class LoginFrame extends JFrame {
         pnlBtnSignup.setLayout(null);
         contentPaneRight.add(pnlBtnSignup);
 
-        JLabel lblSignup = new JLabel("Register");
+        JLabel lblSignup = new JLabel("Đăng Ký");
         lblSignup.setForeground(Color.BLACK);
         lblSignup.setFont(new Font("Arial", Font.BOLD, 15));
         lblSignup.setBounds(40,8,150,15);
@@ -313,7 +313,7 @@ public class LoginFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to close this application?", "Confirmation", JOptionPane.YES_NO_OPTION) == 0)
+                if (JOptionPane.showConfirmDialog(null, "Bạn Có Chắc Muốn Thoát Chương Trình?", "Thông Báo", JOptionPane.YES_NO_OPTION) == 0)
                     LoginFrame.this.dispose();
             }
 

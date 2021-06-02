@@ -1,6 +1,7 @@
 package Views;
 
 
+import Controller.AccountController;
 import Controller.LoginController;
 import Controller.TransactionsController;
 import Controller.UserController;
@@ -73,10 +74,10 @@ public class PanelTrading extends JPanel {
             txtAccountNumber.setFont(new Font("Arial", Font.PLAIN, 15));
         } else {
             if (typeTrade.equals("Recharge")) {
-                lblAccountReceived = new JLabel("Rút Từ Số Tài Khoản");
+                lblAccountReceived = new JLabel("Nạp Vào Số Tài Khoản");
                 lblIcon.setIcon(new ImageIcon(img_recharge));
             } else {
-                lblAccountReceived = new JLabel("Nạp Cho Số Tài Khoản");
+                lblAccountReceived = new JLabel("Rút Từ Số Tài Khoản");
                 lblIcon.setIcon(new ImageIcon(img_withdraw));
             }
             txtAccountNumber = new JTextField();
@@ -187,7 +188,7 @@ public class PanelTrading extends JPanel {
         panelGBLEast.add(panelAccountNumber);
 
 
-        JLabel lblBalance = new JLabel("Số Dư Tài khoản Hiện Tại: ");
+        JLabel lblBalance = new JLabel("Số Dư Hiện Tại: ");
         lblBalance.setFont(new Font("Aurella", Font.BOLD, 15));
         lblBalanceData.setFont(new Font("Aurella", Font.BOLD, 15));
         JLabel lblvnd = new JLabel("VNĐ");
@@ -245,26 +246,23 @@ public class PanelTrading extends JPanel {
         panelCenter.add(content);
     }
 
-    public static String validatedTransaction(String TransactionType) {
-        // xet input
+    public static void validatedTransaction(String TransactionType) {
         if (txtAccountNumber.getText().equals("") || txtAmount.getText().equals("0") || PanelTrading.txtContent.getText().equals(""))
-            return "Vui Lòng Nhập Đầy Đủ Thông Tin";
-        // xet soTK nhan != SoTk hien tai
+            PanelService.lblMessage.setText("Vui Lòng Nhập Đầy Đủ Thông Tin");
         if (TransactionType.equals("Chuyển Khoản")) {
             if (LoginController.AccountNumber.equals(PanelTrading.txtAccountNumber.getText()))
-                return "Số Tài Khoản Nhận Phải Khác Số Tài Khoản Chuyển";
-            // truy van soTK nguoi nhan
-            if (!UserController.searchAccountNumber(txtAccountNumber.getText()))
-                return "Số Tài Khoản Người Nhận Không Tồn Tại";
+                PanelService.lblMessage.setText("Số Tài Khoản Nhận Phải Khác Số Tài Khoản Chuyển");
+            if (!AccountController.searchAccountNumber(txtAccountNumber.getText()))
+                PanelService.lblMessage.setText("Số Tài Khoản Người Nhận Không Tồn Tại");
         }
-        if (!TransactionsController.initTransaction(TransactionType, Double.parseDouble(PanelTrading.txtAmount.getText().replaceAll("[^Z0-9]", "")), LoginController.AccountNumber, PanelTrading.txtAccountNumber.getText(), PanelTrading.txtContent.getText())) {
-            return "Số Dư Hiện Tại Không Đủ";
-        }
+        TransactionsController.initTransaction(TransactionType, Double.parseDouble(PanelTrading.txtAmount.getText().replaceAll("[^Z0-9]", "")), LoginController.AccountNumber, txtAccountNumber.getText(), txtContent.getText());
         UserController.setUserData(LoginController.UserName);
-        lblBalanceData.setText("" + UserController.AccountBalance);
-        PanelProfile.lblBalance.setText("" + UserController.AccountBalance);
+        lblBalanceData.setText(UserController.BalanceFormat.format(UserController.AccountBalance));
+        PanelProfile.lblBalance.setText(UserController.BalanceFormat.format(UserController.AccountBalance));
+        PanelProfile.lblBalance.setText("Số Dư Hiện Tại: " + UserController.BalanceFormat.format(UserController.AccountBalance));
+        Main.cardPanel.add(new OverviewPanel(),"overview");
         TransactionsController.uploadAllTradingData(TradingsHistoryPanel.contentTable, LoginController.AccountNumber);
-        return "Success";
+
     }
 }
 

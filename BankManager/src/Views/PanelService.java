@@ -130,7 +130,7 @@ public class PanelService extends JPanel
                 {
                     if (count == 1)
                     {
-                        lblMessage.setText(PanelTrading.validatedTransaction("Chuyển Khoản"));
+                        PanelTrading.validatedTransaction("Chuyển Khoản");
                         if(lblMessage.getText().equals("Success"))
                         {
                             panelForm.add(new PanelTrading("Transfer"), "1");
@@ -139,7 +139,7 @@ public class PanelService extends JPanel
                     }
                     else if (count == 2)
                     {
-                        lblMessage.setText(PanelTrading.validatedTransaction("Nạp Tiền"));
+                        PanelTrading.validatedTransaction("Nạp Tiền");
                         if(lblMessage.getText().equals("Success"))
                         {
                             panelForm.add(new PanelTrading("Recharge"), "2");
@@ -148,7 +148,7 @@ public class PanelService extends JPanel
                     }
                     else
                     {
-                        lblMessage.setText(PanelTrading.validatedTransaction("Rút Tiền"));
+                        PanelTrading.validatedTransaction("Rút Tiền");
                         if(lblMessage.getText().equals("Success"))
                         {
                             panelForm.add(new PanelTrading("Withdraw"), "3");

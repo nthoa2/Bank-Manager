@@ -21,16 +21,9 @@ public class ColumnChartPanel
     private double receivedOnMonth;
     private double spendingOnMonth;
 
-    public void setReceivedOnMonth(double receivedOnMonth) {
-        this.receivedOnMonth = receivedOnMonth;
-    }
-
-    public void setSpendingOnMonth(double spendingOnMonth) {
-        this.spendingOnMonth = spendingOnMonth;
-    }
-
     public BarChart createChart() {
-
+        this.spendingOnMonth = OverviewPanel.totalSpending;
+        this.receivedOnMonth = OverviewPanel.totalReceived;
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
