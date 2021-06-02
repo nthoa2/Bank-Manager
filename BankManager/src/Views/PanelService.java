@@ -67,7 +67,7 @@ public class PanelService extends JPanel
         footer.setLayout(flowLayout);
         panelFooter.add(footer, "Center");
 
-        JLabel lblCancel = new JLabel("Cancel");
+        JLabel lblCancel = new JLabel("Hủy Bỏ");
         lblCancel.setFont(new Font("Aurella", Font.BOLD, 15));
 
         JPanel panelCancel = new RadiusAndShadow();
@@ -89,7 +89,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                panelCancel.setBackground(new Color(162, 85, 113));
+                panelCancel.setBackground(new Color(110, 196, 141));
             }
 
             @Override
@@ -101,7 +101,7 @@ public class PanelService extends JPanel
             @Override
             public void mousePressed(MouseEvent e)
             {
-                panelCancel.setBackground(new Color(216, 53, 65));
+                panelCancel.setBackground(new Color(60, 179, 113));
             }
 
             @Override
@@ -114,7 +114,7 @@ public class PanelService extends JPanel
         panelCancel.setPreferredSize(new Dimension(170, 50));
         footer.add(panelCancel);
 
-        JLabel lblConfirm = new JLabel("Confirm");
+        JLabel lblConfirm = new JLabel("Xác Nhận");
         lblConfirm.setFont(new Font("Aurella", Font.BOLD, 15));
 
         JPanel panelConfirm = new RadiusAndShadow();
@@ -130,7 +130,7 @@ public class PanelService extends JPanel
                 {
                     if (count == 1)
                     {
-                        lblMessage.setText(transfer.checkTransfer());
+                        PanelTrading.validatedTransaction("Chuyển Khoản");
                         if(lblMessage.getText().equals("Success"))
                         {
                             panelForm.add(new PanelTrading("Transfer"), "1");
@@ -139,7 +139,7 @@ public class PanelService extends JPanel
                     }
                     else if (count == 2)
                     {
-                        lblMessage.setText(recharge.checkRecharge());
+                        PanelTrading.validatedTransaction("Nạp Tiền");
                         if(lblMessage.getText().equals("Success"))
                         {
                             panelForm.add(new PanelTrading("Recharge"), "2");
@@ -148,7 +148,7 @@ public class PanelService extends JPanel
                     }
                     else
                     {
-                        lblMessage.setText(withdraw.checkWithdraw());
+                        PanelTrading.validatedTransaction("Rút Tiền");
                         if(lblMessage.getText().equals("Success"))
                         {
                             panelForm.add(new PanelTrading("Withdraw"), "3");
@@ -161,7 +161,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                panelConfirm.setBackground(new Color(162, 85, 113));
+                panelConfirm.setBackground(new Color(110, 196, 141));
             }
 
             @Override
@@ -173,7 +173,7 @@ public class PanelService extends JPanel
             @Override
             public void mousePressed(MouseEvent e)
             {
-                panelConfirm.setBackground(new Color(216, 53, 65));
+                panelConfirm.setBackground(new Color(60, 179, 113));
             }
 
             @Override
@@ -186,7 +186,7 @@ public class PanelService extends JPanel
         panelConfirm.setPreferredSize(new Dimension(170, 50));
         footer.add(panelConfirm);
 
-        JLabel lblTransfer = new JLabel("Transfer");
+        JLabel lblTransfer = new JLabel("Chuyển Khoản");
         lblTransfer.setForeground(Color.BLACK);
         lblTransfer.setFont(new Font("Aurella", Font.BOLD, 20));
 
@@ -214,7 +214,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                panelTransfer.setBackground(new Color(162, 85, 113));
+                panelTransfer.setBackground(new Color(110, 196, 141));
             }
 
             @Override
@@ -226,7 +226,7 @@ public class PanelService extends JPanel
             @Override
             public void mousePressed(MouseEvent e)
             {
-                panelTransfer.setBackground(new Color(216, 53, 65));
+                panelTransfer.setBackground(new Color(60, 179, 113));
             }
 
             @Override
@@ -239,7 +239,7 @@ public class PanelService extends JPanel
         panelTransfer.setPreferredSize(new Dimension(170, 80));
         panelHeader.add(panelTransfer);
 
-        JLabel lblRecharge = new JLabel("Recharge");
+        JLabel lblRecharge = new JLabel("Nạp Tiền");
         lblRecharge.setForeground(Color.BLACK);
         lblRecharge.setFont(new Font("Aurella", Font.BOLD, 20));
 
@@ -267,7 +267,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                panelRecharge.setBackground(new Color(162, 85, 113));
+                panelRecharge.setBackground(new Color(110, 196, 141));
             }
 
             @Override
@@ -279,7 +279,7 @@ public class PanelService extends JPanel
             @Override
             public void mousePressed(MouseEvent e)
             {
-                panelRecharge.setBackground(new Color(216, 53, 65));
+                panelRecharge.setBackground(new Color(60, 179, 113));
             }
 
             @Override
@@ -292,7 +292,7 @@ public class PanelService extends JPanel
         panelRecharge.setPreferredSize(new Dimension(170, 80));
         panelHeader.add(panelRecharge);
 
-        JLabel lblWithdraw = new JLabel("Withdraw");
+        JLabel lblWithdraw = new JLabel("Rút Tiền");
         lblWithdraw.setForeground(Color.BLACK);
         lblWithdraw.setFont(new Font("Aurella", Font.BOLD, 20));
 
@@ -320,7 +320,7 @@ public class PanelService extends JPanel
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                panelWithdraw.setBackground(new Color(162, 85, 113));
+                panelWithdraw.setBackground(new Color(110, 196, 141));
             }
 
             @Override
@@ -332,7 +332,7 @@ public class PanelService extends JPanel
             @Override
             public void mousePressed(MouseEvent e)
             {
-                panelWithdraw.setBackground(new Color(216, 53, 65));
+                panelWithdraw.setBackground(new Color(60, 179, 113));
             }
 
             @Override
@@ -346,5 +346,8 @@ public class PanelService extends JPanel
         panelHeader.add(panelWithdraw);
 
     }
+
+
+
 }
 

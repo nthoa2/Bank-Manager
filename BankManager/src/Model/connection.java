@@ -3,13 +3,14 @@ package Model;
 import java.sql.*;
 
 public class connection {
-    public static Connection connect;
+    private static Connection connect;
 
     public connection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectString = "jdbc:sqlserver://localhost:1433;databaseName=QLNH;user=sa;password=123";
+            String connectString = "jdbc:sqlserver://localhost:1433;databaseName=BankManager;user=sa;password=admin";
             connect = DriverManager.getConnection(connectString);
+            System.out.println("Ket Noi Thanh Cong");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -32,7 +33,7 @@ public class connection {
             Statement statement = connect.createStatement();
             return statement.executeUpdate(query);
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println("ExecuteQuery fail");
             return -1;
         }
     }

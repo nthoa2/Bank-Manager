@@ -1,15 +1,17 @@
 package Views;
 
+import Controller.UserController;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelHome extends JPanel
 {
 
-    private Image a1 = new ImageIcon(LoginFrame.class.getResource("/Res/avatar1.png")).getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
-    private Image a2 = new ImageIcon(LoginFrame.class.getResource("/Res/avatar2.png")).getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
-    private Image a3 = new ImageIcon(LoginFrame.class.getResource("/Res/avatar3.png")).getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
-    private Image a4 = new ImageIcon(LoginFrame.class.getResource("/Res/avatar4.png")).getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+    private Image a1 = new ImageIcon("src/Res/avatar1.png").getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+    private Image a2 = new ImageIcon("src/Res/avatar2.png").getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+    private Image a3 = new ImageIcon("src/Res/avatar3.png").getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+    private Image a4 = new ImageIcon("src/Res/avatar4.png").getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
 
     public PanelHome()
     {
@@ -20,14 +22,14 @@ public class PanelHome extends JPanel
         panelHeader.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 
         JPanel panelTitle = new RadiusAndShadow();
-        panelTitle.setPreferredSize(new Dimension(200, 70));
+        panelTitle.setPreferredSize(new Dimension(500, 70));
         panelTitle.setBackground(Color.WHITE);
         panelTitle.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 13));
         panelHeader.add(panelTitle);
 
         JLabel lblTitle = new JLabel();
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTitle.setText("WELCOME");
+        lblTitle.setText("Xin Chào " + UserController.userFullName);
         lblTitle.setForeground(Color.BLACK);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 30));
         panelTitle.add(lblTitle);
@@ -37,12 +39,8 @@ public class PanelHome extends JPanel
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
         panel.setLayout(new BorderLayout(50, 0));
-        JPanel pnlWestFooter = new JPanel();
-        pnlWestFooter.setBackground(Color.WHITE);
-        JPanel pnlEastFooter = new JPanel();
-        pnlEastFooter.setBackground(Color.WHITE);
-        panel.add(pnlWestFooter, "West");
-        panel.add(pnlEastFooter, "East");
+        panel.add(new JPanel(), "West");
+        panel.add(new JPanel(), "East");
 
         JLabel l1 = new JLabel("");
         l1.setIcon(new ImageIcon(a1));

@@ -1,41 +1,24 @@
 package Model;
 
+import java.sql.ResultSet;
 
-import java.sql.*;
+public class Login {
 
-public class Login
-{
-
-    // khởi tạo k cần funcName
-    public Login()
-    {
-        new connection();
+    public static ResultSet getLoginAccountByUserName(String userName) {
+        String query = "SELECT * FROM dbo.[loginAccount] WHERE dbo.[loginAccount].loginName = '" + userName + "'";
+        return connection.getData(query);
     }
 
-
-    public static ResultSet CheckLogin(String userName, String password)
-    {
-        String SQL = "use QLNH select * from TAIKHOAN where TenTK = N'" + userName + "' and MatKhau = N'" + password + "'";
-        return Model.connection.getData(SQL);
+    public static ResultSet getLoginAccounts() {
+        String query = "SELECT * FROM dbo.[loginAccount]";
+        return connection.getData(query);
     }
 
-
-    public static ResultSet CheckSignUpSoTK(String accountNumber)
-    {
-        String SQL = "use QLNH select SoTK from TAIKHOAN where SoTK = '" + accountNumber + "'";
-        return Model.connection.getData(SQL);
+    public static void insertNewLoginAccount(String userName, String password, String accountNumber) {
+        String query = "INSERT INTO dbo.[loginAccount](loginName,loginPassword,SoTK)" +
+                "VALUES('" + userName + "','" + password + "','" + accountNumber + "')";
+        connection.executeQuery(query);
     }
 
-    public static ResultSet CheckSignUpTenTK(String username)
-    {
-        String SQL = "use QLNH select TenTK from TAIKHOAN where TenTK = '" + username + "'";
-        return Model.connection.getData(SQL);
-    }
-
-    public static ResultSet CheckCMND(String cmnd)
-    {
-        String SQL = "use QLNH select CMND from KHACHHANG where CMND = '" + cmnd + "'";
-        return Model.connection.getData(SQL);
-    }
 
 }

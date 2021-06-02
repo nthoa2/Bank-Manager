@@ -1,56 +1,67 @@
 package Controller;
 
-import Model.UserData;
+import Model.User;
+import Views.PanelProfile;
 
-import java.sql.Date;
+import javax.swing.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-public class UserController
-{
-    public static String fullname, gender, address, phone, dateSignUp, balance, accountNumber, born;
-    public static Date birthday, dateRegister;
-    public static double balanceService;
+public class UserController {
+    public static String userFullName;
+    public static String userGender;
+    public static double AccountBalance;
+    public static String userBirthday;
+    public static String userPhoneNumber;
+    public static String userAddress;
+    public static String userDateSignUp;
+    public static  final DecimalFormat BalanceFormat = new DecimalFormat("###,###,###");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public static void getUserData(String username)
-    {
-        ResultSet resultSet = UserData.getUserData(username);
-        try
-        {
-            resultSet.next();
-            fullname = resultSet.getString(2);
-            birthday = resultSet.getDate(3);
-            born = new SimpleDateFormat("dd-MM-yyyy").format(UserController.birthday);
-            gender = resultSet.getString(4);
-            if (gender.equalsIgnoreCase("1"))
-                gender = "Nam";
-            else if (gender.equalsIgnoreCase("0"))
-                gender = "Nữ";
-            address = resultSet.getString(5);
-            phone = resultSet.getString(6);
-            accountNumber = resultSet.getString(7);
-            dateRegister = resultSet.getDate(11);
-            dateSignUp = new SimpleDateFormat("dd-MM-yyyy").format(UserController.dateRegister);
-            balanceService = resultSet.getDouble(12);
-            balance = String.format("%,.0f", balanceService);
-        } catch (Exception exception)
-        {
-            System.err.println("LoginController.java.getUserData: " + exception.getMessage());
+    public static void setUserData(String accountNumber) {
+        ResultSet resultSet = User.getUserData(accountNumber);
+        try {
+            if (resultSet.next()) {
+                userFullName = resultSet.getString("TenKH");
+                if (resultSet.getInt("GioiTinh") == 1) {
+                    userGender = "Nam";
+                } else {
+                    userGender = "Nữ";
+                }
+                AccountBalance = resultSet.getDouble("SoDu");
+                userBirthday = dateFormat.format(resultSet.getDate("NgaySinh"));
+                userPhoneNumber = resultSet.getString("SoDienThoai");
+                userAddress = resultSet.getString("DiaChi");
+                userDateSignUp = dateFormat.format(resultSet.getDate("NgayDangKy"));
+            }
+        } catch (SQLException e) {
+            System.err.println("setUserData: " + e.getMessage());
+        }
+
+    }
+    public static void setGenderIcon(String gender) {
+        if (gender.equals("Nam")) {
+            PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
+        } else {
+            PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
         }
     }
 
-    public static boolean CheckGender(String username)
-    {
-        ResultSet resultSet = UserData.CheckGender(username);
-        try
-        {
-            resultSet.next();
-            if (resultSet.getInt("GioiTinh") == 1)
-                return true;
-        } catch (Exception exception)
-        {
-            System.err.println("LoginController.java.CheckGender: " + exception.getMessage());
+    public static boolean searchingUser(String UserID){
+        ResultSet usersSet = User.getAllUserData();
+        try{
+            while (usersSet.next()){
+                if(UserID.equals(usersSet.getString("MaKH"))){
+                    System.out.println("CMND đã tồn tại");
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
+
 }

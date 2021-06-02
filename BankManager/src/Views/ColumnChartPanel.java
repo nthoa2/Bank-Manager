@@ -1,5 +1,9 @@
 package Views;
 
+import java.awt.Font;
+
+import Controller.LoginController;
+import Model.Accounts;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -11,44 +15,40 @@ import javafx.scene.paint.Paint;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
 
 public class ColumnChartPanel
-        extends JFXPanel
-{
+        extends JFXPanel {
+    private double receivedOnMonth;
+    private double spendingOnMonth;
 
-
-
-    public BarChart createChart(double spending, double receives)
-    {
-
+    public BarChart createChart() {
+        this.spendingOnMonth = OverviewPanel.totalSpending;
+        this.receivedOnMonth = OverviewPanel.totalReceived;
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("vnd");
         XYChart.Series dataSpendingSeries = new XYChart.Series();
-        dataSpendingSeries.setName("Spending");
-        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Spending", (Object) (spending)));
+        dataSpendingSeries.setName("Chi Ra");
+        dataSpendingSeries.getData().add((Object) new XYChart.Data((Object) "Chi ra", (Object) (this.spendingOnMonth)));
         XYChart.Series dataReceivedSeries = new XYChart.Series();
-        dataReceivedSeries.setName("Received");
-        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Received", (Object) receives));
+        dataReceivedSeries.setName("Nhận Vào");
+        dataReceivedSeries.getData().add((Object) new XYChart.Data((Object) "Nhận vào", (Object) this.receivedOnMonth));
         BarChart chart = new BarChart((Axis) xAxis, (Axis) yAxis);
         chart.getData().addAll(new Object[]{dataSpendingSeries});
         chart.getData().addAll(new Object[]{dataReceivedSeries});
         return chart;
     }
 
-    private Scene createScene(double spending, double receives)
-    {
+    private Scene createScene() {
         BorderPane root = new BorderPane();
         Scene scene = new Scene((Parent) root, (Paint) Color.ALICEBLUE);
-        root.setCenter((Node) this.createChart(spending, receives));
+        root.setCenter((Node) this.createChart());
         return scene;
     }
 
-    public ColumnChartPanel(double spending, double receives)
-    {
-        this.setScene(this.createScene(spending, receives));
+    public ColumnChartPanel() {
+        this.setScene(this.createScene());
         this.setFont(new Font("Open Sans", Font.BOLD, 20));
-        this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Total receive and spend in month", TitledBorder.CENTER, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
+        this.setBorder(new TitledBorder(new EtchedBorder(1, null, null), "Tổng Thu Chi Trong Tháng ", TitledBorder.LEADING, TitledBorder.TOP, new Font("Open Sans", Font.PLAIN, 16), new java.awt.Color(0, 0, 0)));
     }
 }

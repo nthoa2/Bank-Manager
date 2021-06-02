@@ -1,12 +1,10 @@
 package Views;
 
 
+import Controller.AccountController;
 import Controller.LoginController;
-import Controller.TradingsController;
-import Controller.UpdateController;
+import Controller.TransactionsController;
 import Controller.UserController;
-import Views.*;
-
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
@@ -15,21 +13,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 
-public class PanelTrading extends JPanel
-{
+public class PanelTrading extends JPanel {
     private GridBagConstraints gbc3;
     public static JTextField txtAccountNumber;
     public static JFormattedTextField txtAmount;
     public static JTextArea txtContent;
     private JLabel lblAccountReceived;
-    private JLabel lblBalanceData = new JLabel(UserController.balance);
-    private Image img_transfer= new ImageIcon(("src/Res/img_transfer.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-    private Image img_recharge= new ImageIcon(("src/Res/img_recharge.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-    private Image img_withdraw= new ImageIcon(("src/Res/img_withdraw.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+    public static JLabel lblBalanceData = new JLabel(UserController.BalanceFormat.format(UserController.AccountBalance));
+    private Image img_transfer = new ImageIcon(("src/Res/img_transfer.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+    private Image img_recharge = new ImageIcon(("src/Res/img_recharge.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+    private Image img_withdraw = new ImageIcon(("src/Res/img_withdraw.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
     private JLabel lblIcon = new JLabel("");
 
-    public PanelTrading(String typeTrade)
-    {
+    public PanelTrading(String typeTrade) {
         this.setLayout(new BorderLayout(40, 0));
         gbc3 = new GridBagConstraints();
         gbc3.insets = new Insets(10, 10, 10, 10);
@@ -50,30 +46,24 @@ public class PanelTrading extends JPanel
         JPanel accountNumber = new RadiusAndShadow();
         accountNumber.setBackground(Color.white);
         accountNumber.setLayout(new GridBagLayout());
-        if (typeTrade.equals("Transfer"))
-        {
+        if (typeTrade.equals("Transfer")) {
             lblIcon.setIcon(new ImageIcon(img_transfer));
-            lblAccountReceived = new JLabel("Account number received");
+            lblAccountReceived = new JLabel("Số Tài Khoản Người Nhận");
             txtAccountNumber = new JTextField();
-            txtAccountNumber.addKeyListener(new KeyAdapter()
-            {
+            txtAccountNumber.addKeyListener(new KeyAdapter() {
                 @Override
-                public void keyPressed(KeyEvent e)
-                {
-                    if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                         txtAccountNumber.setEditable(true);
                         PanelService.lblMessage.setText("");
-                    } else
-                    {
+                    } else {
                         txtAccountNumber.setEditable(false);
-                        PanelService.lblMessage.setText("Enter only numeric digits(0-9)");
+                        PanelService.lblMessage.setText("Vui Lòng Chỉ Nhập Số");
                     }
                 }
 
                 @Override
-                public void keyTyped(KeyEvent e)
-                {
+                public void keyTyped(KeyEvent e) {
                     if (txtAccountNumber.getText().length() >= 10)
                         e.consume();
                 }
@@ -82,21 +72,17 @@ public class PanelTrading extends JPanel
             txtAccountNumber.setBorder(null);
             txtAccountNumber.setColumns(20);
             txtAccountNumber.setFont(new Font("Arial", Font.PLAIN, 15));
-        } else
-        {
-            if (typeTrade.equals("Recharge"))
-            {
-                lblAccountReceived = new JLabel("Account number recharge");
+        } else {
+            if (typeTrade.equals("Recharge")) {
+                lblAccountReceived = new JLabel("Nạp Vào Số Tài Khoản");
                 lblIcon.setIcon(new ImageIcon(img_recharge));
-            }
-            else
-            {
-                lblAccountReceived = new JLabel("Account number withdraw");
+            } else {
+                lblAccountReceived = new JLabel("Rút Từ Số Tài Khoản");
                 lblIcon.setIcon(new ImageIcon(img_withdraw));
             }
             txtAccountNumber = new JTextField();
             txtAccountNumber.setEnabled(false);
-            txtAccountNumber.setText(UserController.accountNumber);
+            txtAccountNumber.setText(LoginController.AccountNumber);
             txtAccountNumber.setBackground(Color.WHITE);
             txtAccountNumber.setBorder(null);
             txtAccountNumber.setColumns(20);
@@ -137,32 +123,25 @@ public class PanelTrading extends JPanel
         txtAmount.setFont(new Font("Arial", Font.PLAIN, 15));
         txtAmount.setBorder(null);
         txtAmount.setText("0");
-        txtAmount.addKeyListener(new KeyAdapter()
-        {
+        txtAmount.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e)
-            {
-                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                     txtAccountNumber.setEditable(true);
                     PanelService.lblMessage.setText("");
-                } else
-                {
+                } else {
                     txtAccountNumber.setEditable(false);
-                    PanelService.lblMessage.setText("Enter only numeric digits(0-9)");
+                    PanelService.lblMessage.setText("Vui Lòng Chỉ Nhập Số");
                 }
-                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                {
-                    if (txtAmount.getText().length() == 1)
-                    {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    if (txtAmount.getText().length() == 1) {
                         txtAmount.setText("0");
                     }
                 }
             }
 
             @Override
-            public void keyTyped(KeyEvent e)
-            {
+            public void keyTyped(KeyEvent e) {
                 if (txtAmount.getText().length() == 27)
                     e.consume();
             }
@@ -189,10 +168,10 @@ public class PanelTrading extends JPanel
         JPanel panelGBLEast = new RadiusAndShadow();
         panelGBLEast.setPreferredSize(new Dimension(500, 200));
         panelGBLEast.setBackground(Color.WHITE);
-        panelGBLEast.setLayout(new GridLayout(4 , 1, 0, 0));
+        panelGBLEast.setLayout(new GridLayout(4, 1, 0, 0));
 
 
-        JLabel lblName = new JLabel(UserController.fullname);
+        JLabel lblName = new JLabel(UserController.userFullName);
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Aurella", Font.BOLD, 20));
         JPanel panelName = new JPanel();
@@ -201,18 +180,15 @@ public class PanelTrading extends JPanel
         panelGBLEast.add(panelName);
 
 
-        JLabel lblAccountNumber = new JLabel("Account Number: ");
+        JLabel lblAccountNumber = new JLabel("Số Tài Khoản: " + LoginController.AccountNumber);
         lblAccountNumber.setFont(new Font("Aurella", Font.BOLD, 15));
-        JLabel lblaccountNumber = new JLabel(UserController.accountNumber);
-        lblaccountNumber.setFont(new Font("Aurella", Font.BOLD, 15));
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
         panelAccountNumber.add(lblAccountNumber);
-        panelAccountNumber.add(lblaccountNumber);
         panelGBLEast.add(panelAccountNumber);
 
 
-        JLabel lblBalance = new JLabel("Balance: ");
+        JLabel lblBalance = new JLabel("Số Dư Hiện Tại: ");
         lblBalance.setFont(new Font("Aurella", Font.BOLD, 15));
         lblBalanceData.setFont(new Font("Aurella", Font.BOLD, 15));
         JLabel lblvnd = new JLabel("VNĐ");
@@ -247,7 +223,7 @@ public class PanelTrading extends JPanel
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(accountNumber);
 
-        JLabel lblAmount = new JLabel("Amount");
+        JLabel lblAmount = new JLabel("Số Tiền");
         lblAmount.setFont(new Font("Aurella", Font.BOLD, 15));
 
         JPanel panel2 = new JPanel();
@@ -258,7 +234,7 @@ public class PanelTrading extends JPanel
         panelCenter.add(Box.createRigidArea(new Dimension(0, 10)));
         panelCenter.add(amount);
 
-        JLabel lblContent = new JLabel("Content");
+        JLabel lblContent = new JLabel("Nội Dung");
         lblContent.setFont(new Font("Aurella", Font.BOLD, 15));
 
         JPanel panel3 = new JPanel();
@@ -270,58 +246,23 @@ public class PanelTrading extends JPanel
         panelCenter.add(content);
     }
 
-    public String checkTransfer()
-    {
-        if (this.txtAccountNumber.getText().equals("") || this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
-            return "Please input full";
-        else if (UserController.accountNumber.equals(txtAccountNumber.getText()))
-            return "Account number received must different your account number";
-        else if (!LoginController.CheckSignUpSoTK(txtAccountNumber.getText()))
-            return "Account number do not exist";
-        else if (!UpdateController.updateTransfer("Chuyển tiền", UserController.accountNumber, txtAccountNumber.getText(), Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
-            return "Balance enough";
-        else
-        {
-            UserController.getUserData(LoginFrame.username);
-            this.lblBalanceData.setText(UserController.balance);
-            PanelProfile.lblBalance.setText(UserController.balance);
-            PanelOverview.accountBalanceLabelValue.setText(UserController.balance);
-            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
-            return "Success";
+    public static void validatedTransaction(String TransactionType) {
+        if (txtAccountNumber.getText().equals("") || txtAmount.getText().equals("0") || PanelTrading.txtContent.getText().equals(""))
+            PanelService.lblMessage.setText("Vui Lòng Nhập Đầy Đủ Thông Tin");
+        if (TransactionType.equals("Chuyển Khoản")) {
+            if (LoginController.AccountNumber.equals(PanelTrading.txtAccountNumber.getText()))
+                PanelService.lblMessage.setText("Số Tài Khoản Nhận Phải Khác Số Tài Khoản Chuyển");
+            if (!AccountController.searchAccountNumber(txtAccountNumber.getText()))
+                PanelService.lblMessage.setText("Số Tài Khoản Người Nhận Không Tồn Tại");
         }
-    }
+        TransactionsController.initTransaction(TransactionType, Double.parseDouble(PanelTrading.txtAmount.getText().replaceAll("[^Z0-9]", "")), LoginController.AccountNumber, txtAccountNumber.getText(), txtContent.getText());
+        UserController.setUserData(LoginController.UserName);
+        lblBalanceData.setText(UserController.BalanceFormat.format(UserController.AccountBalance));
+        PanelProfile.lblBalance.setText(UserController.BalanceFormat.format(UserController.AccountBalance));
+        PanelProfile.lblBalance.setText("Số Dư Hiện Tại: " + UserController.BalanceFormat.format(UserController.AccountBalance));
+        Main.cardPanel.add(new OverviewPanel(),"overview");
+        TransactionsController.uploadAllTradingData(TradingsHistoryPanel.contentTable, LoginController.AccountNumber);
 
-    public String checkRecharge()
-    {
-        if (this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
-            return "Please input full";
-        else
-        {
-            UpdateController.updateWithDrawAndRecharge("Nạp tiền", UserController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText());
-            UserController.getUserData(LoginFrame.username);
-            this.lblBalanceData.setText(UserController.balance);
-            PanelProfile.lblBalance.setText(UserController.balance);
-            PanelOverview.accountBalanceLabelValue.setText(UserController.balance);
-            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
-            return "Success";
-        }
-    }
-
-    public String checkWithdraw()
-    {
-        if (this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
-            return "Please input full";
-        else if (!UpdateController.updateWithDrawAndRecharge("Rút tiền", UserController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
-            return "Balance enough";
-        else
-        {
-            UserController.getUserData(LoginFrame.username);
-            this.lblBalanceData.setText(UserController.balance);
-            PanelProfile.lblBalance.setText(UserController.balance);
-            PanelOverview.accountBalanceLabelValue.setText(UserController.balance);
-            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
-            return "Success";
-        }
     }
 }
 
