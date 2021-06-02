@@ -2,6 +2,7 @@ package Views;
 
 import Controller.LoginController;
 import Controller.TradingsController;
+import Controller.UserController;
 import Model.TradingsData;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
@@ -51,9 +52,9 @@ public class LineGraphPanel
             calendar.setTime(startDayFormat);
             long i = 0;
             while (i <= totalDays) {
-                double Spending = TradingsController.getUsersSpendingPerDay(LoginController.accountNumber, new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+                double Spending = TradingsController.getUsersSpendingPerDay(UserController.accountNumber, new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
                 spendingSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) Spending));
-                double receives = TradingsController.getUsersReceivedPerDay(LoginController.accountNumber, new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+                double receives = TradingsController.getUsersReceivedPerDay(UserController.accountNumber, new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
                 receivedSeries.getData().add((Object) new XYChart.Data((Object) simple.format(calendar.getTime()), (Object) receives));
                 calendar.add(Calendar.DATE, 1);
                 ++i;

@@ -2,6 +2,7 @@ package Views;
 
 import Controller.LoginController;
 import Controller.TradingsController;
+import Controller.UserController;
 import Model.TradingsData;
 
 import javax.swing.*;
@@ -96,7 +97,7 @@ public class PanelTradingsHistory extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
+                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), UserController.accountNumber);
             }
         });
         filterPanel.add(filterLabel);
@@ -209,6 +210,6 @@ public class PanelTradingsHistory extends JPanel
         this.setLayout(new BorderLayout(0, 0));
         this.add((Component) this.headerPanel(), "North");
         this.add((Component) this.dataPanel(), "Center");
-        TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
+        TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
     }
 }

@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.LoginController;
+import Controller.UpdateController;
 import Model.Login;
 
 import javax.swing.*;
@@ -306,7 +307,7 @@ public class EditPassword extends JDialog
             JOptionPane.showMessageDialog(null, "Save Successful");
             EditPassword.this.dispose();
             LoginFrame.password = txtPassword.getText();
-            LoginController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
+            UpdateController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
         }
     }
 

@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.LoginController;
+import Controller.UserController;
 import Model.Login;
 
 import javax.swing.*;
@@ -30,7 +31,7 @@ public class PanelProfile extends JPanel
         panelHeader.setBackground(Color.WHITE);
 
         lblAvatar = new JLabel("");
-        if (LoginController.CheckGender(LoginFrame.username))
+        if (UserController.CheckGender(LoginFrame.username))
             lblAvatar.setIcon(new ImageIcon(img_man));
         else lblAvatar.setIcon(new ImageIcon(img_woman));
 
@@ -76,7 +77,7 @@ public class PanelProfile extends JPanel
         panelInformation1.setBackground(Color.WHITE);
         panelInformation1.setLayout(new GridBagLayout());
         panelCenter.add(panelInformation1);
-        lblFullName = new JLabel(LoginController.fullname);
+        lblFullName = new JLabel(UserController.fullname);
         lblFullName.setForeground(Color.BLACK);
         lblFullName.setFont(new Font("Arial", Font.BOLD, 15));
 
@@ -92,7 +93,7 @@ public class PanelProfile extends JPanel
         panelInformation1.add(lblFullName, gbc);
 
 
-        lblAccountNumber = new JLabel(LoginController.accountNumber);
+        lblAccountNumber = new JLabel(UserController.accountNumber);
         lblAccountNumber.setForeground(Color.BLACK);
         lblAccountNumber.setFont(new Font("Arial", Font.BOLD, 15));
         gbc.gridy = 1;
@@ -104,7 +105,7 @@ public class PanelProfile extends JPanel
         gbc.gridy = 2;
         panelInformation1.add(pnlBalance, gbc);
 
-        lblBalance = new JLabel(LoginController.balance);
+        lblBalance = new JLabel(UserController.balance);
         lblBalance.setForeground(Color.black);
         lblBalance.setFont(new Font("Arial", Font.BOLD, 15));
         pnlBalance.add(lblBalance);
@@ -114,7 +115,7 @@ public class PanelProfile extends JPanel
         lblVND.setFont(new Font("Arial", Font.BOLD, 15));
         pnlBalance.add(lblVND);
 
-        lblDate = new JLabel(LoginController.dateSignUp);
+        lblDate = new JLabel(UserController.dateSignUp);
         lblDate.setForeground(Color.black);
         lblDate.setFont(new Font("Arial", Font.BOLD, 15));
         gbc.gridy = 3;
@@ -126,25 +127,25 @@ public class PanelProfile extends JPanel
         panelInformation2.setLayout(new BoxLayout(panelInformation2, BoxLayout.Y_AXIS));
         panelCenter.add(panelInformation2);
 
-        lblGender = new JLabel(LoginController.gender);
+        lblGender = new JLabel(UserController.gender);
         lblGender.setForeground(Color.black);
         lblGender.setFont(new Font("Arial", Font.BOLD, 15));
         panelInformation2.add(Box.createRigidArea(new Dimension(5, 10)));
         panelInformation2.add(lblGender);
 
-        lblBirthday = new JLabel(LoginController.born);
+        lblBirthday = new JLabel(UserController.born);
         lblBirthday.setForeground(Color.black);
         lblBirthday.setFont(new Font("Arial", Font.BOLD, 15));
         panelInformation2.add(Box.createVerticalGlue());
         panelInformation2.add(lblBirthday);
 
-        lblPhone = new JLabel(LoginController.phone);
+        lblPhone = new JLabel(UserController.phone);
         lblPhone.setForeground(Color.black);
         lblPhone.setFont(new Font("Arial", Font.BOLD, 15));
         panelInformation2.add(Box.createVerticalGlue());
         panelInformation2.add(lblPhone);
 
-        lblAddress = new JLabel(LoginController.address);
+        lblAddress = new JLabel(UserController.address);
         lblAddress.setForeground(Color.black);
         lblAddress.setFont(new Font("Arial", Font.BOLD, 15));
         panelInformation2.add(Box.createVerticalGlue());
@@ -165,7 +166,7 @@ public class PanelProfile extends JPanel
         gridBagConstraints.weightx = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
 
-        JLabel lblEditprofile = new JLabel("Chỉnh sửa thông tin");
+        JLabel lblEditprofile = new JLabel("Edit profile");
         lblEditprofile.setForeground(Color.black);
         lblEditprofile.setFont(new Font("Arial", Font.BOLD, 15));
 
@@ -212,7 +213,7 @@ public class PanelProfile extends JPanel
 
         gridBagConstraints.gridx = 2;
 
-        JLabel lblEditpassword = new JLabel("Chỉnh sửa mật khẩu");
+        JLabel lblEditpassword = new JLabel("Edit password");
         lblEditpassword.setForeground(Color.black);
         lblEditpassword.setFont(new Font("Arial", Font.BOLD, 15));
 

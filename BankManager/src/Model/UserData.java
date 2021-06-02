@@ -6,50 +6,16 @@ import java.util.Date;
 
 public class UserData {
 
-    public static ResultSet getUserBalance(String userId) { // chua confirm data type nen de tam
-        String query = "";
-        return connection.getData(query);
+    public static ResultSet CheckGender(String username)
+    {
+        String SQL = "use QLNH Select GioiTinh From KHACHHANG KH Inner Join TAIKHOAN TK ON KH.CMND = TK.CMND Where TenTK = '" + username + "'";
+        return Model.connection.getData(SQL);
     }
 
-    public static ResultSet getUsersSpendingPerMonth(String userID) {
-        String query = "";
-        return connection.getData(query);
-    }
 
-    public static ResultSet getUserReceivedPerMonth(String userID) {
-        String query = "";
-        return connection.getData(query);
-    }
-
-    public static double getUsersSpendingPerDay(int day, int month, int year) {
-        String query = "";
-        ResultSet results = connection.getData(query);
-        try {
-            assert results != null;
-            if (results.next()) {
-                return results.getDouble(1);
-            }
-        } catch (SQLException e) {
-            System.out.println("get spending per month fail");
-        }
-        return 0.0;
-    }
-    public static double getUserReceivedPerMonth(int day, int month, int year) {
-        String query = "";
-        ResultSet results = connection.getData(query);
-        try {
-            assert results != null;
-            if (results.next()) {
-                return results.getDouble(1);
-            }
-        } catch (SQLException e) {
-            System.out.println("get received per month fail");
-        }
-        return 0.0;
-    }
-
-    public static void addUser(){
-        String query = "";
-        connection.executeQuery(query);
+    public static ResultSet getUserData(String username)
+    {
+        String SQL = "use QLNH select * from KHACHHANG KH INNER JOIN TAIKHOAN TK ON KH.CMND = TK.CMND WHERE TenTK =N'" + username + "'";
+        return Model.connection.getData(SQL);
     }
 }

@@ -70,19 +70,19 @@ public class TradingsController
             {
                 if (resultSet.getString("LoaiGD").equals("Chuyển tiền"))
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTK")))
+                    if (UserController.accountNumber.equals(resultSet.getString("SoTK")))
                     {
                         totalSpendingValue += resultSet.getDouble("SoTien");
                         dataObjects[0] = "Chuyển khoản";
-                        dataObjects[1] = resultSet.getString("NgayGD");
+                        dataObjects[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(resultSet.getTimestamp("NgayGD"));
                         dataObjects[2] = getUserName(resultSet.getString("SoTKNhan"));
                         dataObjects[3] = resultSet.getString("GhiChu");
                         dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
-                    } else if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
+                    } else if (UserController.accountNumber.equals(resultSet.getString("SoTKNhan")))
                     {
                         totalReceivedValue += resultSet.getDouble("SoTien");
                         dataObjects[0] = "Nhận chuyển khoản";
-                        dataObjects[1] = resultSet.getString("NgayGD");
+                        dataObjects[1] =new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(resultSet.getTimestamp("NgayGD"));
                         dataObjects[2] = getUserName(resultSet.getString("SoTK"));
                         dataObjects[3] = resultSet.getString("GhiChu");
                         dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
@@ -93,7 +93,7 @@ public class TradingsController
                         totalSpendingValue += resultSet.getDouble("SoTien");
                     else totalReceivedValue += resultSet.getDouble("SoTien");
                     dataObjects[0] = resultSet.getString("LoaiGD");
-                    dataObjects[1] = resultSet.getString("NgayGD");
+                    dataObjects[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(resultSet.getTimestamp("NgayGD"));
                     dataObjects[2] = getUserName(resultSet.getString("SoTK"));
                     dataObjects[3] = resultSet.getString("GhiChu");
                     dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
@@ -117,7 +117,7 @@ public class TradingsController
             while (resultSet.next())
             {
                 dataObjects[0] = resultSet.getString("LoaiGD");
-                dataObjects[1] = resultSet.getString("NgayGD");
+                dataObjects[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(resultSet.getTimestamp("NgayGD"));
                 dataObjects[2] = getUserName(resultSet.getString("SoTK"));
                 dataObjects[3] = resultSet.getString("GhiChu");
                 dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
@@ -140,20 +140,20 @@ public class TradingsController
             {
                 if (flag == 1)
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTK")))
+                    if (UserController.accountNumber.equals(resultSet.getString("SoTK")))
                     {
                         dataObjects[0] = "Chuyển khoản";
-                        dataObjects[1] = resultSet.getString("NgayGD");
+                        dataObjects[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(resultSet.getTimestamp("NgayGD"));
                         dataObjects[2] = getUserName(resultSet.getString("SoTKNhan"));
                         dataObjects[3] = resultSet.getString("GhiChu");
                         dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
                     }else continue;
                 } else
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
+                    if (UserController.accountNumber.equals(resultSet.getString("SoTKNhan")))
                     {
                         dataObjects[0] = "Nhận chuyển khoản";
-                        dataObjects[1] = resultSet.getString("NgayGD");
+                        dataObjects[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(resultSet.getTimestamp("NgayGD"));
                         dataObjects[2] = getUserName(resultSet.getString("SoTK"));
                         dataObjects[3] = resultSet.getString("GhiChu");
                         dataObjects[4] = String.format("%,.0f", resultSet.getDouble("SoTien"));
@@ -194,12 +194,12 @@ public class TradingsController
             {
                 if (resultSet.getString("LoaiGD").equals("Chuyển tiền"))
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTK")))
+                    if (UserController.accountNumber.equals(resultSet.getString("SoTK")))
                     {
                         dataObjects[0] = getUserName(resultSet.getString("SoTKNhan"));
                         dataObjects[1] = resultSet.getString("GhiChu");
                         dataObjects[2] = String.format("%,.0f", resultSet.getDouble("SoTien"));
-                    } else if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
+                    } else if (UserController.accountNumber.equals(resultSet.getString("SoTKNhan")))
                     {
                         dataObjects[0] = getUserName(resultSet.getString("SoTK"));
                         dataObjects[1] = resultSet.getString("GhiChu");
@@ -230,7 +230,7 @@ public class TradingsController
             {
                 if (resultSet.getString("LoaiGD").equals("Chuyển tiền"))
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTK")))
+                    if (UserController.accountNumber.equals(resultSet.getString("SoTK")))
                     {
                         if (date.equals(new SimpleDateFormat("dd/MM/yyyy").format(resultSet.getDate("NgayGD"))))
                         {
@@ -263,7 +263,7 @@ public class TradingsController
             {
                 if (resultSet.getString("LoaiGD").equals("Chuyển tiền"))
                 {
-                    if (LoginController.accountNumber.equals(resultSet.getString("SoTKNhan")))
+                    if (UserController.accountNumber.equals(resultSet.getString("SoTKNhan")))
                     {
                         if (date.equals(new SimpleDateFormat("dd/MM/yyyy").format(resultSet.getDate("NgayGD"))))
                         {

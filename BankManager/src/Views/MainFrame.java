@@ -2,6 +2,7 @@ package Views;
 
 
 import Controller.LoginController;
+import Controller.UserController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -271,7 +272,7 @@ public class MainFrame extends JFrame
         GridBagConstraints Clock = new GridBagConstraints();
         Clock.anchor = GridBagConstraints.LINE_START;
         Clock.gridx = 0;
-        Clock.gridy = 12;
+        Clock.gridy = 15;
         menuPane.add(new Clock(Color.WHITE), Clock);
 
         this.lblLogOut = new JLabel("");
@@ -320,7 +321,7 @@ public class MainFrame extends JFrame
         GridBagConstraints btnLogOutConstraints = new GridBagConstraints();
         btnLogOutConstraints.anchor = GridBagConstraints.LINE_START;
         btnLogOutConstraints.gridx = 0;
-        btnLogOutConstraints.gridy = 15;
+        btnLogOutConstraints.gridy = 14;
         menuPane.add((Component) this.btnLogOut, btnLogOutConstraints);
 
         JScrollPane scrollPane = new JScrollPane(menuPane);
@@ -345,7 +346,7 @@ public class MainFrame extends JFrame
         toolPanel.setBorder(null);
         detailsPanel.add((Component) toolPanel, "North");
 
-        btnProfile = new JLabel(LoginController.fullname);
+        btnProfile = new JLabel(UserController.fullname);
         btnProfile.setFont(new Font("Open San", Font.BOLD, 12));
         btnProfile.setIcon(new ImageIcon(img_profile));
         btnProfile.setFocusable(false);
