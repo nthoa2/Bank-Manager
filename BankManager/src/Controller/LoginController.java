@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Login;
+import Views.LoginFrame;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -51,6 +52,7 @@ public class LoginController
         {
             System.err.println("LoginController.java.CheckLogin: " + exception.getMessage());
         }
+        getUserData(userName);
         return true;
     }
 
@@ -94,7 +96,7 @@ public class LoginController
         return true;
     }
 
-    public static boolean CheckCMND(String cmnd)
+    public static boolean CheckCMND (String cmnd)
     {
         ResultSet resultSet = Login.CheckCMND(cmnd);
         try

@@ -8,10 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.regex.PatternSyntaxException;
 
 public class PanelTradingsHistory extends JPanel
@@ -19,7 +16,8 @@ public class PanelTradingsHistory extends JPanel
     static JLabel accountDetailsName;
     static JLabel accountBalance;
     public static JTable contentTable;
-    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Loại Giao Dịch", "Ngày Giao Dịch", "Người Gửi/Nhận", "Nội Dung", "Số Tiền"}, 0)
+
+    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Transaction type", "Day trading", "Receiver/Sender", "Content", "Amount"}, 0)
     {
         @Override
         public boolean isCellEditable(int row, int column)
@@ -28,8 +26,11 @@ public class PanelTradingsHistory extends JPanel
         }
     };
 
+    private Image img_search = new ImageIcon(PanelTradingsHistory.class.getResource("/Res/search_icon.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+
     private JPanel headerPanel()
     {
+
         JPanel rootPanel = new LinearGradient(1);
         rootPanel.setPreferredSize(new Dimension(50, 70));
         JPanel headerPanel = new JPanel(); // Title
@@ -44,7 +45,7 @@ public class PanelTradingsHistory extends JPanel
         headerPanelLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         headerPanelLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         headerPanel.setLayout(headerPanelLayout);
-        JLabel headerTitle = new JLabel("Lịch Sử Giao Dịch");
+        JLabel headerTitle = new JLabel("Transaction History");
         headerTitle.setFont(new Font("Open Sans", Font.BOLD, 29));
         headerTitle.setIconTextGap(0);
         headerTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -83,21 +84,21 @@ public class PanelTradingsHistory extends JPanel
         gbc_filter.gridx = 0;
         gbc_filter.gridy = 0;
         filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
-        JLabel filterLabel = new JLabel("Xem Theo: ");
+        JLabel filterLabel = new JLabel("Follow: ");
         filterLabel.setFont(new Font("Open Sans", Font.BOLD, 14));
         JComboBox<String> comboBoxFilter = new JComboBox<String>();
         comboBoxFilter.setFont(new Font("Open Sans", Font.BOLD, 13));
         comboBoxFilter.setPreferredSize(new Dimension(170, 25));
-        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"Tất Cả", "Chuyển Khoản", "Nhận Chuyển Khoản"}));
+        comboBoxFilter.setModel(new DefaultComboBoxModel<>(new String[]{"All", "Recharge", "Withdraw", "Transfer", "Receive Transfers"}));
         comboBoxFilter.setMaximumRowCount(10);
-//        comboBoxFilter.addActionListener(new ActionListener()
-//        {
-//            @Override
-//            public void actionPerformed(ActionEvent e)
-//            {
-//                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
-//            }
-//        });
+        comboBoxFilter.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                TradingsController.uploadTradingByType(PanelTradingsHistory.this.contentTable, (String) comboBoxFilter.getSelectedItem(), LoginController.accountNumber);
+            }
+        });
         filterPanel.add(filterLabel);
         filterPanel.add(comboBoxFilter);
         toolsPanel.add((Component) filterPanel, gbc_filter);
@@ -109,18 +110,37 @@ public class PanelTradingsHistory extends JPanel
         gbc_filter.gridx = 0;
         gbc_search.gridy = 1;
         searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
-        JLabel searchTitle = new JLabel("Tìm Kiếm:  ");
-        searchTitle.setFont(new Font("Open Sans", Font.BOLD, 14));
+        JPanel panelText = new RadiusAndShadow();
+        panelText.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        panelText.setBackground(Color.WHITE);
         JTextField searchText = new JTextField();
+        searchText.setText("Search...");
         searchText.setHorizontalAlignment(SwingConstants.LEFT);
         searchText.setFont(new Font("Open Sans", Font.PLAIN, 13));
         searchText.setColumns(30);
-        Button searchButton = new Button("Tìm Kiếm");
-        searchButton.setBackground(new Color(205, 205, 205));
-        searchButton.setFont(new Font("Open Sans", Font.BOLD, 14));
-        searchButton.setPreferredSize(new Dimension(100, 25));
-        searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        searchButton.setFocusable(false);
+        searchText.setBorder(null);
+        searchText.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                if(searchText.getText().equals("Search..."))
+                    searchText.setText("");
+                else
+                    searchText.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                if(searchText.getText().equals(""))
+                    searchText.setText("Search...");
+            }
+        });
+        panelText.add(searchText);
+        JLabel lblIcon = new JLabel("");
+        lblIcon.setIcon(new ImageIcon(img_search));
+        panelText.add(lblIcon);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
         searchText.addKeyListener(new KeyAdapter()
         {
@@ -128,6 +148,8 @@ public class PanelTradingsHistory extends JPanel
             public void keyReleased(KeyEvent e)
             {
                 String text = searchText.getText();
+                if(text.equals("Search..."))
+                    return;
                 if (text.length() == 0)
                 {
                     sorter.setRowFilter(null);
@@ -144,9 +166,7 @@ public class PanelTradingsHistory extends JPanel
             }
         });
 
-        searchPanel.add(searchTitle);
-        searchPanel.add(searchText);
-        searchPanel.add(searchButton);
+        searchPanel.add(panelText);
         toolsPanel.add(searchPanel, gbc_search);
 
         rootPanel.add((Component) toolsPanel, "North");
@@ -162,7 +182,7 @@ public class PanelTradingsHistory extends JPanel
         contentTable.setRowHeight(25);
         contentTable.getColumnModel().getColumn(0).setPreferredWidth(15);
         contentTable.getColumnModel().getColumn(1).setPreferredWidth(5);
-        contentTable.getColumn("Số Tiền").setCellRenderer(new DefaultTableCellRenderer()
+        contentTable.getColumn("Amount").setCellRenderer(new DefaultTableCellRenderer()
         {
 
             @Override
@@ -178,7 +198,6 @@ public class PanelTradingsHistory extends JPanel
         headerTable.setAlignmentY(SwingConstants.CENTER);
         headerTable.setPreferredSize(new Dimension(50, 30));
         headerTable.setReorderingAllowed(false);
-
 
         rootPanel.add(scrollPane, "Center");
         return rootPanel;

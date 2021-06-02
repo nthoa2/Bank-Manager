@@ -364,7 +364,7 @@ public class LoginFrame extends JFrame
             }
         });
         lblX.setForeground(Color.BLACK);
-        lblX.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        lblX.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         lblX.setHorizontalAlignment(SwingConstants.CENTER);
         lblX.setBounds(280, 0, 20, 20);
         contentPaneRight.add(lblX);
@@ -377,7 +377,6 @@ public class LoginFrame extends JFrame
             pnlBtnLogin.setBackground(new Color(21, 140, 180));
             LoginFrame.password = txtPassword.getText();
             LoginFrame.username = txtUsername.getText();
-            LoginController.getUserData(LoginFrame.username);
             new MainFrame().setVisible(true);
             LoginFrame.this.dispose();
         } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtUsername.getText().equals("Username") || txtPassword.getText().equals("Password"))
