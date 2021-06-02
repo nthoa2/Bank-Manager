@@ -3,6 +3,8 @@ package Views;
 
 import Controller.LoginController;
 import Controller.TradingsController;
+import Controller.UpdateController;
+import Controller.UserController;
 import Views.*;
 
 
@@ -20,7 +22,7 @@ public class PanelTrading extends JPanel
     public static JFormattedTextField txtAmount;
     public static JTextArea txtContent;
     private JLabel lblAccountReceived;
-    private JLabel lblBalanceData = new JLabel(LoginController.balance);
+    private JLabel lblBalanceData = new JLabel(UserController.balance);
     private Image img_transfer= new ImageIcon(("src/Res/img_transfer.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
     private Image img_recharge= new ImageIcon(("src/Res/img_recharge.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
     private Image img_withdraw= new ImageIcon(("src/Res/img_withdraw.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
@@ -94,7 +96,7 @@ public class PanelTrading extends JPanel
             }
             txtAccountNumber = new JTextField();
             txtAccountNumber.setEnabled(false);
-            txtAccountNumber.setText(LoginController.accountNumber);
+            txtAccountNumber.setText(UserController.accountNumber);
             txtAccountNumber.setBackground(Color.WHITE);
             txtAccountNumber.setBorder(null);
             txtAccountNumber.setColumns(20);
@@ -190,7 +192,7 @@ public class PanelTrading extends JPanel
         panelGBLEast.setLayout(new GridLayout(4 , 1, 0, 0));
 
 
-        JLabel lblName = new JLabel(LoginController.fullname);
+        JLabel lblName = new JLabel(UserController.fullname);
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Aurella", Font.BOLD, 20));
         JPanel panelName = new JPanel();
@@ -201,7 +203,7 @@ public class PanelTrading extends JPanel
 
         JLabel lblAccountNumber = new JLabel("Account Number: ");
         lblAccountNumber.setFont(new Font("Aurella", Font.BOLD, 15));
-        JLabel lblaccountNumber = new JLabel(LoginController.accountNumber);
+        JLabel lblaccountNumber = new JLabel(UserController.accountNumber);
         lblaccountNumber.setFont(new Font("Aurella", Font.BOLD, 15));
         JPanel panelAccountNumber = new JPanel();
         panelAccountNumber.setBackground(Color.WHITE);
@@ -272,19 +274,19 @@ public class PanelTrading extends JPanel
     {
         if (this.txtAccountNumber.getText().equals("") || this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
             return "Please input full";
-        else if (LoginController.accountNumber.equals(txtAccountNumber.getText()))
+        else if (UserController.accountNumber.equals(txtAccountNumber.getText()))
             return "Account number received must different your account number";
         else if (!LoginController.CheckSignUpSoTK(txtAccountNumber.getText()))
             return "Account number do not exist";
-        else if (!LoginController.updateTransfer("Chuyển tiền", LoginController.accountNumber, txtAccountNumber.getText(), Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
+        else if (!UpdateController.updateTransfer("Chuyển tiền", UserController.accountNumber, txtAccountNumber.getText(), Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
             return "Balance enough";
         else
         {
-            LoginController.getUserData(LoginFrame.username);
-            this.lblBalanceData.setText(LoginController.balance);
-            PanelProfile.lblBalance.setText(LoginController.balance);
-            PanelOverview.accountBalanceLabelValue.setText(LoginController.balance);
-            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
+            UserController.getUserData(LoginFrame.username);
+            this.lblBalanceData.setText(UserController.balance);
+            PanelProfile.lblBalance.setText(UserController.balance);
+            PanelOverview.accountBalanceLabelValue.setText(UserController.balance);
+            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
             return "Success";
         }
     }
@@ -295,12 +297,12 @@ public class PanelTrading extends JPanel
             return "Please input full";
         else
         {
-            LoginController.updateWithDrawAndRecharge("Nạp tiền", LoginController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText());
-            LoginController.getUserData(LoginFrame.username);
-            this.lblBalanceData.setText(LoginController.balance);
-            PanelProfile.lblBalance.setText(LoginController.balance);
-            PanelOverview.accountBalanceLabelValue.setText(LoginController.balance);
-            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
+            UpdateController.updateWithDrawAndRecharge("Nạp tiền", UserController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText());
+            UserController.getUserData(LoginFrame.username);
+            this.lblBalanceData.setText(UserController.balance);
+            PanelProfile.lblBalance.setText(UserController.balance);
+            PanelOverview.accountBalanceLabelValue.setText(UserController.balance);
+            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
             return "Success";
         }
     }
@@ -309,15 +311,15 @@ public class PanelTrading extends JPanel
     {
         if (this.txtAmount.getText().equals("0") || this.txtContent.getText().equals(""))
             return "Please input full";
-        else if (!LoginController.updateWithDrawAndRecharge("Rút tiền", LoginController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
+        else if (!UpdateController.updateWithDrawAndRecharge("Rút tiền", UserController.accountNumber, Double.parseDouble(txtAmount.getText().replaceAll("[^Z0-9]", "")), txtContent.getText()))
             return "Balance enough";
         else
         {
-            LoginController.getUserData(LoginFrame.username);
-            this.lblBalanceData.setText(LoginController.balance);
-            PanelProfile.lblBalance.setText(LoginController.balance);
-            PanelOverview.accountBalanceLabelValue.setText(LoginController.balance);
-            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, LoginController.accountNumber);
+            UserController.getUserData(LoginFrame.username);
+            this.lblBalanceData.setText(UserController.balance);
+            PanelProfile.lblBalance.setText(UserController.balance);
+            PanelOverview.accountBalanceLabelValue.setText(UserController.balance);
+            TradingsController.uploadAllTradingData(PanelTradingsHistory.contentTable, UserController.accountNumber);
             return "Success";
         }
     }

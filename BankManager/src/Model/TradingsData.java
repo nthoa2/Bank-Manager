@@ -61,4 +61,10 @@ public class TradingsData
 
     }
 
+    public static ResultSet checkTradingCode(String tradingCode)
+    {
+        String SQL = "use QLNH select * from GIAODICH Where MaGD = '" + tradingCode + "'";
+        return Model.connection.getData(SQL);
+    }
+
 }

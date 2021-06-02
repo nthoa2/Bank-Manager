@@ -1,6 +1,8 @@
 package Views;
 
 import Controller.LoginController;
+import Controller.UpdateController;
+import Controller.UserController;
 import Model.Login;
 
 import javax.swing.*;
@@ -28,7 +30,7 @@ public class EditProfile extends JDialog
     private JTextField txtAddress;
     private JPanel panelConfirm;
 
-    private Image img_Birth_Day = new ImageIcon(SignUpFrame.class.getResource("/Res/birthday.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    private Image img_Birth_Day = new ImageIcon(EditProfile.class.getResource("/Res/birthday.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public EditProfile()
     {
@@ -77,9 +79,9 @@ public class EditProfile extends JDialog
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtFullname.getText().equals("Full Name"))
-                {
-                    txtFullname.setText("");
+//                if (txtFullname.getText().equals("Full Name"))
+//                {
+//                    txtFullname.setText("");
                     ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("[\\p{L}\\s]");
@@ -97,17 +99,17 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else
-                {
-                    txtFullname.selectAll();
-                }
+//                } else
+//                {
+//                    txtFullname.selectAll();
+//                }
             }
 
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
-                if (txtFullname.getText().equals(""))
-                {
+//                if (txtFullname.getText().equals(""))
+//                {
                     ((AbstractDocument) txtFullname.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("\\D*");
@@ -123,15 +125,15 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtFullname.setText("Full Name");
-                }
+//                    txtFullname.setText("Full Name");
+//                }
             }
         });
         txtFullname.setBackground(Color.WHITE);
         txtFullname.setForeground(Color.GRAY);
         txtFullname.setBorder(null);
         txtFullname.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtFullname.setText("Full Name");
+        txtFullname.setText(UserController.fullname);
         txtFullname.setBounds(10, 7, 170, 20);
         txtFullname.setColumns(10);
         panelFullname.add(txtFullname);
@@ -158,9 +160,9 @@ public class EditProfile extends JDialog
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtGender.getText().equals("Gender"))
-                {
-                    txtGender.setText("");
+//                if (txtGender.getText().equals("Gender"))
+//                {
+//                    txtGender.setText("");
                     ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("[\\p{L}\\s]");
@@ -178,17 +180,17 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else
-                {
-                    txtGender.selectAll();
-                }
+//                } else
+//                {
+//                    txtGender.selectAll();
+//                }
             }
 
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
-                if (txtGender.getText().equals(""))
-                {
+//                if (txtGender.getText().equals(""))
+//                {
                     ((AbstractDocument) txtGender.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("\\D*");
@@ -204,15 +206,15 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtGender.setText("Gender");
-                }
+//                    txtGender.setText("Gender");
+//                }
             }
         });
         txtGender.setBackground(Color.WHITE);
         txtGender.setForeground(Color.GRAY);
         txtGender.setBorder(null);
         txtGender.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtGender.setText("Gender");
+        txtGender.setText(UserController.gender);
         txtGender.setBounds(10, 7, 170, 20);
         txtGender.setColumns(10);
         panelGender.add(txtGender);
@@ -238,9 +240,9 @@ public class EditProfile extends JDialog
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtPhoneNumber.getText().equals("Phone number"))
-                {
-                    txtPhoneNumber.setText("");
+//                if (txtPhoneNumber.getText().equals("Phone number"))
+//                {
+//                    txtPhoneNumber.setText("");
                     ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("\\d*");
@@ -258,14 +260,14 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else txtPhoneNumber.selectAll();
+//                } else txtPhoneNumber.selectAll();
             }
 
             @Override
             public void focusLost(FocusEvent e)
             {
-                if (txtPhoneNumber.getText().equals(""))
-                {
+//                if (txtPhoneNumber.getText().equals(""))
+//                {
                     ((AbstractDocument) txtPhoneNumber.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("\\D*");
@@ -281,15 +283,15 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtPhoneNumber.setText("Phone number");
-                }
+//                    txtPhoneNumber.setText("Phone number");
+//                }
             }
         });
         txtPhoneNumber.setBackground(Color.WHITE);
         txtPhoneNumber.setForeground(Color.GRAY);
         txtPhoneNumber.setBorder(null);
         txtPhoneNumber.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtPhoneNumber.setText("Phone number");
+        txtPhoneNumber.setText(UserController.phone);
         txtPhoneNumber.setBounds(10, 7, 170, 20);
         txtPhoneNumber.setColumns(10);
         panelPhoneNumber.add(txtPhoneNumber);
@@ -320,7 +322,7 @@ public class EditProfile extends JDialog
         calendar.getCalendarButton().setBorder(null);
         calendar.getCalendarButton().setBackground(Color.WHITE);
         calendar.getCalendarButton().setCursor(new Cursor(Cursor.HAND_CURSOR));
-        calendar.setDate(LoginController.birthday);
+        calendar.setDate(UserController.birthday);
         panelBirthDay.add(calendar);
         ///
 
@@ -337,9 +339,9 @@ public class EditProfile extends JDialog
             @Override
             public void focusGained(FocusEvent e)
             {
-                if (txtAddress.getText().equals("Address"))
-                {
-                    txtAddress.setText("");
+//                if (txtAddress.getText().equals("Address"))
+//                {
+//                    txtAddress.setText("");
                     ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("[Z0-9-\\p{L}\\s]");
@@ -357,17 +359,17 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                } else
-                {
-                    txtAddress.selectAll();
-                }
+//                } else
+//                {
+//                    txtAddress.selectAll();
+//                }
             }
 
             @Override
             public void focusLost(FocusEvent focusEvent)
             {
-                if (txtAddress.getText().equals(""))
-                {
+//                if (txtAddress.getText().equals(""))
+//                {
                     ((AbstractDocument) txtAddress.getDocument()).setDocumentFilter(new DocumentFilter()
                     {
                         Pattern regEx = Pattern.compile("\\D*");
@@ -383,15 +385,15 @@ public class EditProfile extends JDialog
                             super.replace(fb, offset, length, text, attrs);
                         }
                     });
-                    txtAddress.setText("Address");
-                }
+//                    txtAddress.setText("Address");
+//                }
             }
         });
         txtAddress.setBackground(Color.WHITE);
         txtAddress.setForeground(Color.GRAY);
         txtAddress.setBorder(null);
         txtAddress.setFont(new Font("Arial", Font.PLAIN, 12));
-        txtAddress.setText("Address");
+        txtAddress.setText(UserController.address);
         txtAddress.setBounds(10, 7, 170, 20);
         txtAddress.setColumns(10);
         panelAddress.add(txtAddress);
@@ -497,29 +499,30 @@ public class EditProfile extends JDialog
     private void CheckEditProfile()
     {
         birthDay = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getDate());;
-        if (txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtAddress.getText().equals("")
-                || txtFullname.getText().equals("Full Name") || txtGender.getText().equals("Gender") || txtPhoneNumber.getText().equals("Phone number")  || txtAddress.getText().equals("Address"))
+        if (txtFullname.getText().equals("") || txtGender.getText().equals("") || txtPhoneNumber.getText().equals("") || txtAddress.getText().equals(""))
             lblLoginMessage.setText("Please input all requirements!");
         else if (txtPhoneNumber.getText().length() < 10)
             lblLoginMessage.setText("Invalid phone number");
+        else if(!txtGender.getText().equalsIgnoreCase("nam") && !txtGender.getText().equalsIgnoreCase("nữ") && !txtGender.getText().equalsIgnoreCase("nu"))
+            lblLoginMessage.setText("Invalid gender");
         else
         {
             panelConfirm.setBackground(new Color(216, 53, 65));
             JOptionPane.showMessageDialog(null, "Save Successful");
             EditProfile.this.dispose();
-            LoginController.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
-            LoginController.getUserData(LoginFrame.username);
-            if (LoginController.CheckGender(LoginFrame.username))
+            UpdateController.UpdateProfile(txtFullname.getText(), txtGender.getText(), txtPhoneNumber.getText(), birthDay, txtAddress.getText(), LoginFrame.username);
+            UserController.getUserData(LoginFrame.username);
+            if (UserController.CheckGender(LoginFrame.username))
                 PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_man));
             else PanelProfile.lblAvatar.setIcon(new ImageIcon(PanelProfile.img_woman));
 
-            MainFrame.btnProfile.setText(LoginController.fullname);
+            MainFrame.btnProfile.setText(UserController.fullname);
 
-            PanelProfile.lblFullName.setText(LoginController.fullname);
-            PanelProfile.lblGender.setText(LoginController.gender);
-            PanelProfile.lblPhone.setText(LoginController.phone);
-            PanelProfile.lblBirthday.setText(LoginController.born);
-            PanelProfile.lblAddress.setText(LoginController.address);
+            PanelProfile.lblFullName.setText(UserController.fullname);
+            PanelProfile.lblGender.setText(UserController.gender);
+            PanelProfile.lblPhone.setText(UserController.phone);
+            PanelProfile.lblBirthday.setText(UserController.born);
+            PanelProfile.lblAddress.setText(UserController.address);
         }
     }
 

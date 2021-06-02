@@ -2,6 +2,7 @@ package Views;
 
 import Controller.LoginController;
 import Controller.TradingsController;
+import Controller.UserController;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -76,7 +77,7 @@ public class PanelOverview extends JPanel
         accountBalanceLabelTitle.setHorizontalAlignment(0);
         accountBalanceLabelTitle.setFont(new Font("Open Sans", Font.PLAIN, 18));
         accountBalancePanel.add((Component) accountBalanceLabelTitle, "South");
-        accountBalanceLabelValue = new JLabel(LoginController.balance);
+        accountBalanceLabelValue = new JLabel(UserController.balance);
         accountBalanceLabelValue.setHorizontalAlignment(0);
         accountBalanceLabelValue.setFont(new Font("Open Sans", Font.PLAIN, 20));
         accountBalancePanel.add((Component) accountBalanceLabelValue, "Center");
@@ -229,6 +230,6 @@ public class PanelOverview extends JPanel
         this.lineChart = new LineGraphPanel();
         mainPanel.add((Component) this.southPanel(), "South");
         this.add((Component) scrollPane, "Center");
-        TradingsController.uploadTradingDataOverview(recentTransactionsTable, LoginController.accountNumber);
+        TradingsController.uploadTradingDataOverview(recentTransactionsTable, UserController.accountNumber);
     }
 }

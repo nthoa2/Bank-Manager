@@ -37,8 +37,12 @@ public class PanelHome extends JPanel
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
         panel.setLayout(new BorderLayout(50, 0));
-        panel.add(new JPanel(), "West");
-        panel.add(new JPanel(), "East");
+        JPanel pnlWestFooter = new JPanel();
+        pnlWestFooter.setBackground(Color.WHITE);
+        JPanel pnlEastFooter = new JPanel();
+        pnlEastFooter.setBackground(Color.WHITE);
+        panel.add(pnlWestFooter, "West");
+        panel.add(pnlEastFooter, "East");
 
         JLabel l1 = new JLabel("");
         l1.setIcon(new ImageIcon(a1));

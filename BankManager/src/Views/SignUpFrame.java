@@ -1,5 +1,6 @@
 package Views;
 
+import Controller.InsertController;
 import Controller.LoginController;
 import Model.Login;
 import RadiusAndShadow.image.Gradient;
@@ -982,7 +983,7 @@ public class SignUpFrame extends JFrame
             pnlBtnSignUp.setBackground(new Color(21, 140, 180));
             while (LoginController.CheckSignUpSoTK(accountNumber))
                 accountNumber = LoginController.Random(0, 9, 10);
-            LoginController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
+            InsertController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
             lblLoginMessage.setText("");
             JOptionPane.showMessageDialog(null, "SignUp Successful");
             new LoginFrame().setVisible(true);
@@ -991,10 +992,10 @@ public class SignUpFrame extends JFrame
         {
             pnlBtnSignUp.setBackground(new Color(21, 140, 180));
             birthDay = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getDate());
-            LoginController.InsertDataKHACHHANG(txtCMND.getText(), txtFullname.getText(), txtPhoneNumber.getText(), txtGender.getText(), birthDay, txtAddress.getText());
+            InsertController.InsertDataKHACHHANG(txtCMND.getText(), txtFullname.getText(), txtPhoneNumber.getText(), txtGender.getText(), birthDay, txtAddress.getText());
             while (LoginController.CheckSignUpSoTK(accountNumber))
                 accountNumber = LoginController.Random(0, 9, 10);
-            LoginController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
+            InsertController.InsertDataTAIKHOAN(accountNumber, txtUsername.getText(), txtPassword.getText(), txtCMND.getText());
             lblLoginMessage.setText("");
             JOptionPane.showMessageDialog(null, "SignUp Successful");
             new LoginFrame().setVisible(true);
