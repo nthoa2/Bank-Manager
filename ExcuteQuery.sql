@@ -62,11 +62,12 @@ AND (dbo.[CHITIETGD].[NgayGD] BETWEEN  '21/5/21' AND '2/6/21')
 GROUP BY [TAIKHOAN].[SoTK]
 
 
-INSERT INTO dbo.[KHACHHANG]([MaKH],[TenKH],[NgaySinh],[GioiTinh],[DiaChi],[SoDienThoai])VALUES( '333444555666', N'Nguyễn Tèo','21/12/1997',1,N'Nhà tèo','0868103406')
+INSERT INTO dbo.[KHACHHANG]([MaKH],[TenKH],[NgaySinh],[GioiTinh],[DiaChi],[SoDienThoai])
+VALUES( '333444555666', N'Nguyễn Tèo','21/12/1997',1,N'Nhà tèo','0868103406')
+INSERT INTO dbo.TAIKHOAN(SoTK,MaKH,NgayDangKy,SoDu)
+VALUES('0123456789','333444555666',GETDATE(), DEFAULT)
+INSERT INTO dbo.[loginAccount](loginName,loginPassword,SoTK)
+VALUES('test9','admin','0123456789')
 
-INSERT INTO dbo.[TAIKHOAN]([SoTK],[MaKH],[NgayDangKy],[SoDu])
-VALUES('1234567899','333444555666',DEFAULT,DEFAULT)
-INSERT INTO dbo.[loginAccount]([loginName],[loginPassword],[SoTK])
-VALUES('','','')
 
 SELECT * FROM dbo.[loginAccount]
