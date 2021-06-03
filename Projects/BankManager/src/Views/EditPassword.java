@@ -1,7 +1,7 @@
 package Views;
 
-import Controller.AccountController;
 import Controller.LoginController;
+import Controller.UpdateController;
 import Model.Login;
 
 import javax.swing.*;
@@ -10,9 +10,9 @@ import java.awt.event.*;
 
 public class EditPassword extends JDialog
 {
-    public static JLabel lblLoginMessage;
-    private JPanel panelConfirm;
 
+    private JPanel panelConfirm;
+    private JLabel lblLoginMessage;
     private JPasswordField txtPasswordOld;
     private JPasswordField txtPassword;
     private JPasswordField txtPasswordConfirm;
@@ -238,7 +238,7 @@ public class EditPassword extends JDialog
         panelCancel.setBounds(40, 300, 150, 50);
         mainPane.add(panelCancel);
 
-        JLabel lblSave = new JLabel("Lưu");
+        JLabel lblSave = new JLabel("Save");
         lblSave.setBounds(55, 10, 50, 20);
         lblSave.setFont(new Font("Arial", Font.BOLD, 15));
         lblSave.setForeground(Color.BLACK);
@@ -252,18 +252,8 @@ public class EditPassword extends JDialog
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                if (e.getButton() == 1){
-                    if (txtPasswordOld.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("") || txtPasswordOld.getText().equals("Password old") || txtPassword.getText().equals("Password new") || txtPasswordConfirm.getText().equals("Password confirm")){
-                        lblLoginMessage.setText("Vui Lòng Điền Đầy Đủ Thông Tin");
-                        return;
-                    }
-                    if (!txtPassword.getText().equals(txtPasswordConfirm.getText())) {
-                        lblLoginMessage.setText("Xác Nhận Mật Khẩu Không Khớp!");
-                    }
-                    AccountController.validateEditPassword(LoginController.UserName,txtPassword.getText(),txtPasswordOld.getText());
-                    EditPassword.this.dispose();
-                }
-
+                if (e.getButton() == 1)
+                    CheckEditPassword();
             }
 
             @Override
@@ -299,6 +289,27 @@ public class EditPassword extends JDialog
         AddEventEnter(txtPasswordConfirm);
     }
 
+    private void CheckEditPassword()
+    {
+        if (txtPasswordOld.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("") || txtPasswordOld.getText().equals("Password old") || txtPassword.getText().equals("Password new") || txtPasswordConfirm.getText().equals("Password confirm"))
+            lblLoginMessage.setText("Please input all requirements!");
+        else if (!LoginFrame.password.equals(txtPasswordOld.getText()))
+            lblLoginMessage.setText("Password old incorrect!");
+        else if (txtPasswordOld.getText().equals(txtPassword.getText()))
+            lblLoginMessage.setText("Password new not same password old!");
+        else if (!txtPassword.getText().equals(txtPasswordConfirm.getText()))
+            lblLoginMessage.setText("Password confirm is not correct!");
+        else if (txtPassword.getText().length() < 8)
+            lblLoginMessage.setText("Password must be 8 characters or more!");
+        else
+        {
+            panelConfirm.setBackground(new Color(216, 53, 65));
+            JOptionPane.showMessageDialog(null, "Save Successful");
+            EditPassword.this.dispose();
+            LoginFrame.password = txtPassword.getText();
+            UpdateController.UpdatePassword(txtPassword.getText(), LoginFrame.username);
+        }
+    }
 
     private void AddEventEnter(JComponent item)
     {
@@ -307,17 +318,8 @@ public class EditPassword extends JDialog
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    if (txtPasswordOld.getText().equals("") || txtPassword.getText().equals("") || txtPasswordConfirm.getText().equals("") || txtPasswordOld.getText().equals("Password old") || txtPassword.getText().equals("Password new") || txtPasswordConfirm.getText().equals("Password confirm")){
-                        lblLoginMessage.setText("Vui Lòng Điền Đầy Đủ Thông Tin");
-                        return;
-                    }
-                    if (!txtPassword.getText().equals(txtPasswordConfirm.getText())) {
-                        lblLoginMessage.setText("Xác Nhận Mật Khẩu Không Khớp!");
-                    }
-                    AccountController.validateEditPassword(LoginController.UserName,txtPassword.getText(),txtPasswordOld.getText());
-                    EditPassword.this.dispose();
-                }
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    CheckEditPassword();
             }
         });
     }

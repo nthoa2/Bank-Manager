@@ -17,8 +17,8 @@ public class Clock extends JPanel implements MouseListener, MouseMotionListener 
     private static final long serialVersionUID = 1L;
     private JLabel timeLabel, dateLabel;
     private Timer timer;
-    private Font fontT = new Font("Segoe UI", 8, 35);
-    private Font fontD = new Font("Segoe UI", 8, 20);
+    private Font fontT = new Font("Segoe UI", 8, 30);
+    private Font fontD = new Font("Segoe UI", 8, 15);
     private int initX, initY;
 
     public Clock(Color color)
@@ -28,6 +28,7 @@ public class Clock extends JPanel implements MouseListener, MouseMotionListener 
 //        setUndecorated(true);
 //        setType(Type.UTILITY);  //remove icon on taskbar
 //        setResizable(false);
+        this.setBackground(new Color(56, 72, 97));
 
         JPanel pan = new RadiusAndShadow();
         pan.setBackground(color);
