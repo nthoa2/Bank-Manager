@@ -11,14 +11,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-public class Main extends JFrame {
-    private Image img_logo = new ImageIcon("src/Res/bank.png").getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-=======
 public class MainFrame extends JFrame
 {
     private Image img_logo = new ImageIcon(("src/Res/bank.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
->>>>>>> Long:BankManager/src/Views/MainFrame.java
     private Image img_home = new ImageIcon("src/Res/home.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_profile = new ImageIcon("src/Res/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
     private Image img_history = new ImageIcon("src/Res/history.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -30,15 +25,9 @@ public class MainFrame extends JFrame
     private Image img_service_actived = new ImageIcon("src/Res/transfer-actived.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private Image img_sign_out_actived = new ImageIcon("src/Res/sign-out-actived.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-    public Color exitedColor = new Color(56, 72, 97);
-    public Color enteredColor = new Color(210, 220, 230);
-    public Color clickedColor = new Color(60, 179, 113);
-=======
     private Color exitedColor = new Color(56, 72, 97);
     private Color enteredColor = new Color(210, 220, 230);
     private Color clickedColor = new Color(60, 179, 113);
->>>>>>> Long:BankManager/src/Views/MainFrame.java
     private Dimension btnSize = new Dimension(230, 40);
     private JPanel contentPane;
     private JPanel toolPanel;
@@ -58,13 +47,6 @@ public class MainFrame extends JFrame
     private JLabel lblTextLogOut;
 
     private CardLayout cardPanelLayout;
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-    public static JPanel cardPanel;
-    MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI() {
-        @Override
-        protected Color getSelectColor() {
-            return Main.this.clickedColor;
-=======
     private JPanel cardPanel;
     MetalToggleButtonUI metalToggleButton = new MetalToggleButtonUI()
     {
@@ -72,30 +54,11 @@ public class MainFrame extends JFrame
         protected Color getSelectColor()
         {
             return MainFrame.this.clickedColor;
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         }
     };
 
     public static JLabel btnProfile;
 
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-    public void run() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    Main.this.setVisible(true);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Main() {
-
-=======
     public MainFrame()
     {
         try {
@@ -105,7 +68,6 @@ public class MainFrame extends JFrame
             System.out.println("Application icon not found");
         }
         this.setTitle("Banking");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100, 100, 1383, 773);
         this.contentPane = new JPanel();
@@ -132,13 +94,6 @@ public class MainFrame extends JFrame
         this.Logo.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.Logo.setHorizontalAlignment(SwingConstants.CENTER);
         this.Logo.setIcon(new ImageIcon(img_logo));
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.Logo.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                toolPanel.setVisible(true);
-                Main.this.showDetailsPanel("home");
-=======
         this.Logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.Logo.addMouseListener(new MouseAdapter()
         {
@@ -150,7 +105,6 @@ public class MainFrame extends JFrame
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("home");
                 }
->>>>>>> Long:BankManager/src/Views/MainFrame.java
             }
         });
 
@@ -163,11 +117,7 @@ public class MainFrame extends JFrame
 
         this.lblHome = new JLabel("");
         this.lblHome.setIcon(new ImageIcon(img_home));
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.lblTextHome = new JLabel("Tổng Quan");
-=======
         this.lblTextHome = new JLabel("Overview");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.lblTextHome.setForeground(Color.WHITE);
         this.lblTextHome.setFont(new Font("Open Sans", 1, 15));
         this.btnHome = new JToggleButton();
@@ -182,12 +132,6 @@ public class MainFrame extends JFrame
         this.btnHome.addMouseListener(new MouseAdapter()
         {
             @Override
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    toolPanel.setVisible(true);
-                    Main.this.showDetailsPanel("overview");
-=======
             public void mouseClicked(MouseEvent e)
             {
                 if (e.getButton() == 1)
@@ -195,24 +139,10 @@ public class MainFrame extends JFrame
                     MainFrame.this.cardPanel.add(new PanelOverview(), "overview");
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("overview");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
                 }
             }
 
             @Override
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-            public void mouseEntered(MouseEvent e) {
-                Main.this.btnHome.setBackground(Main.this.enteredColor);
-                Main.this.lblHome.setIcon(new ImageIcon(img_home_actived));
-                Main.this.lblTextHome.setForeground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Main.this.btnHome.setBackground(Main.this.exitedColor);
-                Main.this.lblHome.setIcon(new ImageIcon(img_home));
-                Main.this.lblTextHome.setForeground(Color.WHITE);
-=======
             public void mouseEntered(MouseEvent e)
             {
                 MainFrame.this.btnHome.setBackground(MainFrame.this.enteredColor);
@@ -226,7 +156,6 @@ public class MainFrame extends JFrame
                 MainFrame.this.btnHome.setBackground(MainFrame.this.exitedColor);
                 MainFrame.this.lblHome.setIcon(new ImageIcon(img_home));
                 MainFrame.this.lblTextHome.setForeground(Color.WHITE);
->>>>>>> Long:BankManager/src/Views/MainFrame.java
             }
         });
 
@@ -235,44 +164,22 @@ public class MainFrame extends JFrame
         btnHomeLayout.gridx = 0;
         btnHomeLayout.gridy = 2;
         menuPane.add((Component) this.btnHome, btnHomeLayout);
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-
-
-        this.lblService = new JLabel("");
-        this.lblService.setIcon(new ImageIcon(img_service));
-        this.lblTextService = new JLabel("Dịch Vụ");
-=======
 
 
         this.lblService = new JLabel("");
         this.lblService.setIcon(new ImageIcon(img_service));
         this.lblTextService = new JLabel("Service");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.lblTextService.setForeground(Color.WHITE);
         this.lblTextService.setFont(new Font("Open Sans", 1, 15));
         this.btnService = new JToggleButton();
         this.btnService.setUI(this.metalToggleButton);
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.btnService.setLayout(new FlowLayout(FlowLayout.LEADING, 25, 5));
-=======
         this.btnService.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.btnService.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.btnService.add(lblService);
         this.btnService.add(lblTextService);
         this.btnService.setFocusable(false);
         this.btnService.setPreferredSize(this.btnSize);
         this.btnService.setBackground(this.exitedColor);
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.btnService.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    toolPanel.setVisible(true);
-                    Main.this.showDetailsPanel("service");
-//                    PanelService.panelFooter.setVisible(false);
-//                    PanelService.cardLayout.show(PanelService.panelForm, "4");
-=======
         this.btnService.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -335,80 +242,10 @@ public class MainFrame extends JFrame
                     MainFrame.this.cardPanel.add(new PanelTradingsHistory(), "history");
                     toolPanel.setVisible(true);
                     MainFrame.this.showDetailsPanel("history");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
                 }
             }
 
             @Override
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-            public void mouseEntered(MouseEvent e) {
-                Main.this.btnService.setBackground(Main.this.enteredColor);
-                Main.this.lblService.setIcon(new ImageIcon(img_service_actived));
-                Main.this.lblTextService.setForeground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Main.this.btnService.setBackground(Main.this.exitedColor);
-                Main.this.lblService.setIcon(new ImageIcon(img_service));
-                Main.this.lblTextService.setForeground(Color.WHITE);
-            }
-        });
-
-        GridBagConstraints btnServiceConstraints = new GridBagConstraints();
-        btnServiceConstraints.anchor = GridBagConstraints.LINE_START;
-        btnServiceConstraints.gridx = 0;
-        btnServiceConstraints.gridy = 3;
-        menuPane.add((Component) this.btnService, btnServiceConstraints);
-
-
-        this.lblHistory = new JLabel("");
-        this.lblHistory.setIcon(new ImageIcon(img_history));
-        this.lblTextHistory = new JLabel("Lịch Sử");
-        this.lblTextHistory.setForeground(Color.WHITE);
-        this.lblTextHistory.setFont(new Font("Open Sans", 1, 15));
-        this.btnHistory = new JToggleButton();
-        this.btnHistory.setUI(this.metalToggleButton);
-        this.btnHistory.setLayout(new FlowLayout(FlowLayout.LEADING, 25, 5));
-        this.btnHistory.add(lblHistory);
-        this.btnHistory.add(lblTextHistory);
-        this.btnHistory.setFocusable(false);
-        this.btnHistory.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.btnHistory.setPreferredSize(this.btnSize);
-        this.btnHistory.setBackground(this.exitedColor);
-        this.btnHistory.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                toolPanel.setVisible(true);
-                Main.this.showDetailsPanel("history");
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                Main.this.btnHistory.setBackground(Main.this.enteredColor);
-                Main.this.lblHistory.setIcon(new ImageIcon(img_history_actived));
-                Main.this.lblTextHistory.setForeground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Main.this.btnHistory.setBackground(Main.this.exitedColor);
-                Main.this.lblHistory.setIcon(new ImageIcon(img_history));
-                Main.this.lblTextHistory.setForeground(Color.WHITE);
-            }
-        });
-
-        GridBagConstraints btnHistoryConstraints = new GridBagConstraints();
-        btnHistoryConstraints.anchor = GridBagConstraints.LINE_START;
-        btnHistoryConstraints.gridx = 0;
-        btnHistoryConstraints.gridy = 4;
-        menuPane.add((Component) this.btnHistory, btnHistoryConstraints);
-
-
-        this.lblLogOut = new JLabel("");
-        this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
-        this.lblTextLogOut = new JLabel("Đăng Xuất");
-=======
             public void mouseEntered(MouseEvent e)
             {
                 MainFrame.this.btnHistory.setBackground(MainFrame.this.enteredColor);
@@ -441,30 +278,17 @@ public class MainFrame extends JFrame
         this.lblLogOut = new JLabel("");
         this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
         this.lblTextLogOut = new JLabel("Log out");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.lblTextLogOut.setForeground(Color.WHITE);
         this.lblTextLogOut.setFont(new Font("Open Sans", 1, 15));
         this.btnLogOut = new JToggleButton();
         this.btnLogOut.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.btnLogOut.setUI(this.metalToggleButton);
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.btnLogOut.setLayout(new FlowLayout(FlowLayout.LEADING, 25, 5));
-=======
         this.btnLogOut.setLayout(new FlowLayout(FlowLayout.LEADING,25,5));
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.btnLogOut.add(lblLogOut);
         this.btnLogOut.add(lblTextLogOut);
         this.btnLogOut.setFocusable(false);
         this.btnLogOut.setBackground(this.exitedColor);
         this.btnLogOut.setPreferredSize(this.btnSize);
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.btnLogOut.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    new LoginFrame().setVisible(true);
-                    Main.this.setVisible(false);
-=======
         this.btnLogOut.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -474,24 +298,10 @@ public class MainFrame extends JFrame
                 {
                     new LoginFrame().setVisible(true);
                     MainFrame.this.setVisible(false);
->>>>>>> Long:BankManager/src/Views/MainFrame.java
                 }
             }
 
             @Override
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-            public void mouseEntered(MouseEvent e) {
-                Main.this.btnLogOut.setBackground(Main.this.enteredColor);
-                Main.this.lblLogOut.setIcon(new ImageIcon(img_sign_out_actived));
-                Main.this.lblTextLogOut.setForeground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Main.this.btnLogOut.setBackground(Main.this.exitedColor);
-                Main.this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
-                Main.this.lblTextLogOut.setForeground(Color.WHITE);
-=======
             public void mouseEntered(MouseEvent e)
             {
                 MainFrame.this.btnLogOut.setBackground(MainFrame.this.enteredColor);
@@ -505,7 +315,6 @@ public class MainFrame extends JFrame
                 MainFrame.this.btnLogOut.setBackground(MainFrame.this.exitedColor);
                 MainFrame.this.lblLogOut.setIcon(new ImageIcon(img_sign_out));
                 MainFrame.this.lblTextLogOut.setForeground(Color.WHITE);
->>>>>>> Long:BankManager/src/Views/MainFrame.java
             }
         });
 
@@ -537,12 +346,8 @@ public class MainFrame extends JFrame
         toolPanel.setBorder(null);
         detailsPanel.add((Component) toolPanel, "North");
 
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        btnProfile = new JLabel(UserController.userFullName);
-=======
         btnProfile = new JLabel(UserController.fullname);
         btnProfile.setFont(new Font("Open San", Font.BOLD, 12));
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         btnProfile.setIcon(new ImageIcon(img_profile));
         btnProfile.setFocusable(false);
         btnProfile.setHorizontalTextPosition(SwingConstants.LEADING);
@@ -553,18 +358,10 @@ public class MainFrame extends JFrame
         btnProfile.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-                if (e.getButton() == 1) {
-                    toolPanel.setVisible(false);
-                    UserController.setUserData(LoginController.AccountNumber);
-                    UserController.setGenderIcon(UserController.userGender);
-                    Main.this.showDetailsPanel("profile");
-=======
                 if (e.getButton() == 1)
                 {
                     toolPanel.setVisible(false);
                     MainFrame.this.showDetailsPanel("profile");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
                 }
             }
         });
@@ -576,15 +373,9 @@ public class MainFrame extends JFrame
         this.cardPanel.setBackground(Color.WHITE);
         this.cardPanel.add(new PanelHome(), "home");
         this.cardPanelLayout.show(this.cardPanel, "home");
-<<<<<<< HEAD:Projects/BankManager/src/Views/Main.java
-        this.cardPanel.add(new OverviewPanel(), "overview");
-        this.cardPanel.add(new PanelService(), "service");
-        this.cardPanel.add(new TradingsHistoryPanel(), "history");
-=======
         this.cardPanel.add(new PanelTradingsHistory(), "history");
         this.cardPanel.add(new PanelOverview(), "overview");
         this.cardPanel.add(new PanelService(), "service");
->>>>>>> Long:BankManager/src/Views/MainFrame.java
         this.cardPanel.add(new PanelProfile(), "profile");
 
         detailsPanel.add((Component) this.cardPanel, "Center");
